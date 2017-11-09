@@ -8,6 +8,10 @@
         "noImplicitAny": true,
         "noImplicitReturns": true,
         "noUnusedParameters": true,
-        "noUnusedLocals": true
+        "noUnusedLocals": true,
+        "baseUrl": ".",
+        "paths": {
+            "*": ["./node_modules/@types/*", "*"]
+        }
     }
 }
