@@ -1,1 +1,1 @@
-declare module 'walk';
+declare module "walk";

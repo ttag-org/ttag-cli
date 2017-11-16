@@ -10,7 +10,8 @@
     "cli": "ts-node ./src/index.ts",
     "build": "tsc",
     "prepublish": "in-publish && yarn test && tsc",
-    "upgrade": "yarn upgrade-interactive"
+    "upgrade": "yarn upgrade-interactive",
+    "pretty": "prettier --write \"./src/**/*.ts\" \"./tests/**/*.ts\""
   },
   "bin": {
     "c-3po": "./bin/c-3po"
