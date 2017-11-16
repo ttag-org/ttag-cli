@@ -14,11 +14,14 @@
     "c-3po": "./bin/c-3po"
   },
   "devDependencies": {
-    "@types/command-line-args": "4.0.1",
+    "@types/babel-core": "6.25.3",
+    "@types/yargs": "^8.0.2",
     "ts-node": "3.3.0",
     "typescript": "2.6.1"
   },
   "dependencies": {
-    "command-line-args": "4.0.7"
+    "babel-core": "6.26.0",
+    "babel-plugin-c-3po": "0.7.0",
+    "yargs": "^10.0.3"
   }
 }

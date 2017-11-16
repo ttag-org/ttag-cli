@@ -1,7 +1,15 @@
-import * as commandLineArgs from 'command-line-args'
+import * as yargs from 'yargs'
+import extract from './commands/extract';
 
-const optionDefinitions: commandLineArgs.OptionDefinition[] = [
-    { name: 'src', defaultOption: true, multiple: true }
-];
-
-console.log(commandLineArgs(optionDefinitions))
+yargs.usage('$0 <cmd> [args]')
+.command('extract [output] <src...>', 'will extract translations to .pot file', {
+    output: {
+        alias: 'o',
+        default: 'translations.pot',
+        description: 'result file with translations (.pot)'
+    }
+}, (argv) => {
+    extract(argv.output, argv.src);
+})
+.help()
+.argv
