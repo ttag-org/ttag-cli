@@ -22,6 +22,7 @@ function extractDir(dirpath: string, babelOpts: babel.TransformOptions) {
 function extract(output: string, paths: string[]): void {
     console.log(`[c-3po] started extraction from ${paths} to ${output} ...`);
     const babelOptions = {
+        presets: ["react"],
         plugins: [["c-3po", { extract: { output } }]]
     };
 

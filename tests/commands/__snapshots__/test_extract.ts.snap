@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`extract 1`] = `
+exports[`extract base case 1`] = `
 "msgid \\"\\"
 msgstr \\"\\"
 \\"Content-Type: text/plain; charset=utf-8\\\\n\\"
@@ -12,5 +12,16 @@ msgstr \\"\\"
 
 #: tests/fixtures/baseTest/nested/test2.js:4
 msgid \\"test translation 2 \${ name }\\"
+msgstr \\"\\""
+`;
+
+exports[`extract from jsx 1`] = `
+"msgid \\"\\"
+msgstr \\"\\"
+\\"Content-Type: text/plain; charset=utf-8\\\\n\\"
+\\"Plural-Forms: nplurals=2; plural=(n!=1);\\\\n\\"
+
+#: tests/fixtures/testJSXParse.jsx:6
+msgid \\"test from jsx\\"
 msgstr \\"\\""
 `;
