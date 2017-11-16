@@ -11,7 +11,14 @@
     "build": "tsc",
     "prepublish": "in-publish && yarn test && tsc",
     "upgrade": "yarn upgrade-interactive",
-    "pretty": "prettier --write \"./src/**/*.ts\" \"./tests/**/*.ts\""
+    "pretty": "prettier --write \"./src/**/*.ts\" \"./tests/**/*.ts\"",
+    "precommit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.{ts}": [
+      "prettier --write",
+      "git add"
+    ]
   },
   "bin": {
     "c-3po": "./bin/c-3po"
@@ -21,8 +28,10 @@
     "@types/jest": "21.1.6",
     "@types/node": "8.0.53",
     "@types/yargs": "8.0.2",
+    "husky": "^0.14.3",
     "in-publish": "^2.0.0",
     "jest": "21.2.1",
+    "lint-staged": "^5.0.0",
     "prettier": "1.8.2",
     "ts-jest": "21.2.2",
     "ts-node": "3.3.0",
