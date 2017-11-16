@@ -1,8 +1,8 @@
 {
     "compilerOptions": {
         "target": "es5",
-        "rootDir": "src",
         "outDir": "dist",
+        "lib":["es5", "es6", "dom"],
         "strictNullChecks": true,
         "noImplicitAny": true,
         "noImplicitReturns": true,
@@ -12,5 +12,9 @@
         "paths": {
             "*": ["./node_modules/@types/*", "*"]
         }
-    }
+    },
+    "exclude": [
+        "node_modules",
+        "tests"
+    ]
 }
