@@ -5,7 +5,10 @@ import * as walk from "walk";
 import * as path from "path";
 
 function extractFile(filepath: string, babelOpts: babel.TransformOptions) {
-    babel.transformFileSync(filepath, babelOpts);
+    const extname = path.extname(filepath);
+    if (extname === ".js" || extname === ".jsx") {
+        babel.transformFileSync(filepath, babelOpts);
+    }
 }
 
 function extractDir(dirpath: string, babelOpts: babel.TransformOptions) {
