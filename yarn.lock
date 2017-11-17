@@ -2378,6 +2378,10 @@ pkg-dir@^2.0.0:
   dependencies:
     find-up "^2.1.0"
 
+plural-forms@0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/plural-forms/-/plural-forms-0.0.2.tgz#817fe19614d717186b7ad8c66016dd7a87a48ed0"
+
 prelude-ls@~1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/prelude-ls/-/prelude-ls-1.1.2.tgz#21932a549f5e52ffd9a827f570e04be62a97da54"

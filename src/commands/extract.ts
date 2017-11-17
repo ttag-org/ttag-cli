@@ -3,6 +3,7 @@ import "../declarations";
 import * as fs from "fs";
 import * as walk from "walk";
 import * as path from "path";
+import { getPluralFormsHeader } from "plural-forms";
 
 function extractFile(filepath: string, babelOpts: babel.TransformOptions) {
     const extname = path.extname(filepath);
@@ -19,11 +20,21 @@ function extractDir(dirpath: string, babelOpts: babel.TransformOptions) {
     });
 }
 
-function extract(output: string, paths: string[]): void {
+type C3POOpts = {
+    extract: Object;
+    defaultHeaders?: Object;
+};
+
+function extract(output: string, paths: string[], locale: string = "en"): void {
     console.log(`[c-3po] started extraction from ${paths} to ${output} ...`);
+    let c3pOptions: C3POOpts = { extract: { output } };
+    if (locale !== "en") {
+        const pluralHeaders = getPluralFormsHeader(locale);
+        c3pOptions.defaultHeaders = { "plural-forms": pluralHeaders };
+    }
     const babelOptions = {
         presets: ["react"],
-        plugins: [["c-3po", { extract: { output } }]]
+        plugins: [["c-3po", c3pOptions]]
     };
 
     paths.forEach(filePath => {
