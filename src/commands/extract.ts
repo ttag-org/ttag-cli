@@ -12,11 +12,16 @@ function extractFile(filepath: string, babelOpts: babel.TransformOptions) {
     }
 }
 
-function extractDir(dirpath: string, babelOpts: babel.TransformOptions) {
+async function extractDir(dirpath: string, babelOpts: babel.TransformOptions) {
     const walker = walk.walk(dirpath);
     walker.on("file", (root: string, fileState: any, next: any) => {
         extractFile(path.join(root, fileState.name), babelOpts);
         next();
+    });
+    return new Promise(res => {
+        walker.on("end", () => {
+            res();
+        });
     });
 }
 
@@ -25,7 +30,7 @@ type C3POOpts = {
     defaultHeaders?: Object;
 };
 
-function extract(output: string, paths: string[], locale: string = "en"): void {
+async function extract(output: string, paths: string[], locale: string = "en") {
     console.log(`[c-3po] started extraction from ${paths} to ${output} ...`);
     let c3pOptions: C3POOpts = { extract: { output } };
     if (locale !== "en") {
@@ -37,13 +42,15 @@ function extract(output: string, paths: string[], locale: string = "en"): void {
         plugins: [["c-3po", c3pOptions]]
     };
 
-    paths.forEach(filePath => {
-        if (fs.lstatSync(filePath).isDirectory()) {
-            extractDir(filePath, babelOptions);
-        } else {
-            extractFile(filePath, babelOptions);
-        }
-    });
+    await Promise.all(
+        paths.map(async filePath => {
+            if (fs.lstatSync(filePath).isDirectory()) {
+                await extractDir(filePath, babelOptions);
+            } else {
+                extractFile(filePath, babelOptions);
+            }
+        })
+    );
 
     console.log(`[c-3po] has successfully extracted translations to ${output}`);
 }
