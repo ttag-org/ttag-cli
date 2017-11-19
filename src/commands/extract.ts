@@ -5,22 +5,12 @@ import * as walk from "walk";
 import * as path from "path";
 import { getPluralFormsHeader } from "plural-forms";
 import * as ora from "ora";
-
-type C3POOpts = {
-    extract: Object;
-    defaultHeaders?: Object;
-};
-
-type Progress = {
-    text: string;
-    start(text?: string | undefined): any;
-    succeed(text?: string | undefined): any;
-};
+import * as c3poTypes from "../types";
 
 function extractFile(
     filepath: string,
     babelOpts: babel.TransformOptions,
-    progress: Progress
+    progress: c3poTypes.Progress
 ) {
     const extname = path.extname(filepath);
     if (extname === ".js" || extname === ".jsx") {
@@ -32,7 +22,7 @@ function extractFile(
 async function extractDir(
     dirpath: string,
     babelOpts: babel.TransformOptions,
-    progress: Progress
+    progress: c3poTypes.Progress
 ) {
     const walker = walk.walk(dirpath);
     walker.on("file", (root: string, fileState: any, next: any) => {
@@ -45,11 +35,11 @@ async function extractDir(
 }
 
 async function extract(output: string, paths: string[], locale: string = "en") {
-    const progress: Progress = ora(
+    const progress: c3poTypes.Progress = ora(
         `[c-3po] extracting translations to ${output} ...`
     );
     progress.start();
-    let c3pOptions: C3POOpts = { extract: { output } };
+    let c3pOptions: c3poTypes.C3POOpts = { extract: { output } };
     if (locale !== "en") {
         const pluralHeaders = getPluralFormsHeader(locale);
         c3pOptions.defaultHeaders = { "plural-forms": pluralHeaders };
