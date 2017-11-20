@@ -24,7 +24,7 @@ yargs
         }
     )
     .command(
-        "check <pofile> <src...>",
+        "check [locale] <pofile> <src...>",
         "will check if all translations are present in .po file",
         {
             locale: {
