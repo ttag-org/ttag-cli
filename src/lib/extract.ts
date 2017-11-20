@@ -1,9 +1,12 @@
+import "../declarations";
 import * as walk from "walk";
 import * as path from "path";
 import * as babel from "babel-core";
 import * as fs from "fs";
-import * as c3poTypes from "../types";
+import * as tmp from "tmp";
 import { getPluralFormsHeader } from "plural-forms";
+
+import * as c3poTypes from "../types";
 
 function extractFile(
     filepath: string,
@@ -34,11 +37,11 @@ async function extractDir(
 
 export async function extractAll(
     paths: string[],
-    output: string,
     locale: string,
     progress: c3poTypes.Progress
-) {
-    let c3pOptions: c3poTypes.C3POOpts = { extract: { output } };
+): Promise<string> {
+    const tmpFile = tmp.fileSync();
+    let c3pOptions: c3poTypes.C3POOpts = { extract: { output: tmpFile.name } };
     if (locale !== "en") {
         const pluralHeaders = getPluralFormsHeader(locale);
         c3pOptions.defaultHeaders = { "plural-forms": pluralHeaders };
@@ -57,4 +60,7 @@ export async function extractAll(
             }
         })
     );
+    const result = fs.readFileSync(tmpFile.name).toString();
+    tmpFile.removeCallback();
+    return result;
 }

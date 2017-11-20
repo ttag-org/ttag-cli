@@ -55,6 +55,10 @@
   dependencies:
     "@types/node" "*"
 
+"@types/tmp@^0.0.33":
+  version "0.0.33"
+  resolved "https://registry.yarnpkg.com/@types/tmp/-/tmp-0.0.33.tgz#1073c4bc824754ae3d10cfab88ab0237ba964e4d"
+
 "@types/yargs@8.0.2":
   version "8.0.2"
   resolved "https://registry.yarnpkg.com/@types/yargs/-/yargs-8.0.2.tgz#0f9c7b236e2d78cd8f4b6502de15d0728aa29385"
@@ -1124,6 +1128,13 @@ gettext-parser@1.2.0:
   resolved "https://registry.yarnpkg.com/gettext-parser/-/gettext-parser-1.2.0.tgz#f194aaba3bc7019b71646c973327f758a61eee3a"
   dependencies:
     encoding "^0.1.12"
+
+gettext-parser@^1.3.0:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/gettext-parser/-/gettext-parser-1.3.0.tgz#61465851c266f8521ba69e61ef505aa54f635d0a"
+  dependencies:
+    encoding "^0.1.12"
+    safe-buffer "^5.1.1"
 
 glob-base@^0.3.0:
   version "0.3.0"
@@ -2271,7 +2282,7 @@ os-locale@^2.0.0:
     lcid "^1.0.0"
     mem "^1.1.0"
 
-os-tmpdir@^1.0.0, os-tmpdir@^1.0.1:
+os-tmpdir@^1.0.0, os-tmpdir@^1.0.1, os-tmpdir@~1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/os-tmpdir/-/os-tmpdir-1.0.2.tgz#bbe67406c79aa85c5cfec766fe5734555dfa1274"
 
@@ -2916,6 +2927,12 @@ test-exclude@^4.1.1:
 throat@^4.0.0:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/throat/-/throat-4.1.0.tgz#89037cbc92c56ab18926e6ba4cbb200e15672a6a"
+
+tmp@^0.0.33:
+  version "0.0.33"
+  resolved "https://registry.yarnpkg.com/tmp/-/tmp-0.0.33.tgz#6d34335889768d21b2bcda0aa277ced3b1bfadf9"
+  dependencies:
+    os-tmpdir "~1.0.2"
 
 tmpl@1.0.x:
   version "1.0.4"
