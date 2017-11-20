@@ -1,5 +1,6 @@
 import * as yargs from "yargs";
 import extract from "./commands/extract";
+import check from "./commands/check";
 
 yargs
     .usage("$0 <cmd> [args]")
@@ -22,4 +23,22 @@ yargs
             extract(argv.output, argv.src, argv.locale);
         }
     )
+    .command(
+        "check <pofile> <src...>",
+        "will check if all translations are present in .po file",
+        {
+            locale: {
+                alias: "l",
+                default: "en",
+                description: "sets default locale (ISO format)"
+            }
+        },
+        argv => {
+            check(argv.pofile, argv.src, argv.locale);
+        }
+    )
+    .command("*", "", {}, argv => {
+        console.log(`command "${argv._[0]}" is not found.`);
+        console.log("Use 'c-3po --help' to see available commands");
+    })
     .help().argv;
