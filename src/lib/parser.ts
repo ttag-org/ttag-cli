@@ -1,5 +1,5 @@
-import "../declarations";
 import { po } from "gettext-parser";
+import "../declarations";
 
 type Message = {
     msgid: string;
@@ -15,7 +15,7 @@ type Translations = {
     [key: string]: Messages;
 };
 
-type PoData = {
+export type PoData = {
     headers: Object;
     translations: Translations;
 };
