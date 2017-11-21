@@ -5,7 +5,8 @@ import * as babel from "babel-core";
 import * as fs from "fs";
 import * as tmp from "tmp";
 import { getPluralFormsHeader } from "plural-forms";
-
+import babelPluginC3po from "babel-plugin-c-3po";
+import * as babelPresetReact from "babel-preset-react";
 import * as c3poTypes from "../types";
 
 function extractFile(
@@ -47,8 +48,8 @@ export async function extractAll(
         c3pOptions.defaultHeaders = { "plural-forms": pluralHeaders };
     }
     const babelOptions = {
-        presets: ["react"],
-        plugins: [["c-3po", c3pOptions]]
+        presets: [babelPresetReact],
+        plugins: [[babelPluginC3po, c3pOptions]]
     };
 
     await Promise.all(
