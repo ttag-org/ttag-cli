@@ -38,13 +38,13 @@ async function extractDir(
 
 export async function extractAll(
     paths: string[],
-    locale: string,
+    lang: string,
     progress: c3poTypes.Progress
 ): Promise<string> {
     const tmpFile = tmp.fileSync();
     let c3pOptions: c3poTypes.C3POOpts = { extract: { output: tmpFile.name } };
-    if (locale !== "en") {
-        const pluralHeaders = getPluralFormsHeader(locale);
+    if (lang !== "en") {
+        const pluralHeaders = getPluralFormsHeader(lang);
         c3pOptions.defaultHeaders = { "plural-forms": pluralHeaders };
     }
     const babelOptions = {
