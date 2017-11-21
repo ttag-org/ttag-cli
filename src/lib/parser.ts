@@ -1,17 +1,17 @@
 import { po } from "gettext-parser";
 import "../declarations";
 
-type Message = {
+export type Message = {
     msgid: string;
     comments: object;
     msgstr: string[];
 };
 
-type Messages = {
+export type Messages = {
     [key: string]: Message;
 };
 
-type Translations = {
+export type Translations = {
     [key: string]: Messages;
 };
 
