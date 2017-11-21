@@ -1,27 +1,31 @@
+/*
+Compare designated pofile with pot file extracted from all files in all paths
+*/
+
 import * as ora from "ora";
 import * as fs from "fs";
 import { extractAll } from "../lib/extract";
 import * as c3poTypes from "../types";
 import { parse, PoData } from "../lib/parser";
 
+/*
+Run any string in stream through warning first
+*/
 function* warningPipe(
     pofile: string,
     progress: c3poTypes.Progress,
     stream: IterableIterator<string>
 ): IterableIterator<string> {
-    /*
-    Run any string in stream through warning first
-    */
     for (const str of stream) {
         progress.warn(`Translation '${str}' is not found in ${pofile}`);
         yield str;
     }
 }
 
+/*
+Unpack pofile into contextKey/messageId pairs
+*/
 function* unpackPoData(poData: PoData): IterableIterator<[string, string]> {
-    /*
-    Unpack pofile into contextKey/messageId pairs
-    */
     for (const contextKey of Object.keys(poData.translations)) {
         for (const msgid of Object.keys(poData.translations[contextKey])) {
             const keyMsg = poData.translations[contextKey][msgid];
@@ -30,14 +34,14 @@ function* unpackPoData(poData: PoData): IterableIterator<[string, string]> {
     }
 }
 
+/*
+Find untranslated string by extracting from translations(pofile)
+using key/context from keys(pot file).
+*/
 function* getUntranslated(
     translations: PoData,
     keysOnly: PoData
 ): IterableIterator<string> {
-    /*
-    Find untranslated string by extracting from translations(pofile)
-    using key/context from keys(pot file).
-     */
     for (const [contextKey, msgid] of unpackPoData(keysOnly)) {
         const context = translations.translations[contextKey];
         if (!context || !context[msgid]) {
@@ -51,11 +55,10 @@ function* getUntranslated(
     }
 }
 
+/*
+Check all keys from pots(keys only files) are present in pofile(files with translations)
+*/
 async function check(pofile: string, paths: string[], locale: string) {
-    /*
-    Check all keys from pots(keys only files) are present in pofile(files with translations)
-    */
-
     const progress: c3poTypes.Progress = ora(
         `[c-3po] checking translations from ${paths} ...`
     );
