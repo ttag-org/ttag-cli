@@ -8,6 +8,7 @@
         "noImplicitReturns": true,
         "noUnusedParameters": true,
         "noUnusedLocals": true,
+        "downlevelIteration":true,
         "baseUrl": ".",
         "pretty": true,
         "paths": {
