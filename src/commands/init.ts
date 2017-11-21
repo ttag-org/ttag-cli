@@ -1,10 +1,11 @@
 import * as ora from "ora";
 import * as fs from "fs";
 import * as c3poTypes from "../types";
-import * as pluralForms from "plural-forms";
+import { getPluralFormsHeader, hasLocale } from "plural-forms";
+import { langValidationMsg } from "../lib/validation";
 
 function generatePoFile(language: string): string {
-    const pluralFormsHeader = pluralForms.getPluralFormsHeader(language);
+    const pluralFormsHeader = getPluralFormsHeader(language);
     return `msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\\n"
@@ -17,6 +18,11 @@ msgstr ""
 
 export default function init(language: string, pofile: string) {
     const progress: c3poTypes.Progress = ora();
+    if (!hasLocale(language)) {
+        progress.fail(langValidationMsg(language));
+        process.exit(1);
+        return;
+    }
     progress.start();
     const poContent = generatePoFile(language);
     fs.writeFileSync(pofile, poContent);

@@ -8,18 +8,25 @@ function cleanup() {
     fs.unlinkSync(poPath);
 }
 
-afterEach(() => {
-    cleanup();
-});
-
 test("should init uk locale", () => {
     execSync(`ts-node src/index.ts init uk ${poPath}`);
     const result = fs.readFileSync(poPath).toString();
     expect(result).toMatchSnapshot();
+    cleanup();
 });
 
 test("should init en locale", () => {
     execSync(`ts-node src/index.ts init en ${poPath}`);
     const result = fs.readFileSync(poPath).toString();
     expect(result).toMatchSnapshot();
+    cleanup();
+});
+
+test("should handle unknown lang code properly", () => {
+    try {
+        execSync(`ts-node src/index.ts init enn ${poPath}`);
+    } catch (err) {
+        expect(err.status).toBe(1);
+        expect(err.stderr.toString()).toContain("Unknown lang code");
+    }
 });
