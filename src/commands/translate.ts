@@ -53,7 +53,7 @@ function printContext(ctxt: string) {
 }
 /* Print formatted msgid */
 function printMsgid(msgid: string) {
-    console.log(`${colors.yellow("msgid:")}"${colors.white(msgid)}`);
+    console.log(`${colors.yellow("msgid:")} "${msgid}"`);
 }
 
 /* Print formatted msgid plural*/
@@ -61,9 +61,7 @@ function printMsgidPlural(msgid_plural: string | undefined) {
     if (!msgid_plural) {
         return;
     }
-    console.log(
-        `${colors.yellow("msgid_plural:")}"${colors.white(msgid_plural)}`
-    );
+    console.log(`${colors.yellow("msgid_plural:")} "${msgid_plural}"`);
 }
 
 export default function translate(path: string, output: string) {
