@@ -2,3 +2,4 @@ node_modules/
 dist/
 *.log
 translations.pot
+.vscode/
