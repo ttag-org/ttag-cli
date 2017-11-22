@@ -4,6 +4,7 @@ import { serialize } from "../lib/serializer";
 import * as readlineSync from "readline-sync";
 import * as colors from "colors/safe";
 
+/* Generate untranslated messages along with context */
 function* untranslatedStream(
     translations: Translations
 ): IterableIterator<[string, Message]> {
@@ -15,13 +16,14 @@ function* untranslatedStream(
         }
     }
 }
-
+/* Format prompt to look like po file, but with colors */
 function formatPrompt(msgid: string): string {
-    return `${colors.yellow("msgid:")} "${colors.white(msgid)}\n${colors.yellow(
-        "msgstr:"
-    )}`;
+    return `\n${colors.yellow("msgid:")} "${colors.white(
+        msgid
+    )}\n${colors.yellow("msgstr:")}`;
 }
 
+/* Print formatted comments if exists */
 function printComments(comments: Comments) {
     if (!comments.reference) {
         return;
@@ -31,6 +33,7 @@ function printComments(comments: Comments) {
     }
 }
 
+/* Print formatted context if exists */
 function printContext(ctxt: string) {
     if (ctxt != "") {
         console.log("CONTEXT:", ctxt);
