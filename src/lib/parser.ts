@@ -6,7 +6,8 @@ export interface Comments {
 }
 export type Message = {
     msgid: string;
-    comments: Comments;
+    msgid_plural: string | undefined;
+    comments: Comments | undefined;
     msgstr: string[];
 };
 

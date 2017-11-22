@@ -3,3 +3,5 @@ dist/
 *.log
 translations.pot
 .vscode/
+package-lock.json
+*.swp

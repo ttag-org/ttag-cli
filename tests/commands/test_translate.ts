@@ -1,23 +1,20 @@
 import * as path from "path";
-import { spawn } from "child_process";
-import * as tmp from "tmp";
-import * as fs from "fs";
+import { read, untranslatedStream } from "../../src/commands/translate";
+import { serialize } from "../../src/lib/serializer";
 
 const poPath = path.resolve(
     __dirname,
     "../fixtures/translateTest/translate.po"
 );
 
-test("merge two files together", () => {
-    const tmpFile = tmp.fileSync();
-    const process = spawn("ts-node", [
-        "src/index.ts",
-        "translate",
-        poPath,
-        tmpFile.name
-    ]);
-    process.stdin.write("xxx\n");
-    process.stdin.end();
-    const data = fs.readFileSync(tmpFile.name).toString();
-    // expect(data).toContain('msgid "test"\nmsgstr "xxx"');
+test("translate poFile", () => {
+    const poData = read(poPath);
+    const stream = untranslatedStream(poData.translations);
+    // skip first message(empty msgid in header)
+    stream.next();
+    stream.next("");
+    stream.next(["test"]);
+    stream.next(["test1", "test2"]);
+    const data = serialize(poData).toString();
+    expect(data).toMatchSnapshot();
 });
