@@ -3,6 +3,7 @@ import extract from "./commands/extract";
 import check from "./commands/check";
 import merge from "./commands/merge";
 import init from "./commands/init";
+import update from "./commands/update";
 
 yargs
     .usage("$0 <cmd> [args]")
@@ -60,6 +61,21 @@ yargs
         },
         argv => {
             init(argv.lang, argv.filename);
+        }
+    )
+    .command(
+        "update <pofile> <src..>",
+        "will update existing po file. Add/remove new translations",
+        {
+            pofile: {
+                description: "path to .po file with translations"
+            },
+            src: {
+                description: "path to source files/directories"
+            }
+        },
+        argv => {
+            update(argv.pofile, argv.src);
         }
     )
     .command("*", "", {}, argv => {
