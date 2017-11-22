@@ -66,7 +66,8 @@ function mergeMessage(leftMessage: Message, rightMessage: Message): Message {
     return {
         msgid: leftMessage.msgid,
         comments: leftMessage.comments || rightMessage.comments,
-        msgstr: msgstr
+        msgstr: msgstr,
+        msgid_plural: leftMessage.msgid_plural
     };
 }
 
