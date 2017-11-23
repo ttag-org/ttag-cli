@@ -11,7 +11,5 @@ test("merge two files together", () => {
     const result = execSync(`ts-node src/index.ts merge ${poPaths}`);
     const expectStr = expect(result.toString());
     expectStr.toContain('msgstr "test translated"');
-    expectStr.toContain(
-        'msgctxt "ctx"\n' + 'msgid "test"\n' + 'msgstr "test translated"'
-    );
+    expectStr.toMatchSnapshot();
 });
