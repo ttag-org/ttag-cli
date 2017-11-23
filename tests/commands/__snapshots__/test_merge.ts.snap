@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`merge two files together 1`] = `
+"msgid \\"\\"
+msgstr \\"\\"
+\\"Content-Type: text/plain; charset=iso-8859-1\\\\n\\"
+\\"Plural-Forms: nplurals=2; plural=(n!=1);\\\\n\\"
+
+#: tests/fixtures/checkTest/check-trans-exist.js:3
+msgctxt \\"ctx\\"
+msgid \\"test\\"
+msgstr \\"test translated\\""
+`;
