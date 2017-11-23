@@ -48,7 +48,7 @@ function printComments(comments: Comments | undefined) {
 /* Print formatted context if exists */
 function printContext(ctxt: string) {
     if (ctxt != "") {
-        console.log("CONTEXT:", ctxt);
+        console.log(`${colors.yellow("msgctxt")} "${ctxt}"`);
     }
 }
 /* Print formatted msgid */

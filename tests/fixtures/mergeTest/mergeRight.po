@@ -4,6 +4,6 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
 
-#: tests/fixtures/checkTest/check-trans-exist.js:3
+#: tests/fixtures/checkTest/check-trans-exist.js:4
 msgid "test"
 msgstr "test translated"

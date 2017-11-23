@@ -1,6 +1,13 @@
 import * as fs from "fs";
 import { serialize } from "../lib/serializer";
-import { parse, PoData, Translations, Messages, Message } from "../lib/parser";
+import {
+    parse,
+    PoData,
+    Translations,
+    Messages,
+    Message,
+    Comments
+} from "../lib/parser";
 
 /* merge two context maps together */
 function mergeTranslations(
@@ -65,9 +72,41 @@ function mergeMessage(leftMessage: Message, rightMessage: Message): Message {
             : rightMessage.msgstr;
     return {
         msgid: leftMessage.msgid,
-        comments: leftMessage.comments || rightMessage.comments,
+        comments: mergeComments(leftMessage.comments, rightMessage.comments),
         msgstr: msgstr,
         msgid_plural: leftMessage.msgid_plural
+    };
+}
+
+/* Merge comments from two messages */
+function mergeComments(
+    leftComment: Comments | undefined,
+    rightComment: Comments | undefined
+): Comments | undefined {
+    if (!leftComment) {
+        return rightComment;
+    }
+    if (!rightComment) {
+        return undefined;
+    }
+    if (!leftComment.reference) {
+        return {
+            reference: rightComment.reference
+        };
+    }
+    if (!rightComment.reference) {
+        return {
+            reference: rightComment.reference
+        };
+    }
+    const uniqueComments = new Set(
+        leftComment.reference
+            .split("\n")
+            .concat(rightComment.reference.split("\n"))
+    );
+    const references = Array.from(uniqueComments.values()).sort();
+    return {
+        reference: references.join("\n")
     };
 }
 
