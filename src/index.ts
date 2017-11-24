@@ -68,7 +68,8 @@ yargs
         "will create an empty .po file with all necessary headers for the locale",
         {
             lang: {
-                description: "sets default locale (ISO format)"
+                description: "sets default locale (ISO format)",
+                default: "en"
             },
             filename: {
                 description: "path to the .po file"
@@ -79,9 +80,13 @@ yargs
         }
     )
     .command(
-        "update <pofile> <src..>",
+        "update [lang] <pofile> <src..>",
         "will update existing po file. Add/remove new translations",
         {
+            lang: {
+                description: "sets default locale (ISO format)",
+                default: "en"
+            },
             pofile: {
                 description: "path to .po file with translations"
             },
@@ -90,7 +95,7 @@ yargs
             }
         },
         argv => {
-            update(argv.pofile, argv.src);
+            update(argv.pofile, argv.src, argv.lang);
         }
     )
     .command("*", "", {}, argv => {

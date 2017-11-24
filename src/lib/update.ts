@@ -32,11 +32,6 @@ function updateTranslations(pot: Translations, po: Translations): Translations {
 }
 
 export function updatePo(pot: PoData, po: PoData): PoData {
-    for (const ctx of Object.keys(pot.translations)) {
-        if (!po.translations[ctx]) {
-            po.translations[ctx] = pot.translations[ctx];
-        }
-    }
     return {
         headers: po.headers,
         translations: updateTranslations(pot.translations, po.translations)
