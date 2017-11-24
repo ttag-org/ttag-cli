@@ -3,7 +3,7 @@ import { PoData } from "../../src/lib/parser";
 
 test("mergePo. Should merge with default config", () => {
     const poData1: PoData = {
-        headers: "header1",
+        headers: {},
         translations: {
             "": {
                 test: {
@@ -16,7 +16,7 @@ test("mergePo. Should merge with default config", () => {
     };
 
     const poData2: PoData = {
-        headers: "header1",
+        headers: {},
         translations: {
             "": {
                 test2: {
@@ -29,7 +29,6 @@ test("mergePo. Should merge with default config", () => {
     };
 
     const resultPo = mergePo(poData1, poData2);
-    console.log(resultPo.translations);
     expect(resultPo.translations[""]).toHaveProperty("test");
     expect(resultPo.translations[""]).toHaveProperty("test2");
 });
