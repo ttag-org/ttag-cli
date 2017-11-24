@@ -12,7 +12,7 @@ msgstr ""
 msgid "old"
 msgstr "old trans"
 
-msid "obsolete"
+msgid "obsolete"
 msgstr "obsolete trans"
 `;
 
