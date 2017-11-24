@@ -52,7 +52,10 @@ function mergeMessages(
 }
 
 /* Merge two po(t)files together */
-function mergeMessage(leftMessage: Message, rightMessage: Message): Message {
+export function mergeMessage(
+    leftMessage: Message,
+    rightMessage: Message
+): Message {
     if (leftMessage.msgid == "") {
         //gettext-parser library bug: header appears to be in message with id''
         return leftMessage;
