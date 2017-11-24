@@ -4,6 +4,7 @@ import check from "./commands/check";
 import merge from "./commands/merge";
 import init from "./commands/init";
 import update from "./commands/update";
+import translate from "./commands/translate";
 
 yargs
     .usage("$0 <cmd> [args]")
@@ -46,6 +47,20 @@ yargs
         {},
         argv => {
             merge(argv.path);
+        }
+    )
+    .command(
+        "translate <path> [args]",
+        "will open interactive prompt to translate all msgids with empty msgstr in cli",
+        {
+            output: {
+                alias: "o",
+                default: "translated.po",
+                description: "result file with translations (.po)"
+            }
+        },
+        argv => {
+            translate(argv.path, argv.output);
         }
     )
     .command(

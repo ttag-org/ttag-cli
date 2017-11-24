@@ -1,9 +1,13 @@
 import { po } from "gettext-parser";
 import "../declarations";
 
+export interface Comments {
+    reference: string | undefined;
+}
 export type Message = {
     msgid: string;
-    comments: object;
+    msgid_plural: string | undefined;
+    comments: Comments | undefined;
     msgstr: string[];
 };
 
