@@ -23,6 +23,7 @@ export type Translations = {
 export type PoData = {
     headers: Object;
     translations: Translations;
+    charset?: string;
 };
 
 export function parse(str: string): PoData {

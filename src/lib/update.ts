@@ -34,6 +34,7 @@ function updateTranslations(pot: Translations, po: Translations): Translations {
 export function updatePo(pot: PoData, po: PoData): PoData {
     return {
         headers: po.headers,
-        translations: updateTranslations(pot.translations, po.translations)
+        translations: updateTranslations(pot.translations, po.translations),
+        charset: po.charset
     };
 }
