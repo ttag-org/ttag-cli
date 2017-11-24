@@ -1,18 +1,26 @@
 import { PoData, Messages, Translations } from "./parser";
 import { mergeMessage } from "./merge";
 
-/* Merge two message maps together */
 function updateMessages(potMessages: Messages, poMessages: Messages): Messages {
-    const merged: Messages = { ...poMessages };
-    for (const msgid of Object.keys(potMessages)) {
-        if (!poMessages[msgid]) {
-            merged[msgid] = potMessages[msgid];
-        } else {
-            merged[msgid] = mergeMessage(poMessages[msgid], potMessages[msgid]);
-            merged[msgid].comments = potMessages[msgid].comments;
+    const updated: Messages = {};
+    for (const msgid of Object.keys(poMessages)) {
+        if (potMessages[msgid] !== undefined) {
+            updated[msgid] = poMessages[msgid];
         }
     }
-    return merged;
+
+    for (const msgid of Object.keys(potMessages)) {
+        if (!poMessages[msgid]) {
+            updated[msgid] = potMessages[msgid];
+        } else {
+            updated[msgid] = mergeMessage(
+                poMessages[msgid],
+                potMessages[msgid]
+            );
+            updated[msgid].comments = potMessages[msgid].comments;
+        }
+    }
+    return updated;
 }
 
 function updateTranslations(pot: Translations, po: Translations): Translations {
