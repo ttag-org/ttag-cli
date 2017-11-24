@@ -41,6 +41,10 @@
   dependencies:
     "@types/babel-types" "*"
 
+"@types/colors@^1.1.3":
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/@types/colors/-/colors-1.1.3.tgz#5413b0a7a1b16dd18be0e3fd57d2feecc81cc776"
+
 "@types/jest@21.1.6":
   version "21.1.6"
   resolved "https://registry.yarnpkg.com/@types/jest/-/jest-21.1.6.tgz#9467945ce33261e4fdd14276576951aa130515aa"
@@ -54,6 +58,10 @@
   resolved "https://registry.yarnpkg.com/@types/ora/-/ora-1.3.1.tgz#53db0e10b7ea2f014548e87ea81c755986502e52"
   dependencies:
     "@types/node" "*"
+
+"@types/readline-sync@^1.4.2":
+  version "1.4.2"
+  resolved "https://registry.yarnpkg.com/@types/readline-sync/-/readline-sync-1.4.2.tgz#516b5f4f250534062b6bb08ae8367a088dcf739f"
 
 "@types/tmp@^0.0.33":
   version "0.0.33"
@@ -685,6 +693,10 @@ color-convert@^1.9.0:
 color-name@^1.1.1:
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/color-name/-/color-name-1.1.3.tgz#a7d0558bd89c42f795dd42328f740831ca53bc25"
+
+colors@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/colors/-/colors-1.1.2.tgz#168a4701756b6a7f51a12ce0c97bfa28c084ed63"
 
 combined-stream@^1.0.5, combined-stream@~1.0.5:
   version "1.0.5"
@@ -2525,6 +2537,10 @@ readable-stream@^2.0.6, readable-stream@^2.1.4:
     string_decoder "~1.0.3"
     util-deprecate "~1.0.1"
 
+readline-sync@^1.4.7:
+  version "1.4.7"
+  resolved "https://registry.yarnpkg.com/readline-sync/-/readline-sync-1.4.7.tgz#001bfdd4c06110c3c084c63bf7c6a56022213f30"
+
 regenerator-runtime@^0.11.0:
   version "0.11.0"
   resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.11.0.tgz#7e54fe5b5ccd5d6624ea6255c3473be090b802e1"
@@ -2928,7 +2944,7 @@ throat@^4.0.0:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/throat/-/throat-4.1.0.tgz#89037cbc92c56ab18926e6ba4cbb200e15672a6a"
 
-tmp@^0.0.33:
+tmp@0.0.33:
   version "0.0.33"
   resolved "https://registry.yarnpkg.com/tmp/-/tmp-0.0.33.tgz#6d34335889768d21b2bcda0aa277ced3b1bfadf9"
   dependencies:

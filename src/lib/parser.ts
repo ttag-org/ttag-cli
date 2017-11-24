@@ -2,12 +2,13 @@ import { po } from "gettext-parser";
 import "../declarations";
 
 export interface Comments {
-    reference: string | undefined;
+    reference?: string;
 }
+
 export type Message = {
     msgid: string;
-    msgid_plural: string | undefined;
-    comments: Comments | undefined;
+    msgid_plural?: string;
+    comments?: Comments;
     msgstr: string[];
 };
 
@@ -22,6 +23,7 @@ export type Translations = {
 export type PoData = {
     headers: Object;
     translations: Translations;
+    charset?: string;
 };
 
 export function parse(str: string): PoData {

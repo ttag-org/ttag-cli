@@ -3,6 +3,7 @@ import extract from "./commands/extract";
 import check from "./commands/check";
 import merge from "./commands/merge";
 import init from "./commands/init";
+import update from "./commands/update";
 import translate from "./commands/translate";
 
 yargs
@@ -67,7 +68,8 @@ yargs
         "will create an empty .po file with all necessary headers for the locale",
         {
             lang: {
-                description: "sets default locale (ISO format)"
+                description: "sets default locale (ISO format)",
+                default: "en"
             },
             filename: {
                 description: "path to the .po file"
@@ -75,6 +77,25 @@ yargs
         },
         argv => {
             init(argv.lang, argv.filename);
+        }
+    )
+    .command(
+        "update [lang] <pofile> <src..>",
+        "will update existing po file. Add/remove new translations",
+        {
+            lang: {
+                description: "sets default locale (ISO format)",
+                default: "en"
+            },
+            pofile: {
+                description: "path to .po file with translations"
+            },
+            src: {
+                description: "path to source files/directories"
+            }
+        },
+        argv => {
+            update(argv.pofile, argv.src, argv.lang);
         }
     )
     .command("*", "", {}, argv => {
