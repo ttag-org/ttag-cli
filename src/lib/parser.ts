@@ -3,6 +3,10 @@ import "../declarations";
 
 export interface Comments {
     reference?: string;
+    flag?: string;
+    extracted?: string;
+    previous?: string;
+    translator?: string;
 }
 
 export type Message = {

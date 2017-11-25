@@ -5,6 +5,7 @@ import merge from "./commands/merge";
 import init from "./commands/init";
 import update from "./commands/update";
 import translate from "./commands/translate";
+import filter from "./commands/filter";
 
 yargs
     .usage("$0 <cmd> [args]")
@@ -61,6 +62,45 @@ yargs
         },
         argv => {
             translate(argv.path, argv.output);
+        }
+    )
+    .command(
+        "filter <path> [args]",
+        "will filter pofile by entry attributes(fuzzy, obsolete, (un)translated)",
+        {
+            fuzzy: {
+                alias: "f",
+                description: "result file with fuzzy messages (.po)",
+                boolean: true,
+                default: false
+            },
+            "no-fuzzy": {
+                alias: "nf",
+                description: "result file without fuzzy messages (.po)",
+                boolean: true,
+                default: false
+            },
+            translated: {
+                alias: "t",
+                description: "result file with translations (.po)",
+                boolean: true,
+                default: false
+            },
+            "not-translated": {
+                alias: "nt",
+                description: "result file without translations (.po)",
+                boolean: true,
+                default: false
+            }
+        },
+        argv => {
+            filter(
+                argv.path,
+                argv.fuzzy,
+                argv["no-fuzzy"],
+                argv.translated,
+                argv["not-translated"]
+            );
         }
     )
     .command(
