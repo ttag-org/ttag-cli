@@ -1,0 +1,18 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=utf-8\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+#, fuzzy
+msgid "test_fuzzy"
+msgstr ""
+
+msgid "test_translated_not_fuzzy"
+msgstr "xxxx"
+
+msgid "test_not_translated_not_fuzzy"
+msgstr ""
+
+#, fuzzy
+msgid "test_fuzzy_translated"
+msgstr "xxxx"

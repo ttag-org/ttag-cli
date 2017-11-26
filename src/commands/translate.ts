@@ -17,6 +17,7 @@ export function* untranslatedStream(
     }
 }
 
+/* Read file and parse it shorthand */
 export function read(path: string): PoData {
     return parse(fs.readFileSync(path).toString());
 }
