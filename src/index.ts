@@ -100,6 +100,11 @@ yargs
                 description: "result file without translations (.po)",
                 boolean: true,
                 default: false
+            },
+            reference: {
+                alias: "r",
+                description: "a regexp to match references against",
+                default: ""
             }
         },
         argv => {
@@ -108,7 +113,8 @@ yargs
                 argv.fuzzy,
                 argv["no-fuzzy"],
                 argv.translated,
-                argv["not-translated"]
+                argv["not-translated"],
+                argv.reference
             );
         }
     )

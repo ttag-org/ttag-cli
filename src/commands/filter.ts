@@ -10,6 +10,7 @@ enum RuleType {
 interface PoFilterParams {
     fuzzy?: boolean;
     translated?: boolean;
+    referenceRe?: RegExp;
 }
 
 type TestFunction = (msg: Message) => boolean;
@@ -25,15 +26,25 @@ function TranslatedTest(msg: Message): boolean {
     return msg.msgstr.filter(s => s.length > 0).length == msg.msgstr.length;
 }
 
+function ReferenceReTest(msg: Message, re: RegExp): boolean {
+    return (
+        msg.comments != undefined &&
+        msg.comments.reference != undefined &&
+        re.test(msg.comments.reference)
+    );
+}
+
 type FilterRules = Array<[TestFunction, RuleType]>;
 
 class PoFilter {
     fuzzy?: boolean;
     translated?: boolean;
+    referenceRe?: RegExp;
 
-    constructor({ fuzzy, translated }: PoFilterParams) {
+    constructor({ fuzzy, translated, referenceRe }: PoFilterParams) {
         this.fuzzy = fuzzy;
         this.translated = translated;
+        this.referenceRe = referenceRe;
     }
 
     /* set fuzzy flag */
@@ -56,6 +67,12 @@ class PoFilter {
         return new PoFilter(Object.assign({}, this, { translated: false }));
     }
 
+    withReferenceRe(referenceRe: RegExp) {
+        return new PoFilter(
+            Object.assign({}, this, { referenceRe: referenceRe })
+        );
+    }
+
     /* build rule chain according to state and apply to translations */
     apply(translations: Translations): Translations {
         const rules = <FilterRules>[];
@@ -70,6 +87,13 @@ class PoFilter {
         }
         if (this.translated == false) {
             rules.push([TranslatedTest, RuleType.MustNot]);
+        }
+        const reg = this.referenceRe;
+        if (reg !== undefined) {
+            rules.push([
+                (m: Message) => ReferenceReTest(m, reg),
+                RuleType.Must
+            ]);
         }
         const newTranslations = <Translations>{};
         for (let [ctxt, messages] of filterTranslationsStream(
@@ -141,13 +165,21 @@ export default function filter(
     fuzzy: boolean,
     noFuzzy: boolean,
     translated: boolean,
-    notTranslated: boolean
+    notTranslated: boolean,
+    referenceRe: string
 ) {
     if (fuzzy && noFuzzy) {
         throw "Choose one of fuzzy or no-fuzzy args";
     }
     if (translated && notTranslated) {
         throw "Choose one of translated or not translated args";
+    }
+    if (referenceRe) {
+        try {
+            new RegExp(referenceRe);
+        } catch {
+            throw "Invalid regular expression for reference";
+        }
     }
     let filter = new PoFilter({});
     if (fuzzy) {
@@ -161,6 +193,9 @@ export default function filter(
     }
     if (notTranslated) {
         filter = filter.withoutTranslation();
+    }
+    if (referenceRe) {
+        filter = filter.withReferenceRe(new RegExp(referenceRe));
     }
 
     const poData = parse(fs.readFileSync(path).toString());

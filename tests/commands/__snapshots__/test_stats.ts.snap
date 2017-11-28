@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`filter out fuzzy entries 1`] = `
+"TOTAL: 3
+CONTEXTS: 1
+TRANSLATED: 1
+FUZZY: 0
+[#################·································] 33% 1/2/3
+"
+`;
