@@ -6,7 +6,7 @@
   "author": "",
   "license": "MIT",
   "scripts": {
-    "test": "jest",
+    "test": "jest --coverage",
     "cli": "ts-node ./src/index.ts",
     "build": "tsc",
     "prepublish": "in-publish && yarn test && tsc",
