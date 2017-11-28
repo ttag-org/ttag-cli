@@ -12,6 +12,8 @@ interface PoFilterParams {
     translated?: boolean;
 }
 
+type TestFunction = (msg: Message) => boolean;
+
 function FuzzyTest(msg: Message): boolean {
     if (msg.comments == undefined) {
         return false;
@@ -23,7 +25,7 @@ function TranslatedTest(msg: Message): boolean {
     return msg.msgstr.filter(s => s.length > 0).length == msg.msgstr.length;
 }
 
-type FilterRules = Array<[Function, RuleType]>;
+type FilterRules = Array<[TestFunction, RuleType]>;
 
 class PoFilter {
     fuzzy?: boolean;
@@ -81,7 +83,7 @@ class PoFilter {
 }
 
 /* Test rule according to type */
-function testRule(test: Function, rule: RuleType, msg: Message): boolean {
+function testRule(test: TestFunction, rule: RuleType, msg: Message): boolean {
     switch (rule) {
         case RuleType.Must: {
             return test(msg);

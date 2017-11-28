@@ -6,6 +6,7 @@ import init from "./commands/init";
 import update from "./commands/update";
 import translate from "./commands/translate";
 import filter from "./commands/filter";
+import stats from "./commands/stats";
 
 yargs
     .usage("$0 <cmd> [args]")
@@ -62,6 +63,14 @@ yargs
         },
         argv => {
             translate(argv.path, argv.output);
+        }
+    )
+    .command(
+        "stats <path>",
+        "will display various pofile statistics(encoding, plurals, translated, fuzzyness)",
+        {},
+        argv => {
+            stats(argv.path);
         }
     )
     .command(
