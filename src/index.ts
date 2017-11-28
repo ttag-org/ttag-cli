@@ -6,6 +6,7 @@ import init from "./commands/init";
 import update from "./commands/update";
 import translate from "./commands/translate";
 import filter from "./commands/filter";
+import stats from "./commands/stats";
 
 yargs
     .usage("$0 <cmd> [args]")
@@ -65,6 +66,14 @@ yargs
         }
     )
     .command(
+        "stats <path>",
+        "will display various pofile statistics(encoding, plurals, translated, fuzzyness)",
+        {},
+        argv => {
+            stats(argv.path);
+        }
+    )
+    .command(
         "filter <path> [args]",
         "will filter pofile by entry attributes(fuzzy, obsolete, (un)translated)",
         {
@@ -91,6 +100,11 @@ yargs
                 description: "result file without translations (.po)",
                 boolean: true,
                 default: false
+            },
+            reference: {
+                alias: "r",
+                description: "a regexp to match references against",
+                default: ""
             }
         },
         argv => {
@@ -99,7 +113,8 @@ yargs
                 argv.fuzzy,
                 argv["no-fuzzy"],
                 argv.translated,
-                argv["not-translated"]
+                argv["not-translated"],
+                argv.reference
             );
         }
     )

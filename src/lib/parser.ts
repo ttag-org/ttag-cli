@@ -24,8 +24,13 @@ export type Translations = {
     [key: string]: Messages;
 };
 
+export type Headers = {
+    "content-type"?: string;
+    "plural-forms"?: string;
+};
+
 export type PoData = {
-    headers: Object;
+    headers: Headers;
     translations: Translations;
     charset?: string;
 };

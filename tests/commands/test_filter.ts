@@ -33,3 +33,12 @@ test("filter only not translated entries", () => {
     expect(result).not.toContain("test_translated");
     expect(result).toContain("test_not_translated");
 });
+
+test("filter by reference regexp", () => {
+    const result = execSync(
+        `ts-node src/index.ts filter ${poPath} -r check`
+    ).toString();
+    expect(result).not.toContain("no_ref");
+    expect(result).not.toContain("wrong_ref");
+    expect(result).toContain("test_fuzzy_ref_check");
+});
