@@ -1,11 +1,17 @@
 language: node_js
-
 node_js:
-  - 8
-
+- 8
 before_script:
-  - yarn
-
+- yarn
 script:
-  - yarn run build
-  - yarn test -- --ci
+- yarn run build
+- yarn test -- --ci
+deploy:
+  provider: npm
+  email: alexmost1989@gmail.com
+  api_key:
+    secure: OiFF9dgNbpRT6oTKAkOjhGGj9mokC73xj24Xf6e3SIbBccbhyqbe5nm6S4t7TrMQHzmFkYghWBxraFtVY30cjCmLeTSXkJ+hR1zpG/TikSylBdUD6bR+AsjxrrbeEXH0c6qmPq654D1+W6WWS1fq9Y9CrLgeVwMCpFwP0zvnCZ+Om8WknFydeYRnwn05OjG7Zp5zlkp8TkynALkIuxl4zLFmmGGfC/CQq7Pc9YJOVgp6VZ/ReBX4baneJVzcJFVeka30fqHiYGlP9Wt+U3burkdEUOX3PxtP4jctMGkKN2kAAh05gG0Ef0wvYSJ0R1ErzYBLvf3/Y61H4QObZdCZj4+I/hbe8owEeDzNs5U+44Z2lyea6LjjPR7R09Lx7iyjltcZb275OkVBoWqltKYZwTrSSzIjXEgCfMYoiYu1hJZM/mKs11MRuLlB3IHq/gJh3OlySmiP5NQ34Rs5YQX04aAgfPZB9q4JFTx890jJJe9fk/1jFljJBrbc4F0CWOioIybRBjMFwhWMXlVrxPkh9q6rozoiKk2GyOnZVFZyz7mE7XQh+/shJ4nddAsg18i6B1e0iWqBLgn5UUjlFliMqZz00+/AsL/1jNUlqrDdb2jArMq8k9GcCc3ZfY6Z65K0V9DVf2euUU/hrRMJMja5Wsc4XJF8Oci3Dhv173ISmQE=
+  on:
+    tags: true
+    branch: master
+    repo: c-3po-org/c-3po-cli
