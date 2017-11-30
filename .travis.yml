@@ -1,11 +1,15 @@
 language: node_js
+
 node_js:
-- 8
+  - 8
+
 before_script:
-- yarn
+  - yarn
+
 script:
-- yarn run build
-- yarn test -- --ci
+  - yarn run build
+  - yarn test -- --ci
+
 deploy:
   provider: npm
   email: alexmost1989@gmail.com
