@@ -3,7 +3,6 @@ import * as fs from "fs";
 import * as c3poTypes from "../types";
 import { extractAll } from "../lib/extract";
 
-// test ci
 async function extract(output: string, paths: string[], lang: string = "en") {
     const progress: c3poTypes.Progress = ora(
         `[c-3po] extracting translations to ${output} ...`
