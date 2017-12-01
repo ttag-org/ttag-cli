@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "preversion": "yarn run build && yarn test",
-    "test": "jest",
+    "test": "mkdir -p dist && jest",
     "cli": "ts-node ./src/index.ts",
     "build": "tsc",
     "upgrade": "yarn upgrade-interactive",
