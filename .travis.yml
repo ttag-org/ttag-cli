@@ -7,8 +7,10 @@ before_script:
   - yarn
 
 script:
-  - yarn run build
   - yarn test -- --ci
+
+before_deploy:
+  - yarn run build
 
 deploy:
   provider: npm

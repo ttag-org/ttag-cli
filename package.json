@@ -6,8 +6,8 @@
   "author": "",
   "license": "MIT",
   "scripts": {
+    "preversion": "yarn run build && yarn test",
     "test": "jest",
-    "prepublish": "yarn run build",
     "cli": "ts-node ./src/index.ts",
     "build": "tsc",
     "upgrade": "yarn upgrade-interactive",
