@@ -3,7 +3,9 @@ import { PoData } from "../../src/lib/parser";
 
 test("mergePo. Should merge with default config", () => {
     const poData1: PoData = {
-        headers: {},
+        headers: {
+            "plural-forms": "nplurals=2; plural=(n!=1);\n"
+        },
         translations: {
             "": {
                 test: {
@@ -16,7 +18,9 @@ test("mergePo. Should merge with default config", () => {
     };
 
     const poData2: PoData = {
-        headers: {},
+        headers: {
+            "plural-forms": "nplurals=2; plural=(n!=1);\n"
+        },
         translations: {
             "": {
                 test2: {

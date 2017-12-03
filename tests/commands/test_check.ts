@@ -1,5 +1,4 @@
 import * as path from "path";
-import * as fs from "fs";
 import { execSync } from "child_process";
 
 const poPath = path.resolve(__dirname, "../fixtures/checkTest/check.po");
@@ -21,9 +20,7 @@ test("check when all string are translated", () => {
 
 test("check when some translation is missing", () => {
     try {
-        const result = execSync(
-            `ts-node src/index.ts check ${poPath} ${checkNotPass}`
-        );
+        execSync(`ts-node src/index.ts check ${poPath} ${checkNotPass}`);
         expect(false).toBe(true); // must fail anyway
     } catch (err) {
         expect(err.status).toBe(1);
