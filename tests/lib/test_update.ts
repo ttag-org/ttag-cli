@@ -3,7 +3,9 @@ import { PoData } from "../../src/lib/parser";
 
 test("updatePo. Should add new message", () => {
     const pot: PoData = {
-        headers: {},
+        headers: {
+            "plural-forms": "nplurals=2; plural=(n!=1);\n"
+        },
         translations: {
             "": {
                 test: {
@@ -16,7 +18,9 @@ test("updatePo. Should add new message", () => {
     };
 
     const po: PoData = {
-        headers: {},
+        headers: {
+            "plural-forms": "nplurals=2; plural=(n!=1);\n"
+        },
         translations: {
             "": {}
         }
@@ -28,7 +32,9 @@ test("updatePo. Should add new message", () => {
 
 test("updatePo. Should update existing", () => {
     const pot: PoData = {
-        headers: {},
+        headers: {
+            "plural-forms": "nplurals=2; plural=(n!=1);\n"
+        },
         translations: {
             "": {
                 test: {
@@ -43,7 +49,9 @@ test("updatePo. Should update existing", () => {
     };
 
     const po: PoData = {
-        headers: {},
+        headers: {
+            "plural-forms": "nplurals=2; plural=(n!=1);\n"
+        },
         translations: {
             "": {
                 test: {
@@ -68,7 +76,9 @@ test("updatePo. Should update existing", () => {
 
 test("updatePo. Should remove obsolete messages", () => {
     const pot: PoData = {
-        headers: {},
+        headers: {
+            "plural-forms": "nplurals=2; plural=(n!=1);\n"
+        },
         translations: {
             "": {
                 test: {
@@ -83,7 +93,9 @@ test("updatePo. Should remove obsolete messages", () => {
     };
 
     const po: PoData = {
-        headers: {},
+        headers: {
+            "plural-forms": "nplurals=2; plural=(n!=1);\n"
+        },
         translations: {
             "": {
                 test: {
@@ -112,7 +124,9 @@ test("updatePo. Should remove obsolete messages", () => {
 
 test("updatePo. Should not overwrite headers", () => {
     const pot: PoData = {
-        headers: {},
+        headers: {
+            "plural-forms": "nplurals=2; plural=(n!=1);\n"
+        },
         translations: {
             "": {
                 "": {
@@ -131,7 +145,9 @@ test("updatePo. Should not overwrite headers", () => {
     };
 
     const po: PoData = {
-        headers: {},
+        headers: {
+            "plural-forms": "nplurals=2; plural=(n!=1);\n"
+        },
         translations: {
             "": {
                 "": {
@@ -151,4 +167,35 @@ test("updatePo. Should not overwrite headers", () => {
 
     const resultPo = updatePo(pot, po);
     expect(resultPo.translations[""][""].msgstr).toEqual(["header_po"]);
+});
+
+test("updatePo. Should use appropriate number of plural forms", () => {
+    const pot: PoData = {
+        headers: {
+            "plural-forms": "nplurals=2; plural=(n!=1);\n"
+        },
+        translations: {
+            "": {
+                banana: {
+                    msgid: "banana",
+                    msgid_plural: "bananas",
+                    msgstr: ["", ""]
+                }
+            }
+        }
+    };
+
+    const po: PoData = {
+        headers: {
+            "plural-forms":
+                "nplurals = 3; plural = (n % 10 === 1 && n % 100 !== 11 ? 0 : " +
+                "n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? 1 : 2);"
+        },
+        translations: {
+            "": {}
+        }
+    };
+
+    const resultPo = updatePo(pot, po);
+    expect(resultPo.translations[""]["banana"].msgstr).toEqual(["", "", ""]);
 });
