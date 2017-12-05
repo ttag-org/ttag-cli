@@ -337,9 +337,9 @@ babel-messages@^6.23.0, babel-messages@^6.8.0:
   dependencies:
     babel-runtime "^6.22.0"
 
-babel-plugin-c-3po@0.7.0:
-  version "0.7.0"
-  resolved "https://registry.yarnpkg.com/babel-plugin-c-3po/-/babel-plugin-c-3po-0.7.0.tgz#1c0eee7720012b0addba5adac79c30546e510c0a"
+babel-plugin-c-3po@0.7.3:
+  version "0.7.3"
+  resolved "https://registry.yarnpkg.com/babel-plugin-c-3po/-/babel-plugin-c-3po-0.7.3.tgz#44a3e08dc21393c9a7cb0a8b4cc622db4d8fe012"
   dependencies:
     ajv "4.9.0"
     babel-generator "6.18.0"
