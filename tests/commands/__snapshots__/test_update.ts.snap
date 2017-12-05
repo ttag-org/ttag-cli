@@ -12,5 +12,11 @@ msgstr \\"\\"
 
 #: tests/fixtures/updateTest/test.js:4
 msgid \\"new\\"
-msgstr \\"\\""
+msgstr \\"\\"
+
+#: tests/fixtures/updateTest/test.js:6
+msgid \\"\${ n } banana\\"
+msgid_plural \\"\${ n } bananas\\"
+msgstr[0] \\"\\"
+msgstr[1] \\"\\""
 `;
