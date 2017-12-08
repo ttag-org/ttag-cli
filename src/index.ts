@@ -7,6 +7,7 @@ import update from "./commands/update";
 import translate from "./commands/translate";
 import filter from "./commands/filter";
 import stats from "./commands/stats";
+// import replace from "./commands/replace";
 
 yargs
     .usage("$0 <cmd> [args]")
@@ -153,6 +154,14 @@ yargs
             update(argv.pofile, argv.src, argv.lang);
         }
     )
+    // .command(
+    //     "replace <pofile> <src..>",
+    //     "will replace all strings with translations from the .po file",
+    //     {},
+    //     argv => {
+    //         replace(argv.pofile, argv.src);
+    //     }
+    // )
     .command("*", "", {}, argv => {
         console.log(`command "${argv._[0]}" is not found.`);
         console.log("Use 'c-3po --help' to see available commands");
