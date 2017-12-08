@@ -7,6 +7,8 @@ import update from "./commands/update";
 import translate from "./commands/translate";
 import filter from "./commands/filter";
 import stats from "./commands/stats";
+import replace from "./commands/replace";
+import "./declarations";
 
 yargs
     .usage("$0 <cmd> [args]")
@@ -151,6 +153,14 @@ yargs
         },
         argv => {
             update(argv.pofile, argv.src, argv.lang);
+        }
+    )
+    .command(
+        "replace <pofile> <out> <path>",
+        "will replace all strings with translations from the .po file",
+        {},
+        argv => {
+            replace(argv.pofile, argv.out, argv.path);
         }
     )
     .command("*", "", {}, argv => {

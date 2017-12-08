@@ -1,0 +1,12 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=utf-8\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+#: tests/fixtures/replaceTest/test.js:2
+msgid "test"
+msgstr "test translation"
+
+#: tests/fixtures/replaceTest/nested/test2.js:2
+msgid "test2"
+msgstr "test 2 translation"

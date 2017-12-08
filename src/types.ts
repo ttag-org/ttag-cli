@@ -1,6 +1,7 @@
 export type C3POOpts = {
-    extract: Object;
+    extract?: Object;
     defaultHeaders?: Object;
+    resolve?: { translations: string };
 };
 
 export type Progress = {
