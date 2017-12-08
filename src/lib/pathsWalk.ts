@@ -32,7 +32,7 @@ async function walkDir(
     });
 }
 
-export async function transformPath(
+export async function pathsWalk(
     paths: string[],
     progress: c3poTypes.Progress,
     transformFn: TransformFn

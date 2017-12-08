@@ -6,7 +6,7 @@ import { getPluralFormsHeader } from "plural-forms";
 import babelPluginC3po from "babel-plugin-c-3po";
 import * as babelPresetReact from "babel-preset-react";
 import * as c3poTypes from "../types";
-import { TransformFn, transformPath } from "./dirWalk";
+import { TransformFn, pathsWalk } from "./pathsWalk";
 
 export async function extractAll(
     paths: string[],
@@ -26,7 +26,7 @@ export async function extractAll(
     const transformFn: TransformFn = filepath => {
         babel.transformFileSync(filepath, babelOptions);
     };
-    await transformPath(paths, progress, transformFn);
+    await pathsWalk(paths, progress, transformFn);
     const result = fs.readFileSync(tmpFile.name).toString();
     tmpFile.removeCallback();
     return result;
