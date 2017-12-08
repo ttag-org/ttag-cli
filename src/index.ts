@@ -8,6 +8,7 @@ import translate from "./commands/translate";
 import filter from "./commands/filter";
 import stats from "./commands/stats";
 import replace from "./commands/replace";
+import "./declarations";
 
 yargs
     .usage("$0 <cmd> [args]")
