@@ -10,6 +10,7 @@ export interface Comments {
 }
 
 export type Message = {
+    msgctxt?: string;
     msgid: string;
     msgid_plural?: string;
     comments?: Comments;
