@@ -49,6 +49,12 @@
   version "21.1.6"
   resolved "https://registry.yarnpkg.com/@types/jest/-/jest-21.1.6.tgz#9467945ce33261e4fdd14276576951aa130515aa"
 
+"@types/mkdirp@^0.5.2":
+  version "0.5.2"
+  resolved "https://registry.yarnpkg.com/@types/mkdirp/-/mkdirp-0.5.2.tgz#503aacfe5cc2703d5484326b1b27efa67a339c1f"
+  dependencies:
+    "@types/node" "*"
+
 "@types/node@*", "@types/node@8.0.53":
   version "8.0.53"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-8.0.53.tgz#396b35af826fa66aad472c8cb7b8d5e277f4e6d8"
@@ -337,9 +343,9 @@ babel-messages@^6.23.0, babel-messages@^6.8.0:
   dependencies:
     babel-runtime "^6.22.0"
 
-babel-plugin-c-3po@0.7.0:
-  version "0.7.0"
-  resolved "https://registry.yarnpkg.com/babel-plugin-c-3po/-/babel-plugin-c-3po-0.7.0.tgz#1c0eee7720012b0addba5adac79c30546e510c0a"
+babel-plugin-c-3po@0.7.3:
+  version "0.7.3"
+  resolved "https://registry.yarnpkg.com/babel-plugin-c-3po/-/babel-plugin-c-3po-0.7.3.tgz#44a3e08dc21393c9a7cb0a8b4cc622db4d8fe012"
   dependencies:
     ajv "4.9.0"
     babel-generator "6.18.0"
@@ -1314,10 +1320,6 @@ iconv-lite@0.4.19, iconv-lite@~0.4.13:
 imurmurhash@^0.1.4:
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/imurmurhash/-/imurmurhash-0.1.4.tgz#9218b9b2b928a238b13dc4fb6b6d576f231453ea"
-
-in-publish@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/in-publish/-/in-publish-2.0.0.tgz#e20ff5e3a2afc2690320b6dc552682a9c7fadf51"
 
 indent-string@^2.1.0:
   version "2.1.0"

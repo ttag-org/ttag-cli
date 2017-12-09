@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`replace translations 1`] = `
+"import { t } from 'c-3po';
+'test translation';"
+`;
+
+exports[`replace translations 2`] = `
+"import { t } from 'c-3po';
+'test 2 translation';"
+`;
