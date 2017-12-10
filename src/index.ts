@@ -8,6 +8,7 @@ import translate from "./commands/translate";
 import filter from "./commands/filter";
 import stats from "./commands/stats";
 import replace from "./commands/replace";
+import color from "./commands/color";
 import "./declarations";
 
 yargs
@@ -161,6 +162,14 @@ yargs
         {},
         argv => {
             replace(argv.pofile, argv.out, argv.path);
+        }
+    )
+    .command(
+        "color <pofile>",
+        "will output po(t)file with pretty colors on, combine with | less -r",
+        {},
+        argv => {
+            color(argv.pofile);
         }
     )
     .command("*", "", {}, argv => {

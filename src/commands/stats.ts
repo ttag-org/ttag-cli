@@ -1,5 +1,5 @@
 import * as fs from "fs";
-import * as colors from "colors/safe";
+import * as chalk from "chalk";
 import { parse, Translations, Message } from "../lib/parser";
 
 type PoStats = {
@@ -44,10 +44,10 @@ function statsCalculator(translations: Translations): PoStats {
 export default function stats(path: string) {
     const poData = parse(fs.readFileSync(path).toString());
     const poStats = statsCalculator(poData.translations);
-    console.log(`${colors.green("TOTAL:")} ${poStats.total}`);
-    console.log(`${colors.green("CONTEXTS:")} ${poStats.contexts}`);
-    console.log(`${colors.green("TRANSLATED:")} ${poStats.translated}`);
-    console.log(`${colors.green("FUZZY:")} ${poStats.fuzzy}`);
+    console.log(`${chalk.green("TOTAL:")} ${poStats.total}`);
+    console.log(`${chalk.green("CONTEXTS:")} ${poStats.contexts}`);
+    console.log(`${chalk.green("TRANSLATED:")} ${poStats.translated}`);
+    console.log(`${chalk.green("FUZZY:")} ${poStats.fuzzy}`);
 
     let indicators = [];
     const maxLength = 50;
@@ -58,13 +58,13 @@ export default function stats(path: string) {
     const fillledRed = maxLength - filledGreen - filledYellow;
 
     for (let i = 0; i < filledGreen; i++) {
-        indicators.push(colors.green("#"));
+        indicators.push(chalk.green("#"));
     }
     for (let i = 0; i < filledYellow; i++) {
-        indicators.push(colors.yellow("#"));
+        indicators.push(chalk.yellow("#"));
     }
     for (let i = 0; i < fillledRed; i++) {
-        indicators.push(colors.gray("·"));
+        indicators.push(chalk.gray("·"));
     }
     const translatedPercent = poStats.translated / poStats.total;
     console.log(
