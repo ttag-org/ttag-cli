@@ -175,7 +175,7 @@ yargs
     )
     .command(
         "spell <pofile> [locale]",
-        "will spellcheck po file messages",
+        "will spellcheck po file messages with given locale, locale can be autodetected from pofile",
         {},
         argv => {
             spell(argv.pofile, argv.locale);
