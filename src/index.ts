@@ -9,6 +9,7 @@ import filter from "./commands/filter";
 import stats from "./commands/stats";
 import replace from "./commands/replace";
 import color from "./commands/color";
+import spell from "./commands/spell";
 import "./declarations";
 
 yargs
@@ -170,6 +171,14 @@ yargs
         {},
         argv => {
             color(argv.pofile);
+        }
+    )
+    .command(
+        "spell <pofile> [locale]",
+        "will spellcheck po file messages",
+        {},
+        argv => {
+            spell(argv.pofile, argv.locale);
         }
     )
     .command("*", "", {}, argv => {

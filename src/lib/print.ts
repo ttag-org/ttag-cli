@@ -16,7 +16,10 @@ export function printComments(comments: Comments | undefined) {
         return;
     }
     for (const comment of comments.reference.split("\n")) {
-        process.stdout.write(chalk.blue(`#${comment}\n`));
+        process.stdout.write(chalk.blue(`#: ${comment}\n`));
+    }
+    if (comments.flag === "fuzzy") {
+        process.stdout.write(chalk.blue("#, fuzzy\n"));
     }
 }
 

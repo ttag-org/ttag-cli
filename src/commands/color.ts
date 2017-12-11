@@ -1,19 +1,8 @@
 import * as chalk from "chalk";
 import * as fs from "fs";
-import { Translations, Message, parse } from "../lib/parser";
+import { parse } from "../lib/parser";
+import { iterateTranslations } from "../lib/utils";
 import { printHeader, printMsg } from "../lib/print";
-
-/* Iterate translations from all contexts in a searial run */
-function* iterateTranslations(
-    translations: Translations
-): IterableIterator<Message> {
-    for (const ctxtId of Object.keys(translations)) {
-        const ctxt = translations[ctxtId];
-        for (const msgid of Object.keys(ctxt)) {
-            yield ctxt[msgid];
-        }
-    }
-}
 
 export default function color(path: string) {
     // Force color output even on tty, otherwise this command is useless
