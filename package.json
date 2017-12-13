@@ -13,7 +13,7 @@
     "upgrade": "yarn upgrade-interactive",
     "pretty": "prettier --write \"./src/**/*.ts\" \"./tests/**/*.ts\"",
     "precommit": "lint-staged",
-    "postinstall": "cp ./scripts/c-3po /etc/bash_completion.d/"
+    "postinstall": "./scripts/install_completion.js"
   },
   "lint-staged": {
     "*.{ts,css,tsx}": [
