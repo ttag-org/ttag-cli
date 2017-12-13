@@ -191,19 +191,33 @@ yargs
         }
     )
     .command("*", "", {}, argv => {
-        console.log(`command "${argv._[0]}" is not found.`);
-        console.log("Use 'c-3po --help' to see available commands");
-    })
-    .completion("completion", (current: string, _: any, done) => {
-        let suggestedCommands: string[];
-        if (current != "--") {
-            suggestedCommands = commands.filter(c => c.indexOf(current) == 0);
+        const possibleCommand = commands.find(s => s.startsWith(argv._[0]));
+        if (possibleCommand) {
+            process.stdout.write(`Did you mean ${possibleCommand}? \n`);
         } else {
-            suggestedCommands = commands.filter(
-                c => c != "$0" && c != "completion"
-            );
+            process.stdout.write(`command "${argv._[0]}" is not found.\n`);
         }
-        done(suggestedCommands);
+        process.stdout.write(
+            "Use 'c-3po --help' to see available commands? \n"
+        );
+    })
+    .completion("completion", (current: string, argv: any, done) => {
+        if (commands.indexOf(argv._[0]) != -1) {
+            // argv._[0] is a current first argument, if it is a command
+            // we should return empty to allow filesystem autocompletion
+            done([]);
+        } else if (argv._.length == 0) {
+            // Return full commands list when user did not input anything
+            done(commands);
+        } else {
+            // Suggest command which starts with user input
+            done(commands.filter(c => c.indexOf(current) == 0));
+        }
     });
-const commands = yargs.getCommandInstance().getCommands();
+
+const commands = yargs
+    .getCommandInstance()
+    .getCommands()
+    .filter(c => c != "$0" && c != "completion");
+
 yargs.help().argv;
