@@ -9,5 +9,5 @@ if (fs.existsSync(completionDir)) {
         console.warn("Could not install bash completion, run install with --unsafe");
     }
 } else {
-    console.log("Platform does not have completion feature or " + completionDir)
+    console.log("Platform does not have completion feature or " + completionDir);
 }
