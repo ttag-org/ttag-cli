@@ -12,7 +12,8 @@
     "build": "tsc",
     "upgrade": "yarn upgrade-interactive",
     "pretty": "prettier --write \"./src/**/*.ts\" \"./tests/**/*.ts\"",
-    "precommit": "lint-staged"
+    "precommit": "lint-staged",
+    "postinstall": "cp ./scripts/c-3po /etc/bash_completion.d/"
   },
   "lint-staged": {
     "*.{ts,css,tsx}": [
@@ -34,6 +35,7 @@
     "@types/node-fetch": "^1.6.7",
     "@types/readline-sync": "^1.4.2",
     "@types/tmp": "^0.0.33",
+    "@types/serialize-javascript": "^1.3.2",
     "husky": "^0.14.3",
     "jest": "21.2.1",
     "lint-staged": "^5.0.0",
@@ -43,7 +45,6 @@
     "typescript": "2.6.1"
   },
   "dependencies": {
-    "@types/serialize-javascript": "^1.3.2",
     "ansi": "^0.3.1",
     "babel-core": "6.26.0",
     "babel-plugin-c-3po": "0.7.3",

@@ -1,0 +1,10 @@
+_c-3po_completion() {
+    cur="${COMP_WORDS[COMP_CWORD]}"
+    COMPREPLY=( $(c-3po --get-yargs-completions "${COMP_WORDS[@]:1:$((COMP_CWORD-1))}" -- ${cur} 2>/dev/null) )
+    if [[ ${COMPREPLY} == "" ]]; then
+        COMPREPLY=( $(compgen -f -- ${cur}) )
+    fi
+    return 0
+}
+
+complete -o filenames -F _c-3po_completion c-3po

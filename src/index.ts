@@ -12,6 +12,15 @@ import color from "./commands/color";
 import spell from "./commands/spell";
 import "./declarations";
 
+declare module "yargs" {
+    interface CommandInstance {
+        getCommands: () => string[];
+    }
+    interface Argv {
+        getCommandInstance: () => CommandInstance;
+    }
+}
+
 yargs
     .usage("$0 <cmd> [args]")
     .command(
@@ -185,4 +194,16 @@ yargs
         console.log(`command "${argv._[0]}" is not found.`);
         console.log("Use 'c-3po --help' to see available commands");
     })
-    .help().argv;
+    .completion("completion", (current: string, _: any, done) => {
+        let suggestedCommands: string[];
+        if (current != "--") {
+            suggestedCommands = commands.filter(c => c.indexOf(current) == 0);
+        } else {
+            suggestedCommands = commands.filter(
+                c => c != "$0" && c != "completion"
+            );
+        }
+        done(suggestedCommands);
+    });
+const commands = yargs.getCommandInstance().getCommands();
+yargs.help().argv;
