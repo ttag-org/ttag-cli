@@ -26,6 +26,7 @@ export type Translations = {
 };
 
 export type Headers = {
+    language?: string;
     "content-type"?: string;
     "plural-forms": string;
 };
