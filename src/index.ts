@@ -10,6 +10,8 @@ import stats from "./commands/stats";
 import replace from "./commands/replace";
 import color from "./commands/color";
 import spell from "./commands/spell";
+import validate from "./commands/validate";
+
 import "./declarations";
 
 declare module "yargs" {
@@ -188,6 +190,14 @@ yargs
         {},
         argv => {
             spell(argv.pofile, argv.locale);
+        }
+    )
+    .command(
+        "validate <pofile>",
+        "will validate js template strings (`${x}`) in messages and translations and against each other",
+        {},
+        argv => {
+            validate(argv.pofile);
         }
     )
     .command("*", "", {}, argv => {

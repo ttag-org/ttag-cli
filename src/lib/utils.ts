@@ -1,4 +1,6 @@
 import { Translations, Message } from "./parser";
+import generate from "babel-generator";
+import { Node } from "babel-types";
 
 const pluralNumRegex = /^nplurals ?= ?(\d);/;
 
@@ -26,4 +28,8 @@ export function* iterateTranslations(
             yield ctxt[msgid];
         }
     }
+}
+
+export function ast2Str(ast: Node): string {
+    return generate(ast).code;
 }
