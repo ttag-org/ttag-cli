@@ -1,4 +1,5 @@
 import * as yargs from "yargs";
+import { Options } from "yargs";
 import extract from "./commands/extract";
 import check from "./commands/check";
 import merge from "./commands/merge";
@@ -15,8 +16,26 @@ import validate from "./commands/validate";
 import "./declarations";
 
 declare module "yargs" {
+    interface Argv {
+        /* we need this to be able to make "hidden" commands: https://github.com/yargs/yargs/pull/190 */
+        command(
+            command: string | string[],
+            description: string | boolean,
+            builder: { [optionName: string]: Options },
+            handler: (args: Arguments) => void
+        ): Argv;
+    }
+
+    interface Command {
+        original: string;
+        description: string;
+        handler: Function;
+        builder: { [key: string]: Options };
+    }
+
     interface CommandInstance {
         getCommands: () => string[];
+        getCommandHandlers: () => { [key: string]: Command };
     }
     interface Argv {
         getCommandInstance: () => CommandInstance;
@@ -200,6 +219,45 @@ yargs
             validate(argv.pofile);
         }
     )
+    .command("doc", false, {}, _ => {
+        const isIgnored = (c: string) =>
+            c == "doc" || c == "completion" || c == "$0";
+        const printOption = (name: string, option: Options) => {
+            return (
+                `-${name}` +
+                (option.alias ? `  --${option.alias}` : "") +
+                `   ${option.description}  ` +
+                (option.default !== undefined
+                    ? `(default: ${option.default})`
+                    : "") +
+                `\n`
+            );
+        };
+
+        for (const commandName of Object.keys(handlers)) {
+            if (isIgnored(commandName)) {
+                continue;
+            }
+            const command = handlers[commandName];
+            const options = handlers[commandName].builder;
+            const optionNames = Object.keys(options);
+            process.stdout.write(
+                `## \`${command.original}\`` +
+                    `\n` +
+                    `${command.description}` +
+                    `\n` +
+                    (optionNames.length > 0
+                        ? `### Arguments\n` +
+                          optionNames.reduce(
+                              (body: string, optname: string) =>
+                                  body + printOption(optname, options[optname]),
+                              ""
+                          )
+                        : "") +
+                    `\n\n`
+            );
+        }
+    })
     .command("*", "", {}, argv => {
         const possibleCommand = commands.find(s => s.startsWith(argv._[0]));
         if (possibleCommand) {
@@ -225,8 +283,9 @@ yargs
         }
     });
 
-const commands = yargs
-    .getCommandInstance()
+const commandInstance = yargs.getCommandInstance();
+export const handlers = commandInstance.getCommandHandlers();
+const commands = commandInstance
     .getCommands()
     .filter(c => c != "$0" && c != "completion");
 
