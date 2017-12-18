@@ -37,13 +37,31 @@ declare module "yargs" {
         getCommands: () => string[];
         getCommandHandlers: () => { [key: string]: Command };
     }
+
+    interface UsageInstance {
+        example: (cmd: string, desc: string) => void;
+    }
+
     interface Argv {
         getCommandInstance: () => CommandInstance;
+        getUsageInstance: () => UsageInstance;
     }
 }
 
+yargs.usage("$0 <cmd> [args]");
+/* Monkey patch example func of usage to store examples locally */
+/* TODO: contribute a patch to make examples available through usage instance */
+const usage = yargs.getUsageInstance();
+const exampleMap: Map<string, string> = new Map();
+
+const originalExampleFunc = usage.example;
+
+usage.example = (cmd: string, desc: string) => {
+    originalExampleFunc(cmd, desc);
+    exampleMap.set(cmd, desc);
+};
+
 yargs
-    .usage("$0 <cmd> [args]")
     .command(
         "extract [output|lang] <src...>",
         "will extract translations to .pot file",
@@ -247,12 +265,15 @@ yargs
                     `${command.description}` +
                     `\n` +
                     (optionNames.length > 0
-                        ? `#### Arguments\n` +
+                        ? `#### Arguments:\n` +
                           optionNames.reduce(
                               (body: string, optname: string) =>
                                   body + printOption(optname, options[optname]),
                               ""
                           )
+                        : "") +
+                    (exampleMap.has(commandName)
+                        ? `#### Example:\n` + exampleMap.get(commandName)
                         : "") +
                     `\n\n`
             );
@@ -281,7 +302,13 @@ yargs
             // Suggest command which starts with user input
             done(commands.filter(c => c.indexOf(current) == 0));
         }
-    });
+    })
+    .example(
+        "filter",
+        "\t c-3po filter -nt small.po\n\n" +
+            '\t msgid "test"\n' +
+            '\t msgstr ""'
+    );
 
 const commandInstance = yargs.getCommandInstance();
 export const handlers = commandInstance.getCommandHandlers();

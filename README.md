@@ -8,14 +8,14 @@ Command line utility for c-3po translation library
 
 ### `extract [output|lang] <src...>`
 will extract translations to .pot file
-#### Arguments
+#### Arguments:
 	-output  --o   result file with translations (.pot)  (default: translations.pot)
 	-lang  --l   sets default lang (ISO format)  (default: en)
 
 
 ### `check [lang] <pofile> <src...>`
 will check if all translations are present in .po file
-#### Arguments
+#### Arguments:
 	-lang  --l   sets default lang (ISO format)  (default: en)
 
 
@@ -25,7 +25,7 @@ will merge two or more po(t) files together using first non-empty msgstr and hea
 
 ### `translate <path> [args]`
 will open interactive prompt to translate all msgids with empty msgstr in cli
-#### Arguments
+#### Arguments:
 	-output  --o   result file with translations (.po)  (default: translated.po)
 
 
@@ -35,24 +35,28 @@ will display various pofile statistics(encoding, plurals, translated, fuzzyness)
 
 ### `filter <path> [args]`
 will filter pofile by entry attributes(fuzzy, obsolete, (un)translated)
-#### Arguments
+#### Arguments:
 	-fuzzy  --f   result file with fuzzy messages (.po)  (default: false)
 	-no-fuzzy  --nf   result file without fuzzy messages (.po)  (default: false)
 	-translated  --t   result file with translations (.po)  (default: false)
 	-not-translated  --nt   result file without translations (.po)  (default: false)
 	-reference  --r   a regexp to match references against  (default: )
+#### Example:
+	 c-3po filter -nt small.po
 
+	 msgid "test"
+	 msgstr ""
 
 ### `init <lang> <filename>`
 will create an empty .po file with all necessary headers for the locale
-#### Arguments
+#### Arguments:
 	-lang   sets default locale (ISO format)  (default: en)
 	-filename   path to the .po file  
 
 
 ### `update [lang] <pofile> <src..>`
 will update existing po file. Add/remove new translations
-#### Arguments
+#### Arguments:
 	-lang   sets default locale (ISO format)  (default: en)
 	-pofile   path to .po file with translations  
 	-src   path to source files/directories  
