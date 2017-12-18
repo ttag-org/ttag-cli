@@ -37,13 +37,31 @@ declare module "yargs" {
         getCommands: () => string[];
         getCommandHandlers: () => { [key: string]: Command };
     }
+
+    interface UsageInstance {
+        example: (cmd: string, desc: string) => void;
+    }
+
     interface Argv {
         getCommandInstance: () => CommandInstance;
+        getUsageInstance: () => UsageInstance;
     }
 }
 
+yargs.usage("$0 <cmd> [args]");
+/* Monkey patch example func of usage to store examples locally */
+/* TODO: contribute a patch to make examples available through usage instance */
+const usage = yargs.getUsageInstance();
+const examples: string[][] = [];
+
+const originalExampleFunc = usage.example;
+
+usage.example = (cmd, desc) => {
+    originalExampleFunc(cmd, desc);
+    examples.push([cmd, desc]);
+};
+
 yargs
-    .usage("$0 <cmd> [args]")
     .command(
         "extract [output|lang] <src...>",
         "will extract translations to .pot file",
@@ -220,6 +238,15 @@ yargs
         }
     )
     .command("doc", false, {}, _ => {
+        const exampleMap = examples.reduce(
+            (acc: { [k: string]: string }, examplePair: string[]) => {
+                const [command, example] = examplePair;
+                acc[command] = example;
+                return acc;
+            },
+            <{ [k: string]: string }>{}
+        );
+
         const isIgnored = (c: string) =>
             c == "doc" || c == "completion" || c == "$0";
         const printOption = (name: string, option: Options) => {
@@ -247,12 +274,15 @@ yargs
                     `${command.description}` +
                     `\n` +
                     (optionNames.length > 0
-                        ? `#### Arguments\n` +
+                        ? `#### Arguments:\n` +
                           optionNames.reduce(
                               (body: string, optname: string) =>
                                   body + printOption(optname, options[optname]),
                               ""
                           )
+                        : "") +
+                    (exampleMap[commandName]
+                        ? `#### Example:\n` + exampleMap[commandName]
                         : "") +
                     `\n\n`
             );
@@ -281,7 +311,13 @@ yargs
             // Suggest command which starts with user input
             done(commands.filter(c => c.indexOf(current) == 0));
         }
-    });
+    })
+    .example(
+        "filter",
+        "\t c-3po filter -nt small.po\n\n" +
+            '\t msgid "test"\n' +
+            '\t msgstr ""'
+    );
 
 const commandInstance = yargs.getCommandInstance();
 export const handlers = commandInstance.getCommandHandlers();
