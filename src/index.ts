@@ -52,13 +52,13 @@ yargs.usage("$0 <cmd> [args]");
 /* Monkey patch example func of usage to store examples locally */
 /* TODO: contribute a patch to make examples available through usage instance */
 const usage = yargs.getUsageInstance();
-const examples: string[][] = [];
+const exampleMap: Map<string, string> = new Map();
 
 const originalExampleFunc = usage.example;
 
-usage.example = (cmd, desc) => {
+usage.example = (cmd: string, desc: string) => {
     originalExampleFunc(cmd, desc);
-    examples.push([cmd, desc]);
+    exampleMap.set(cmd, desc);
 };
 
 yargs
@@ -238,15 +238,6 @@ yargs
         }
     )
     .command("doc", false, {}, _ => {
-        const exampleMap = examples.reduce(
-            (acc: { [k: string]: string }, examplePair: string[]) => {
-                const [command, example] = examplePair;
-                acc[command] = example;
-                return acc;
-            },
-            <{ [k: string]: string }>{}
-        );
-
         const isIgnored = (c: string) =>
             c == "doc" || c == "completion" || c == "$0";
         const printOption = (name: string, option: Options) => {
@@ -281,8 +272,8 @@ yargs
                               ""
                           )
                         : "") +
-                    (exampleMap[commandName]
-                        ? `#### Example:\n` + exampleMap[commandName]
+                    (exampleMap.has(commandName)
+                        ? `#### Example:\n` + exampleMap.get(commandName)
                         : "") +
                     `\n\n`
             );
