@@ -224,7 +224,7 @@ yargs
             c == "doc" || c == "completion" || c == "$0";
         const printOption = (name: string, option: Options) => {
             return (
-                `-${name}` +
+                `\t-${name}` +
                 (option.alias ? `  --${option.alias}` : "") +
                 `   ${option.description}  ` +
                 (option.default !== undefined
@@ -242,12 +242,12 @@ yargs
             const options = handlers[commandName].builder;
             const optionNames = Object.keys(options);
             process.stdout.write(
-                `## \`${command.original}\`` +
+                `### \`${command.original}\`` +
                     `\n` +
                     `${command.description}` +
                     `\n` +
                     (optionNames.length > 0
-                        ? `### Arguments\n` +
+                        ? `#### Arguments\n` +
                           optionNames.reduce(
                               (body: string, optname: string) =>
                                   body + printOption(optname, options[optname]),
