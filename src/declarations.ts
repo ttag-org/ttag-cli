@@ -1,5 +1,5 @@
 declare module "walk";
-declare module "chalk";
+declare module "cross-spawn";
 declare module "hunspell-spellchecker";
 declare module "gettext-parser";
 declare module "gettext-parser/lib/shared";

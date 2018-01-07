@@ -1,6 +1,6 @@
 import * as fs from "fs";
 import { parse } from "../lib/parser";
-import * as chalk from "chalk";
+import chalk from "chalk";
 import { printMsg } from "../lib/print";
 import { iterateTranslations } from "../lib/utils";
 import { checkFormat } from "../lib/validation";

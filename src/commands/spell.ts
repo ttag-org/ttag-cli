@@ -2,7 +2,7 @@ import * as fs from "fs";
 import { parse } from "../lib/parser";
 import * as ora from "ora";
 import * as c3poTypes from "../types";
-import * as chalk from "chalk";
+import chalk from "chalk";
 import { iterateTranslations } from "../lib/utils";
 import { getChecker, Checker } from "../lib/spell";
 import { printMsg } from "../lib/print";

@@ -1,4 +1,4 @@
-import * as chalk from "chalk";
+import chalk from "chalk";
 import * as fs from "fs";
 import { parse } from "../lib/parser";
 import { iterateTranslations } from "../lib/utils";
