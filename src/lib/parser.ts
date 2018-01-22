@@ -10,6 +10,7 @@ export interface Comments {
 }
 
 export type Message = {
+    msgctxt?: string;
     msgid: string;
     msgid_plural?: string;
     comments?: Comments;
@@ -25,6 +26,7 @@ export type Translations = {
 };
 
 export type Headers = {
+    language?: string;
     "content-type"?: string;
     "plural-forms": string;
 };

@@ -1,0 +1,13 @@
+msgid ""
+msgstr ""
+"Language: en\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+#: tests/fixtures/checkTest/check-trans-exist.js:2
+#, fuzzy
+msgid "test_correct spelling"
+msgstr "tail"
+
+msgid "test_incorrect_spelling"
+msgstr "tll"

@@ -1,0 +1,20 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=utf-8\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+#: tests/fixtures/checkTest/check-trans-exist.js:2
+msgid "test_empty"
+msgstr ""
+
+msgctxt "xxx"
+msgid "test_broken ${y}_fuzzy_no_ref${x(13)}"
+msgstr "tail${y} ${x(12) + 12} ${z}"
+
+#: tests/fixtures/testset.js:2
+msgid "test_no_interpolation"
+msgstr "xxxx"
+
+#: tests/fixtures/testset.js:2
+msgid "test_correct_interpolation ${x} ${y()} ${z + 5}"
+msgstr "test_correct_interpolation ${x} ${y()} ${z + 5}"

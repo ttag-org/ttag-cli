@@ -1,8 +1,14 @@
 import * as fs from "fs";
-import { parse, Message, Translations, Comments, PoData } from "../lib/parser";
-import { serialize } from "../lib/serializer";
 import * as readlineSync from "readline-sync";
-import * as colors from "colors/safe";
+import * as chalk from "chalk";
+import { parse, Message, Translations, PoData } from "../lib/parser";
+import { serialize } from "../lib/serializer";
+import {
+    printComments,
+    printContext,
+    printMsgid,
+    printMsgidPlural
+} from "../lib/print";
 
 /* Generate untranslated messages along with context */
 export function* untranslatedStream(
@@ -26,43 +32,11 @@ export function read(path: string): PoData {
 function* translationStream(msgstr: string[]): IterableIterator<string> {
     if (msgstr.length > 1) {
         for (let i = 0; i < msgstr.length; i++) {
-            yield readlineSync.question(colors.yellow(`msgstr[${i}]: `));
+            yield readlineSync.question(chalk.yellow(`msgstr[${i}]: `));
         }
     } else {
-        yield readlineSync.question(colors.yellow(`msgstr: `));
+        yield readlineSync.question(chalk.yellow(`msgstr: `));
     }
-}
-
-/* Print formatted comments if exists */
-function printComments(comments: Comments | undefined) {
-    if (!comments) {
-        return;
-    }
-    if (!comments.reference) {
-        return;
-    }
-    for (const comment of comments.reference.split("\n")) {
-        console.log(colors.blue(`#${comment}`));
-    }
-}
-
-/* Print formatted context if exists */
-function printContext(ctxt: string) {
-    if (ctxt != "") {
-        console.log(`${colors.yellow("msgctxt")} "${ctxt}"`);
-    }
-}
-/* Print formatted msgid */
-function printMsgid(msgid: string) {
-    console.log(`${colors.yellow("msgid:")} "${msgid}"`);
-}
-
-/* Print formatted msgid plural*/
-function printMsgidPlural(msgid_plural: string | undefined) {
-    if (!msgid_plural) {
-        return;
-    }
-    console.log(`${colors.yellow("msgid_plural:")} "${msgid_plural}"`);
 }
 
 export default function translate(path: string, output: string) {

@@ -3,7 +3,7 @@ import { execSync } from "child_process";
 
 const poPath = path.resolve(__dirname, "../fixtures/statsTest/stats.po");
 
-test("filter out fuzzy entries", () => {
+test("display basic file stats", () => {
     const result = execSync(`ts-node src/index.ts stats ${poPath}`).toString();
     expect(result).toMatchSnapshot();
 });

@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`find basic spelling error with locale autodetect 1`] = `
+"[33mmsgid[39m \\"test_incorrect_spelling\\"
+[33mmsgstr[39m \\"[4m[41mtll[49m[24m\\"
+
+
+"
+`;
