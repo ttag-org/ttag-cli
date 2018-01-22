@@ -63,8 +63,20 @@ async function check(pofile: string, paths: string[], lang: string) {
         `[c-3po] checking translations from ${paths} ...`
     );
     progress.start();
+
     const translations = parse(fs.readFileSync(pofile).toString());
-    const keysOnly = parse(await extractAll(paths, lang, progress));
+    let keysOnly = null;
+
+    try {
+        keysOnly = parse(await extractAll(paths, lang, progress));
+    } catch (err) {
+        if (err.codeFrame) {
+            console.error(err.codeFrame);
+        }
+        progress.fail("Failed to extract translations");
+        process.exit(1);
+        return;
+    }
 
     let untranslatedStream = getUntranslated(translations, keysOnly);
     untranslatedStream = warningPipe(pofile, progress, untranslatedStream);
