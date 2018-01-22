@@ -65,18 +65,7 @@ async function check(pofile: string, paths: string[], lang: string) {
     progress.start();
 
     const translations = parse(fs.readFileSync(pofile).toString());
-    let keysOnly = null;
-
-    try {
-        keysOnly = parse(await extractAll(paths, lang, progress));
-    } catch (err) {
-        if (err.codeFrame) {
-            console.error(err.codeFrame);
-        }
-        progress.fail("Failed to extract translations");
-        process.exit(1);
-        return;
-    }
+    const keysOnly = parse(await extractAll(paths, lang, progress));
 
     let untranslatedStream = getUntranslated(translations, keysOnly);
     untranslatedStream = warningPipe(pofile, progress, untranslatedStream);
