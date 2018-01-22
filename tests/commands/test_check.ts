@@ -10,6 +10,10 @@ const checkNotPass = path.resolve(
     __dirname,
     "../fixtures/checkTest/check-trans-not-exist.js"
 );
+const checkInvalidFormat = path.resolve(
+    __dirname,
+    "../fixtures/checkTest/check-trans-invalid-format.js"
+);
 
 test("check when all string are translated", () => {
     const result = execSync(
@@ -30,5 +34,15 @@ test("check when some translation is missing", () => {
         expect(err.stderr.toString()).toContain(
             "[c-3po] has found 1 untranslated string(s)"
         );
+    }
+});
+
+test("validation for translations fromat", () => {
+    try {
+        execSync(`ts-node src/index.ts check ${poPath} ${checkInvalidFormat}`);
+        expect(false).toBe(true); // must fail anyway
+    } catch (err) {
+        expect(err.status).toBe(1);
+        expect(err.stderr.toString()).toContain("> 3 | t`${name}`;");
     }
 });
