@@ -1,6 +1,6 @@
 {
   "name": "c-3po-cli",
-  "version": "0.0.21",
+  "version": "0.1.1",
   "main": "index.js",
   "repository": "git@github.com:c-3po-org/c-3po-cli.git",
   "author": "",

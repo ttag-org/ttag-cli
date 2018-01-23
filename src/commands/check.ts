@@ -63,6 +63,7 @@ async function check(pofile: string, paths: string[], lang: string) {
         `[c-3po] checking translations from ${paths} ...`
     );
     progress.start();
+
     const translations = parse(fs.readFileSync(pofile).toString());
     const keysOnly = parse(await extractAll(paths, lang, progress));
 

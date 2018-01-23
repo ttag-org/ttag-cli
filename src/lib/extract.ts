@@ -24,7 +24,16 @@ export async function extractAll(
         plugins: [[babelPluginC3po, c3pOptions]]
     };
     const transformFn: TransformFn = filepath => {
-        babel.transformFileSync(filepath, babelOptions);
+        try {
+            babel.transformFileSync(filepath, babelOptions);
+        } catch (err) {
+            if (err.codeFrame) {
+                console.error(err.codeFrame);
+            }
+            progress.fail("Failed to extract translations");
+            process.exit(1);
+            return;
+        }
     };
     await pathsWalk(paths, progress, transformFn);
     const result = fs.readFileSync(tmpFile.name).toString();
