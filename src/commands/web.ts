@@ -12,8 +12,8 @@ async function editor(ctx: Application.Context) {
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="theme-color" content="#000000">
-        <link rel="manifest" href="/manifest.json">
-        <link rel="shortcut icon" href="/favicon.ico">
+        <link rel="manifest" href="https://unpkg.com/c-3po-editor/public/manifest.json">
+        <link rel="shortcut icon" href="https://unpkg.com/c-3po-editor/public/favicon.ico">
         <title>C-3po editor</title>
     </head>
     <body>
@@ -26,15 +26,8 @@ async function editor(ctx: Application.Context) {
             source: 'local'
         }
     </script>
-    <script type="text/javascript" src="bundle.js"></script></body>
+    <script type="text/javascript" src="https://unpkg.com/c-3po-editor"></script></body>
     </html>`;
-}
-
-async function bundle(ctx: Application.Context) {
-    const bundleData = fs.readFileSync("bundle.js");
-    ctx.set("Content-Type", "application/javascript");
-    ctx.set("Cache-Control", "no-cache, no-store, must-revalidate");
-    ctx.body = bundleData;
 }
 
 export default function translate(path: string) {
@@ -56,7 +49,6 @@ export default function translate(path: string) {
     router
         .get("/", editor)
         .get("/open", open)
-        .get("/bundle.js", bundle)
         .post("/save", save);
 
     app.use(koaBody());
