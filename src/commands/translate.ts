@@ -1,6 +1,6 @@
 import * as fs from "fs";
 import * as readlineSync from "readline-sync";
-import * as chalk from "chalk";
+import chalk from "chalk";
 import { parse, Message, Translations, PoData } from "../lib/parser";
 import { serialize } from "../lib/serializer";
 import {

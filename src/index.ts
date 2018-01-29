@@ -12,6 +12,7 @@ import replace from "./commands/replace";
 import color from "./commands/color";
 import spell from "./commands/spell";
 import validate from "./commands/validate";
+import web from "./commands/web";
 
 import "./declarations";
 
@@ -237,6 +238,9 @@ yargs
             validate(argv.pofile);
         }
     )
+    .command("web <pofile>", "will open pofile in web editor", {}, argv => {
+        web(argv.pofile);
+    })
     .command("doc", false, {}, _ => {
         const isIgnored = (c: string) =>
             c == "doc" || c == "completion" || c == "$0";

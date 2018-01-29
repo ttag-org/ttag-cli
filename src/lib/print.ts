@@ -1,4 +1,4 @@
-import * as chalk from "chalk";
+import chalk from "chalk";
 import { Comments, Message, Headers } from "./parser";
 import { generateHeader } from "gettext-parser/lib/shared";
 
