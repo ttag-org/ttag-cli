@@ -23,7 +23,18 @@ async function editor(ctx: Application.Context) {
         <div id="root"></div>
     <script type=text/javascript>
         window.C3POEDITOR = {
-            source: 'local'
+            source: 'local',
+            load: fetch('/open').then((response) => response.text()),
+            save: function(content){
+                fetch('/save', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'text/plain',
+                        'Content-Length': content.length.toString(),
+                    },
+                    body: content
+                });
+            }
         }
     </script>
     <script type="text/javascript" src="https://unpkg.com/c-3po-editor"></script></body>
@@ -49,6 +60,8 @@ export default function translate(path: string) {
     router
         .get("/", editor)
         .get("/open", open)
+        //debug static serve
+        .get("/bundle.js", ctx => (ctx.body = fs.readFileSync("bundle.js")))
         .post("/save", save);
 
     app.use(koaBody());
