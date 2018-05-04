@@ -1,4 +1,4 @@
-import { t, ngettext, msgid } from 'c-3po';
+import { t, ngettext, msgid } from 'ttag';
 
 t`test`;
 t`new`;

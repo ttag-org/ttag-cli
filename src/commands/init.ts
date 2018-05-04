@@ -26,5 +26,5 @@ export default function init(language: string, pofile: string) {
     progress.start();
     const poContent = generatePoFile(language);
     fs.writeFileSync(pofile, poContent);
-    progress.succeed(`[c-3po] ${pofile} is created`);
+    progress.succeed(`[ttag] ${pofile} is created`);
 }

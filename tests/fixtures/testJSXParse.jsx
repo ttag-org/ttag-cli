@@ -1,5 +1,5 @@
 import React from 'react';
-import { jt } from 'c-3po';
+import { jt } from 'ttag';
 
 export default () => (
     <div>

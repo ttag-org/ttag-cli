@@ -1,0 +1,10 @@
+_ttag_completion() {
+    cur="${COMP_WORDS[COMP_CWORD]}"
+    COMPREPLY=( $(ttag --get-yargs-completions "${COMP_WORDS[@]:1:$((COMP_CWORD-1))}" -- ${cur} 2>/dev/null) )
+    if [[ ${COMPREPLY} == "" ]]; then
+        COMPREPLY=( $(compgen -f -- ${cur}) )
+    fi
+    return 0
+}
+
+complete -o filenames -F _ttag_completion ttag

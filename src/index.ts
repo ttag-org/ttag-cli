@@ -290,9 +290,7 @@ yargs
         } else {
             process.stdout.write(`command "${argv._[0]}" is not found.\n`);
         }
-        process.stdout.write(
-            "Use 'c-3po --help' to see available commands? \n"
-        );
+        process.stdout.write("Use 'ttag --help' to see available commands? \n");
     })
     .completion("completion", (current: string, argv: any, done) => {
         if (commands.indexOf(argv._[0]) != -1) {
@@ -309,9 +307,7 @@ yargs
     })
     .example(
         "filter",
-        "\t c-3po filter -nt small.po\n\n" +
-            '\t msgid "test"\n' +
-            '\t msgstr ""'
+        "\t ttag filter -nt small.po\n\n" + '\t msgid "test"\n' + '\t msgstr ""'
     );
 
 const commandInstance = yargs.getCommandInstance();

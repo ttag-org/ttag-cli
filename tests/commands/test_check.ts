@@ -32,7 +32,7 @@ test("check when some translation is missing", () => {
             "Translation 'test not test' is not found"
         );
         expect(err.stderr.toString()).toContain(
-            "[c-3po] has found 1 untranslated string(s)"
+            "[ttag] has found 1 untranslated string(s)"
         );
     }
 });

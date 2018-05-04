@@ -8,7 +8,7 @@ import * as serialize from "serialize-javascript";
 import * as Spellchecker from "hunspell-spellchecker";
 
 const HOMEDIR = os.homedir();
-const C3PODIR = ".c-3po";
+const C3PODIR = ".ttag";
 const DICTDIR = "dicts";
 
 export interface Checker {

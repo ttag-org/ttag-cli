@@ -3,7 +3,7 @@ import * as babel from "babel-core";
 import * as fs from "fs";
 import * as tmp from "tmp";
 import { getPluralFormsHeader } from "plural-forms";
-import babelPluginC3po from "babel-plugin-c-3po";
+import babelPluginTtag from "babel-plugin-ttag";
 import * as babelPresetReact from "babel-preset-react";
 import * as c3poTypes from "../types";
 import { TransformFn, pathsWalk } from "./pathsWalk";
@@ -21,7 +21,7 @@ export async function extractAll(
     }
     const babelOptions = {
         presets: [babelPresetReact],
-        plugins: [[babelPluginC3po, c3pOptions]]
+        plugins: [[babelPluginTtag, c3pOptions]]
     };
     const transformFn: TransformFn = filepath => {
         try {

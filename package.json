@@ -1,8 +1,8 @@
 {
-  "name": "c-3po-cli",
+  "name": "ttag-cli",
   "version": "0.1.1",
   "main": "index.js",
-  "repository": "git@github.com:c-3po-org/c-3po-cli.git",
+  "repository": "git@github.com:ttag-org/ttag-cli.git",
   "author": "",
   "license": "MIT",
   "scripts": {
@@ -22,7 +22,7 @@
     ]
   },
   "bin": {
-    "c-3po": "./bin/c-3po"
+    "ttag": "./bin/ttag"
   },
   "devDependencies": {
     "@types/babel-core": "6.25.3",
@@ -52,7 +52,7 @@
     "ansi": "^0.3.1",
     "babel-core": "6.26.0",
     "babel-generator": "^6.26.0",
-    "babel-plugin-c-3po": "0.7.3",
+    "babel-plugin-ttag": "^1.0.1-0",
     "babel-preset-react": "6.24.1",
     "chalk": "^2.3.0",
     "cross-spawn": "^5.1.0",
