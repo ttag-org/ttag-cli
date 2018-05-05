@@ -5,6 +5,19 @@
 
 Command line utility for ttag translation library
 
+# Installation
+```bash
+npm install ttag-cli
+# or global
+npm install -g ttag-cli
+```
+
+# Usage example:
+```
+ttag extract some.js
+```
+
+# Comands description
 <!--- BEGIN COMMANDS --->
 
 ### `extract [output|lang] <src...>`
