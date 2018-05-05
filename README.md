@@ -1,6 +1,7 @@
 # ttag-cli
 
-> status: proof of concept, work in progress
+> :warning: This project [was previously named `c-3po-cli`](https://github.com/ttag-org/ttag/issues/105).
+> Some of the talks, presentations, and documentation _may_ reference it with both names.
 
 Command line utility for ttag translation library
 
