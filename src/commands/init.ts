@@ -1,7 +1,7 @@
 import * as ora from "ora";
 import * as fs from "fs";
 import * as c3poTypes from "../types";
-import { getPluralFormsHeader, hasLocale } from "plural-forms";
+import { getPluralFormsHeader, hasLang } from "plural-forms";
 import { langValidationMsg } from "../lib/validation";
 
 function generatePoFile(language: string): string {
@@ -18,7 +18,7 @@ msgstr ""
 
 export default function init(language: string, pofile: string) {
     const progress: c3poTypes.Progress = ora();
-    if (!hasLocale(language)) {
+    if (!hasLang(language)) {
         progress.fail(langValidationMsg(language));
         process.exit(1);
         return;

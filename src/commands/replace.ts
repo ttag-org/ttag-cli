@@ -1,3 +1,4 @@
+import "../declarations";
 import * as ora from "ora";
 import * as c3poTypes from "../types";
 import * as babelPresetReact from "babel-preset-react";
@@ -13,7 +14,7 @@ async function replace(pofile: string, out: string, srcPath: string) {
         `[ttag] replacing source files with translations ...`
     );
     progress.start();
-    const c3pOptions: c3poTypes.C3POOpts = {
+    const c3pOptions: c3poTypes.TtagOpts = {
         resolve: { translations: pofile }
     };
 
