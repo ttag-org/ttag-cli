@@ -1,4 +1,4 @@
-import { ngettext, msgid } from 'c-3po';
+import { ngettext, msgid } from 'ttag';
 
 const n = 5;
 

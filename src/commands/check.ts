@@ -60,7 +60,7 @@ Check all keys from pots(keys only files) are present in pofile(files with trans
 */
 async function check(pofile: string, paths: string[], lang: string) {
     const progress: c3poTypes.Progress = ora(
-        `[c-3po] checking translations from ${paths} ...`
+        `[ttag] checking translations from ${paths} ...`
     );
     progress.start();
 
@@ -73,11 +73,11 @@ async function check(pofile: string, paths: string[], lang: string) {
 
     if (untranslated.length) {
         progress.fail(
-            `[c-3po] has found ${untranslated.length} untranslated string(s)`
+            `[ttag] has found ${untranslated.length} untranslated string(s)`
         );
         process.exit(1);
     } else {
-        progress.succeed(`[c-3po] checked`);
+        progress.succeed(`[ttag] checked`);
     }
 }
 

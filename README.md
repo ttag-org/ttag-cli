@@ -1,8 +1,9 @@
-# c-3po-cli
+# ttag-cli
 
-> status: proof of concept, work in progress
+> :warning: This project [was previously named `c-3po-cli`](https://github.com/ttag-org/ttag/issues/105).
+> Some of the talks, presentations, and documentation _may_ reference it with both names.
 
-Command line utility for c-3po translation library
+Command line utility for ttag translation library
 
 <!--- BEGIN COMMANDS --->
 
@@ -42,7 +43,7 @@ will filter pofile by entry attributes(fuzzy, obsolete, (un)translated)
 	-not-translated  --nt   result file without translations (.po)  (default: false)
 	-reference  --r   a regexp to match references against  (default: )
 #### Example:
-	 c-3po filter -nt small.po
+	 ttag filter -nt small.po
 
 	 msgid "test"
 	 msgstr ""
@@ -80,4 +81,4 @@ will validate js template strings (`${x}`) in messages and translations and agai
 
 <!--- END COMMANDS --->
 
-Please support c-3po-cli development by sending issues/PRs.
+Please support ttag-cli development by sending issues/PRs.

@@ -1,6 +1,6 @@
-export type C3POOpts = {
+export type TtagOpts = {
     extract?: Object;
-    defaultHeaders?: Object;
+    defaultLang?: string;
     resolve?: { translations: string };
 };
 

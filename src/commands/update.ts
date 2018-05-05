@@ -7,7 +7,7 @@ import { parse } from "../lib/parser";
 import { serialize } from "../lib/serializer";
 
 async function update(pofile: string, src: string[], lang: string) {
-    const progress: c3poTypes.Progress = ora(`[c-3po] updating ${pofile} ...`);
+    const progress: c3poTypes.Progress = ora(`[ttag] updating ${pofile} ...`);
     progress.start();
     const pot = parse(await extractAll(src, lang, progress));
     const po = parse(fs.readFileSync(pofile).toString());

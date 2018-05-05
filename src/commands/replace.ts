@@ -1,7 +1,8 @@
+import "../declarations";
 import * as ora from "ora";
 import * as c3poTypes from "../types";
 import * as babelPresetReact from "babel-preset-react";
-import babelPluginC3po from "babel-plugin-c-3po";
+import babelPluginC3po from "babel-plugin-ttag";
 import * as babel from "babel-core";
 import * as path from "path";
 import * as fs from "fs";
@@ -10,10 +11,10 @@ import * as mkdirp from "mkdirp";
 
 async function replace(pofile: string, out: string, srcPath: string) {
     const progress: c3poTypes.Progress = ora(
-        `[c-3po] replacing source files with translations ...`
+        `[ttag] replacing source files with translations ...`
     );
     progress.start();
-    const c3pOptions: c3poTypes.C3POOpts = {
+    const c3pOptions: c3poTypes.TtagOpts = {
         resolve: { translations: pofile }
     };
 
@@ -34,7 +35,7 @@ async function replace(pofile: string, out: string, srcPath: string) {
     };
 
     await pathsWalk([srcPath], progress, transformFn);
-    progress.succeed(`[c-3po] replace is done`);
+    progress.succeed(`[ttag] replace is done`);
 }
 
 export default replace;
