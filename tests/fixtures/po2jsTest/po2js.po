@@ -1,0 +1,24 @@
+# SOME DESCRIPTIVE TITLE
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=utf-8\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+#: tests/fixtures/checkTest/check-trans-exist.js:3
+msgid "test"
+msgstr "test translated"
+
+#: tests/fixtures/checkTest/check-trans-exist.js:3
+msgctxt "ctx1"
+msgid "test"
+msgstr "test translated"
+
+
+#: tests/fixtures/checkTest/check-trans-exist.js:3
+msgctxt "ctx2"
+msgid "test"
+msgstr "test translated"
