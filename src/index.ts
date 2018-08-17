@@ -13,6 +13,7 @@ import color from "./commands/color";
 import spell from "./commands/spell";
 import validate from "./commands/validate";
 import web from "./commands/web";
+import po2js from "./commands/po2js";
 
 import "./declarations";
 
@@ -241,6 +242,27 @@ yargs
     .command("web <pofile>", "will open pofile in web editor", {}, argv => {
         web(argv.pofile);
     })
+    .command(
+        "po2js <pofile> [args]",
+        "will parse and output po file as loadable JSON",
+        {
+            pretty: {
+                alias: "p",
+                description: "pretty print js",
+                boolean: true,
+                default: false
+            },
+            nostrip: {
+                alias: "n",
+                description: "do not strip comments/headers",
+                boolean: true,
+                default: false
+            }
+        },
+        argv => {
+            po2js(argv.pofile, argv.pretty, argv.nostrip);
+        }
+    )
     .command("doc", false, {}, _ => {
         const isIgnored = (c: string) =>
             c == "doc" || c == "completion" || c == "$0";

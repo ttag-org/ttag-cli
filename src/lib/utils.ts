@@ -18,7 +18,7 @@ export function getPluralFormsNumber(pluralFormsHeader: string): number {
     return parseInt(pluralFnCount, 10);
 }
 
-/* Iterate translations from all contexts in a searial run */
+/* Iterate translations from all contexts in a serial run */
 export function* iterateTranslations(
     translations: Translations
 ): IterableIterator<Message> {
