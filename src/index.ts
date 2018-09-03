@@ -13,7 +13,7 @@ import color from "./commands/color";
 import spell from "./commands/spell";
 import validate from "./commands/validate";
 import web from "./commands/web";
-import po2js from "./commands/po2js";
+import po2js from "./commands/po2json";
 
 import "./declarations";
 
@@ -243,7 +243,7 @@ yargs
         web(argv.pofile);
     })
     .command(
-        "po2js <pofile> [args]",
+        "po2json <pofile> [args]",
         "will parse and output po file as loadable JSON",
         {
             pretty: {
