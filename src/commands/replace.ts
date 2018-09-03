@@ -1,7 +1,7 @@
 import "../declarations";
 import * as ora from "ora";
 import * as c3poTypes from "../types";
-import * as babelPresetReact from "babel-preset-react";
+import * as babelPresetReact from "@babel/preset-react";
 import babelPluginC3po from "babel-plugin-ttag";
 import * as babel from "babel-core";
 import * as path from "path";

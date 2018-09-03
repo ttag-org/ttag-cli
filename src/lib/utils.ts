@@ -1,6 +1,6 @@
 import { Translations, Message } from "./parser";
-import generate from "babel-generator";
-import { Node } from "babel-types";
+import generate from "@babel/generator";
+import { Node } from "@babel/types";
 
 const pluralNumRegex = /^nplurals ?= ?(\d);/;
 

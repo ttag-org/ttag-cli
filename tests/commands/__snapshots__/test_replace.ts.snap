@@ -2,10 +2,10 @@
 
 exports[`replace translations 1`] = `
 "import { t } from 'ttag';
-'test translation';"
+\\"test translation\\";"
 `;
 
 exports[`replace translations 2`] = `
 "import { t } from 'ttag';
-'test 2 translation';"
+\\"test 2 translation\\";"
 `;

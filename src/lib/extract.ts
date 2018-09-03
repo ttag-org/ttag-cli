@@ -3,7 +3,7 @@ import * as babel from "babel-core";
 import * as fs from "fs";
 import * as tmp from "tmp";
 import babelPluginTtag from "babel-plugin-ttag";
-import * as babelPresetReact from "babel-preset-react";
+import * as babelPresetReact from "@babel/preset-react";
 import * as ttagTypes from "../types";
 import { TransformFn, pathsWalk } from "./pathsWalk";
 

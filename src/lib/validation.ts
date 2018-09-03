@@ -1,6 +1,6 @@
-import { File } from "babel-types";
-import * as babel from "babel-core";
+import { ExpressionStatement, TemplateLiteral } from "@babel/types";
 import { ast2Str } from "./utils";
+import tpl from "@babel/template";
 
 interface FormatCheckResult {
     missing: string[];
@@ -19,20 +19,11 @@ export function langValidationMsg(language: string): string {
 
 /* Parse template string with babel and return a Set of template identifiers and tagged expressions */
 export function parseTemplateString(str: string): Set<string> {
-    let ast: File | undefined;
     const templates: Set<string> = new Set();
-    try {
-        ast = <File>babel.transform("`" + str + "`", { sourceType: "script" })
-            .ast;
-    } catch (err) {
-        console.warn(err);
-    }
-    if (ast === undefined) {
-        return templates;
-    }
+    const expressionStmt = <ExpressionStatement>tpl("`" + str + "`")();
     // I cannot into types
-    const bodyNode = <any>ast.program.body[0];
-    for (const node of bodyNode.expression.expressions) {
+    const expression = <TemplateLiteral>expressionStmt.expression;
+    for (const node of expression.expressions) {
         if (
             node.type == "Identifier" ||
             node.type == "CallExpression" ||
