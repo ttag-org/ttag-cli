@@ -2,7 +2,11 @@ import { parse } from "../lib/parser";
 import { iterateTranslations } from "../lib/utils";
 import * as fs from "fs";
 
-export default function po2js(path: string, pretty: boolean, nostrip: boolean) {
+export default function po2json(
+    path: string,
+    pretty: boolean,
+    nostrip: boolean
+) {
     const poData = parse(fs.readFileSync(path).toString());
     const messages = iterateTranslations(poData.translations);
     if (!nostrip) {
