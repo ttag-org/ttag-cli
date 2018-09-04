@@ -5,3 +5,7 @@ declare module "gettext-parser";
 declare module "gettext-parser/lib/shared";
 declare module "babel-plugin-ttag";
 declare module "@babel/preset-react";
+declare module "@babel/preset-flow";
+declare module "@babel/plugin-proposal-class-properties";
+declare module "@babel/plugin-proposal-object-rest-spread";
+declare module "@babel/plugin-proposal-decorators";

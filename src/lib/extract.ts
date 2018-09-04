@@ -4,6 +4,10 @@ import * as fs from "fs";
 import * as tmp from "tmp";
 import babelPluginTtag from "babel-plugin-ttag";
 import * as babelPresetReact from "@babel/preset-react";
+import * as babelPresetFlow from "@babel/preset-flow";
+import babelPluginClassProperties from "@babel/plugin-proposal-class-properties";
+import babelPluginRestSpread from "@babel/plugin-proposal-object-rest-spread";
+import babelPluginDecorators from "@babel/plugin-proposal-decorators";
 import * as ttagTypes from "../types";
 import { TransformFn, pathsWalk } from "./pathsWalk";
 
@@ -18,8 +22,13 @@ export async function extractAll(
         c3pOptions.defaultLang = lang;
     }
     const babelOptions = {
-        presets: [babelPresetReact],
-        plugins: [[babelPluginTtag, c3pOptions]]
+        presets: [babelPresetReact, babelPresetFlow],
+        plugins: [
+            babelPluginRestSpread,
+            [babelPluginDecorators, { legacy: true }],
+            babelPluginClassProperties,
+            [babelPluginTtag, c3pOptions]
+        ]
     };
     const transformFn: TransformFn = filepath => {
         try {
