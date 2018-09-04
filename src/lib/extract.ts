@@ -1,5 +1,5 @@
 import "../declarations";
-import * as babel from "babel-core";
+import * as babel from "@babel/core";
 import * as fs from "fs";
 import * as tmp from "tmp";
 import babelPluginTtag from "babel-plugin-ttag";

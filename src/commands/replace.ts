@@ -3,7 +3,7 @@ import * as ora from "ora";
 import * as c3poTypes from "../types";
 import * as babelPresetReact from "@babel/preset-react";
 import babelPluginC3po from "babel-plugin-ttag";
-import * as babel from "babel-core";
+import * as babel from "@babel/core";
 import * as path from "path";
 import * as fs from "fs";
 import { TransformFn, pathsWalk } from "../lib/pathsWalk";
@@ -30,6 +30,10 @@ async function replace(pofile: string, out: string, srcPath: string) {
         const dir = path.dirname(resultPath);
         if (dir !== ".") {
             mkdirp.sync(dir);
+        }
+        if (!result) {
+            progress.fail("Failed to replace");
+            return;
         }
         fs.writeFileSync(resultPath, result.code);
     };
