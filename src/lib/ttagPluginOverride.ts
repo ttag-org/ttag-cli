@@ -1,10 +1,23 @@
 import { TtagOpts } from "../types";
 import * as yargs from "yargs";
 
-const discoverDescription = `string[] override for babel-plugi-ttag discover setting`;
+const ttagDoc = "https://ttag.js.org/docs/plugin-api.html";
+
+function doc(fragment: string) {
+    return `${ttagDoc}${fragment}`;
+}
+
+const discoverDescription = `string overrides babel-plugi-ttag setting - ${doc(
+    "#configdiscover"
+)}. Can be used to discover ttag functions without explicit import`;
+
+const numberedExpressionsDescr = `boolean overrides babel-plugin-ttag setting -  ${doc(
+    "#confignumberedexpressions"
+)}. Refer to the doc for the details.`;
 
 const OPTS: { [k: string]: string } = {
-    discover: discoverDescription
+    discover: discoverDescription,
+    numberedExpressions: numberedExpressionsDescr
 };
 
 function hasOverrides(argv: yargs.Arguments): boolean {
@@ -27,6 +40,8 @@ export function parseTtagPluginOpts(
         if (!argv[opt]) return;
         if (opt === "discover") {
             extendedOpts[opt] = parseDiscover(argv[opt]);
+        } else if (opt === "numberedExpressions") {
+            extendedOpts[opt] = Boolean(argv[opt]);
         } else {
             extendedOpts[opt] = argv[opt];
         }
