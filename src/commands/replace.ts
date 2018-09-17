@@ -9,15 +9,23 @@ import * as fs from "fs";
 import { TransformFn, pathsWalk } from "../lib/pathsWalk";
 import * as mkdirp from "mkdirp";
 
-async function replace(pofile: string, out: string, srcPath: string) {
+async function replace(
+    pofile: string,
+    out: string,
+    srcPath: string,
+    overrideOpts?: c3poTypes.TtagOpts
+) {
     const progress: c3poTypes.Progress = ora(
         `[ttag] replacing source files with translations ...`
     );
     progress.start();
-    const c3pOptions: c3poTypes.TtagOpts = {
+    let c3pOptions: c3poTypes.TtagOpts = {
         resolve: { translations: pofile }
     };
 
+    if (overrideOpts) {
+        c3pOptions = Object.assign(c3pOptions, overrideOpts);
+    }
     const babelOptions = {
         presets: [babelPresetReact],
         plugins: [[babelPluginC3po, c3pOptions]]

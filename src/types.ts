@@ -2,6 +2,7 @@ export type TtagOpts = {
     extract?: Object;
     defaultLang?: string;
     resolve?: { translations: string };
+    discover?: string[];
 };
 
 export type Progress = {

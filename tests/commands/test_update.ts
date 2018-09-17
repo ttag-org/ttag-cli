@@ -26,3 +26,27 @@ test("test update po", () => {
     expect(result).toMatchSnapshot();
     tmpFile.removeCallback();
 });
+
+test("test for plugin override", () => {
+    const tmpFile = tmp.fileSync();
+    fs.writeFileSync(tmpFile.name, originalPo);
+    execSync(
+        `ts-node src/index.ts update --discover=_  ${tmpFile.name} ${srcPath}`
+    );
+    const result = fs.readFileSync(tmpFile.name).toString();
+    expect(result).toContain('msgid "discover _ test"');
+    tmpFile.removeCallback();
+});
+
+test("test update with multiple discover po (plugins settings override test)", () => {
+    const tmpFile = tmp.fileSync();
+    fs.writeFileSync(tmpFile.name, originalPo);
+    execSync(
+        `ts-node src/index.ts update --discover=_ --discover=gettext ${
+            tmpFile.name
+        } ${srcPath}`
+    );
+    const result = fs.readFileSync(tmpFile.name).toString();
+    expect(result).toContain('msgid "discover _ test"');
+    tmpFile.removeCallback();
+});

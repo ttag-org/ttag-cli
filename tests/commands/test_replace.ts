@@ -22,3 +22,16 @@ test("replace translations", () => {
     expect(testFile).toMatchSnapshot();
     expect(nestedFile).toMatchSnapshot();
 });
+
+test("override babel defaults", () => {
+    const tmpFolder = tmp.dirSync();
+    execSync(
+        `ts-node src/index.ts replace --discover=_ ${poPath} ${
+            tmpFolder.name
+        } ${replaceDirPath}`
+    );
+    const globalFile = fs
+        .readFileSync(path.join(tmpFolder.name, "nested/global.js"))
+        .toString();
+    expect(globalFile).toContain("check _ translation");
+});

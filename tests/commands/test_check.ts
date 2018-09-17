@@ -15,6 +15,11 @@ const checkInvalidFormat = path.resolve(
     "../fixtures/checkTest/check-trans-invalid-format.js"
 );
 
+const checkInvalidFormatDiscover = path.resolve(
+    __dirname,
+    "../fixtures/checkTest/check-invalid-format-discover.js"
+);
+
 test("check when all string are translated", () => {
     const result = execSync(
         `ts-node src/index.ts check ${poPath} ${checkPass}`
@@ -44,5 +49,20 @@ test("validation for translations fromat", () => {
     } catch (err) {
         expect(err.status).toBe(1);
         expect(err.stderr.toString()).toContain("> 3 | t`${name}`;");
+    }
+});
+
+test("plugin settings override test", () => {
+    try {
+        execSync(
+            `ts-node src/index.ts check --discover=_ ${poPath} ${
+                checkInvalidFormatDiscover
+            }`
+        );
+        expect(false).toBe(true); // must fail anyway
+    } catch (err) {
+        expect(err.status).toBe(1);
+        console.log(err.stderr.toString());
+        expect(err.stderr.toString()).toContain("> 1 | _(name);");
     }
 });

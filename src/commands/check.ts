@@ -58,14 +58,21 @@ function* getUntranslated(
 /*
 Check all keys from pots(keys only files) are present in pofile(files with translations)
 */
-async function check(pofile: string, paths: string[], lang: string) {
+async function check(
+    pofile: string,
+    paths: string[],
+    lang: string,
+    overrideOpts?: c3poTypes.TtagOpts
+) {
     const progress: c3poTypes.Progress = ora(
         `[ttag] checking translations from ${paths} ...`
     );
-    progress.start();
+    // progress.start();
 
     const translations = parse(fs.readFileSync(pofile).toString());
-    const keysOnly = parse(await extractAll(paths, lang, progress));
+    const keysOnly = parse(
+        await extractAll(paths, lang, progress, overrideOpts)
+    );
 
     let untranslatedStream = getUntranslated(translations, keysOnly);
     untranslatedStream = warningPipe(pofile, progress, untranslatedStream);
@@ -77,7 +84,7 @@ async function check(pofile: string, paths: string[], lang: string) {
         );
         process.exit(1);
     } else {
-        progress.succeed(`[ttag] checked`);
+        // progress.succeed(`[ttag] checked`);
     }
 }
 
