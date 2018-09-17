@@ -10,3 +10,8 @@ msgstr "test translation"
 #: tests/fixtures/replaceTest/nested/test2.js:2
 msgid "test2"
 msgstr "test 2 translation"
+
+
+#: tests/fixtures/replaceTest/nested/global.js:1
+msgid "check _"
+msgstr "check _ translation"

@@ -14,6 +14,10 @@ import spell from "./commands/spell";
 import validate from "./commands/validate";
 import web from "./commands/web";
 import po2js from "./commands/po2json";
+import {
+    getTtagOptsForYargs,
+    parseTtagPluginOpts
+} from "./lib/ttagPluginOverride";
 
 import "./declarations";
 
@@ -77,10 +81,16 @@ yargs
                 alias: "l",
                 default: "en",
                 description: "sets default lang (ISO format)"
-            }
+            },
+            ...getTtagOptsForYargs()
         },
         argv => {
-            extract(argv.output, argv.src, argv.lang);
+            extract(
+                argv.output,
+                argv.src,
+                argv.lang,
+                parseTtagPluginOpts(argv)
+            );
         }
     )
     .command(
@@ -91,10 +101,11 @@ yargs
                 alias: "l",
                 default: "en",
                 description: "sets default lang (ISO format)"
-            }
+            },
+            ...getTtagOptsForYargs()
         },
         argv => {
-            check(argv.pofile, argv.src, argv.lang);
+            check(argv.pofile, argv.src, argv.lang, parseTtagPluginOpts(argv));
         }
     )
     .command(
@@ -189,7 +200,7 @@ yargs
         }
     )
     .command(
-        "update [lang] <pofile> <src..>",
+        "update [opts] <pofile> <src..>",
         "will update existing po file. Add/remove new translations",
         {
             lang: {
@@ -201,18 +212,24 @@ yargs
             },
             src: {
                 description: "path to source files/directories"
-            }
+            },
+            ...getTtagOptsForYargs()
         },
         argv => {
-            update(argv.pofile, argv.src, argv.lang);
+            update(argv.pofile, argv.src, argv.lang, parseTtagPluginOpts(argv));
         }
     )
     .command(
-        "replace <pofile> <out> <path>",
+        "replace [options] <pofile> <out> <path>",
         "will replace all strings with translations from the .po file",
-        {},
+        { ...getTtagOptsForYargs() },
         argv => {
-            replace(argv.pofile, argv.out, argv.path);
+            replace(
+                argv.pofile,
+                argv.out,
+                argv.path,
+                parseTtagPluginOpts(argv)
+            );
         }
     )
     .command(

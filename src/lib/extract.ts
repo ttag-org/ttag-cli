@@ -10,12 +10,16 @@ import { TransformFn, pathsWalk } from "./pathsWalk";
 export async function extractAll(
     paths: string[],
     lang: string,
-    progress: ttagTypes.Progress
+    progress: ttagTypes.Progress,
+    overrideOpts?: ttagTypes.TtagOpts
 ): Promise<string> {
     const tmpFile = tmp.fileSync();
     let c3pOptions: ttagTypes.TtagOpts = { extract: { output: tmpFile.name } };
     if (lang !== "en") {
         c3pOptions.defaultLang = lang;
+    }
+    if (overrideOpts) {
+        c3pOptions = Object.assign(c3pOptions, overrideOpts);
     }
     const babelOptions = {
         presets: [babelPresetReact],
