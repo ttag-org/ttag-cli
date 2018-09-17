@@ -41,3 +41,13 @@ test("should override babel plugin settings", () => {
     const result = fs.readFileSync(potPath).toString();
     expect(result).toContain('msgid "test _"');
 });
+
+test("should extract with numberedExpressions", () => {
+    execSync(
+        `ts-node src/index.ts extract --numberedExpressions -o ${potPath} ${
+            baseTestPath
+        }`
+    );
+    const result = fs.readFileSync(potPath).toString();
+    expect(result).toContain("test translation 2 ${ 0 }");
+});

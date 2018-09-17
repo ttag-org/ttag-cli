@@ -1,6 +1,6 @@
 {
   "name": "ttag-cli",
-  "version": "1.3.0-1",
+  "version": "1.3.0",
   "main": "index.js",
   "repository": "git@github.com:ttag-org/ttag-cli.git",
   "author": "",
@@ -13,7 +13,8 @@
     "upgrade": "yarn upgrade-interactive",
     "pretty": "prettier --write \"./src/**/*.ts\" \"./tests/**/*.ts\"",
     "precommit": "lint-staged",
-    "postinstall": "./scripts/install_completion.js"
+    "postinstall": "./scripts/install_completion.js",
+    "readme": "npm run build && node ./scripts/doc.js"
   },
   "lint-staged": {
     "*.{ts,css,tsx}": [
