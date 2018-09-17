@@ -1,13 +1,10 @@
 import { TtagOpts } from "../types";
 import * as yargs from "yargs";
 
-const OPTS: { [k: string]: string } = {
-    discover: `string[]
-Will discover ttag functions without explicit import.
-Example:
-ttag --discover=_ uk.po index.js
+const discoverDescription = `string[] override for babel-plugi-ttag discover setting`;
 
-Will discover strings from all _ functions.`
+const OPTS: { [k: string]: string } = {
+    discover: discoverDescription
 };
 
 function hasOverrides(argv: yargs.Arguments): boolean {

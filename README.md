@@ -25,12 +25,14 @@ will extract translations to .pot file
 #### Arguments:
 	-output  --o   result file with translations (.pot)  (default: translations.pot)
 	-lang  --l   sets default lang (ISO format)  (default: en)
+	-discover   string[] override for babel-plugi-ttag discover setting  
 
 
 ### `check [lang] <pofile> <src...>`
 will check if all translations are present in .po file
 #### Arguments:
 	-lang  --l   sets default lang (ISO format)  (default: en)
+	-discover   string[] override for babel-plugi-ttag discover setting  
 
 
 ### `merge <path...>`
@@ -68,16 +70,19 @@ will create an empty .po file with all necessary headers for the locale
 	-filename   path to the .po file  
 
 
-### `update [lang] <pofile> <src..>`
+### `update [opts] <pofile> <src..>`
 will update existing po file. Add/remove new translations
 #### Arguments:
 	-lang   sets default locale (ISO format)  (default: en)
 	-pofile   path to .po file with translations  
 	-src   path to source files/directories  
+	-discover   string[] override for babel-plugi-ttag discover setting  
 
 
-### `replace <pofile> <out> <path>`
+### `replace [options] <pofile> <out> <path>`
 will replace all strings with translations from the .po file
+#### Arguments:
+	-discover   string[] override for babel-plugi-ttag discover setting  
 
 
 ### `color <pofile>`
@@ -90,6 +95,17 @@ will spellcheck po file messages with given locale, locale can be autodetected f
 
 ### `validate <pofile>`
 will validate js template strings (`${x}`) in messages and translations and against each other
+
+
+### `web <pofile>`
+will open pofile in web editor
+
+
+### `po2json <pofile> [args]`
+will parse and output po file as loadable JSON
+#### Arguments:
+	-pretty  --p   pretty print js  (default: false)
+	-nostrip  --n   do not strip comments/headers  (default: false)
 
 
 <!--- END COMMANDS --->
