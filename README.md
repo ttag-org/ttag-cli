@@ -25,7 +25,7 @@ will extract translations to .pot file
 #### Arguments:
 	-output  --o   result file with translations (.pot)  (default: translations.pot)
 	-lang  --l   sets default lang (ISO format)  (default: en)
-	-discover   string overrides babel-plugi-ttag setting - https://ttag.js.org/docs/plugin-api.html#configdiscover. Can be used to discover ttag functions without explicit import  
+	-discover   string overrides babel-plugi-ttag setting - https://ttag.js.org/docs/plugin-api.html#configdiscover. Can be used to discover ttag functions without explicit import.    Only known ttag functions can be used as params (t, jt, ngettext, gettext, _)  
 	-numberedExpressions   boolean overrides babel-plugin-ttag setting -  https://ttag.js.org/docs/plugin-api.html#confignumberedexpressions. Refer to the doc for the details.  
 
 
@@ -33,7 +33,7 @@ will extract translations to .pot file
 will check if all translations are present in .po file
 #### Arguments:
 	-lang  --l   sets default lang (ISO format)  (default: en)
-	-discover   string overrides babel-plugi-ttag setting - https://ttag.js.org/docs/plugin-api.html#configdiscover. Can be used to discover ttag functions without explicit import  
+	-discover   string overrides babel-plugi-ttag setting - https://ttag.js.org/docs/plugin-api.html#configdiscover. Can be used to discover ttag functions without explicit import.    Only known ttag functions can be used as params (t, jt, ngettext, gettext, _)  
 	-numberedExpressions   boolean overrides babel-plugin-ttag setting -  https://ttag.js.org/docs/plugin-api.html#confignumberedexpressions. Refer to the doc for the details.  
 
 
@@ -78,14 +78,14 @@ will update existing po file. Add/remove new translations
 	-lang   sets default locale (ISO format)  (default: en)
 	-pofile   path to .po file with translations  
 	-src   path to source files/directories  
-	-discover   string overrides babel-plugi-ttag setting - https://ttag.js.org/docs/plugin-api.html#configdiscover. Can be used to discover ttag functions without explicit import  
+	-discover   string overrides babel-plugi-ttag setting - https://ttag.js.org/docs/plugin-api.html#configdiscover. Can be used to discover ttag functions without explicit import.    Only known ttag functions can be used as params (t, jt, ngettext, gettext, _)  
 	-numberedExpressions   boolean overrides babel-plugin-ttag setting -  https://ttag.js.org/docs/plugin-api.html#confignumberedexpressions. Refer to the doc for the details.  
 
 
 ### `replace [options] <pofile> <out> <path>`
 will replace all strings with translations from the .po file
 #### Arguments:
-	-discover   string overrides babel-plugi-ttag setting - https://ttag.js.org/docs/plugin-api.html#configdiscover. Can be used to discover ttag functions without explicit import  
+	-discover   string overrides babel-plugi-ttag setting - https://ttag.js.org/docs/plugin-api.html#configdiscover. Can be used to discover ttag functions without explicit import.    Only known ttag functions can be used as params (t, jt, ngettext, gettext, _)  
 	-numberedExpressions   boolean overrides babel-plugin-ttag setting -  https://ttag.js.org/docs/plugin-api.html#confignumberedexpressions. Refer to the doc for the details.  
 
 

@@ -9,7 +9,8 @@ function doc(fragment: string) {
 
 const discoverDescription = `string overrides babel-plugi-ttag setting - ${doc(
     "#configdiscover"
-)}. Can be used to discover ttag functions without explicit import`;
+)}. Can be used to discover ttag functions without explicit import.\
+    Only known ttag functions can be used as params (t, jt, ngettext, gettext, _)`;
 
 const numberedExpressionsDescr = `boolean overrides babel-plugin-ttag setting -  ${doc(
     "#confignumberedexpressions"
