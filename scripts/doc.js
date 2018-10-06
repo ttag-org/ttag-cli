@@ -6,7 +6,7 @@ var readmePath = 'README.md'
 var BEGINTAG = '<!--- BEGIN COMMANDS --->'
 var ENDTAG = '<!--- END COMMANDS --->'
 
-var autodoc = execSync('ttag doc').toString();
+var autodoc = execSync('./bin/ttag doc').toString();
 
 var readMe = fs.readFileSync(readmePath);
 var beginCommandsPos = readMe.indexOf(BEGINTAG) + BEGINTAG.length;
