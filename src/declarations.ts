@@ -9,3 +9,4 @@ declare module "@babel/preset-env";
 declare module "@babel/plugin-proposal-class-properties";
 declare module "@babel/plugin-proposal-object-rest-spread";
 declare module "@babel/plugin-proposal-export-default-from";
+declare module "@babel/plugin-syntax-dynamic-import";

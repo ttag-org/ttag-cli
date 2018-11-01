@@ -9,11 +9,13 @@ import * as classPropPlugin from "@babel/plugin-proposal-class-properties";
 import * as restSpreadPlugin from "@babel/plugin-proposal-object-rest-spread";
 import * as exportDefaultFromPlugin from "@babel/plugin-proposal-export-default-from";
 import * as babelTtagPlugin from "babel-plugin-ttag";
+import * as babelDynamicImportPlugin from "@babel/plugin-syntax-dynamic-import";
 
 export const defaultPlugins: ConfigItem[] = [
     classPropPlugin,
     restSpreadPlugin,
-    exportDefaultFromPlugin
+    exportDefaultFromPlugin,
+    babelDynamicImportPlugin
 ];
 
 export const defaultPresets: ConfigItem[] = [presetEnv, presetReact];
