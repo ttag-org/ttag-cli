@@ -2,8 +2,7 @@ import "../declarations";
 import * as babel from "@babel/core";
 import * as fs from "fs";
 import * as tmp from "tmp";
-import babelPluginTtag from "babel-plugin-ttag";
-import * as babelPresetReact from "@babel/preset-react";
+import { makeBabelConf } from "../defaults";
 import * as ttagTypes from "../types";
 import { TransformFn, pathsWalk } from "./pathsWalk";
 
@@ -14,17 +13,14 @@ export async function extractAll(
     overrideOpts?: ttagTypes.TtagOpts
 ): Promise<string> {
     const tmpFile = tmp.fileSync();
-    let c3pOptions: ttagTypes.TtagOpts = { extract: { output: tmpFile.name } };
+    let ttagOpts: ttagTypes.TtagOpts = { extract: { output: tmpFile.name } };
     if (lang !== "en") {
-        c3pOptions.defaultLang = lang;
+        ttagOpts.defaultLang = lang;
     }
     if (overrideOpts) {
-        c3pOptions = Object.assign(c3pOptions, overrideOpts);
+        ttagOpts = Object.assign(ttagOpts, overrideOpts);
     }
-    const babelOptions = {
-        presets: [babelPresetReact],
-        plugins: [[babelPluginTtag, c3pOptions]]
-    };
+    const babelOptions = makeBabelConf(ttagOpts);
     const transformFn: TransformFn = filepath => {
         try {
             babel.transformFileSync(filepath, babelOptions);
