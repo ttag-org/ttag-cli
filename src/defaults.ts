@@ -10,9 +10,11 @@ import * as restSpreadPlugin from "@babel/plugin-proposal-object-rest-spread";
 import * as exportDefaultFromPlugin from "@babel/plugin-proposal-export-default-from";
 import * as babelTtagPlugin from "babel-plugin-ttag";
 import * as babelDynamicImportPlugin from "@babel/plugin-syntax-dynamic-import";
+import * as babelPluginDecorators from "@babel/plugin-proposal-decorators";
 
 export const defaultPlugins: ConfigItem[] = [
-    classPropPlugin,
+    [babelPluginDecorators, { legacy: true }],
+    [classPropPlugin, { loose: true }],
     restSpreadPlugin,
     exportDefaultFromPlugin,
     babelDynamicImportPlugin
