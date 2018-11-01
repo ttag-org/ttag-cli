@@ -1,11 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`replace translations 1`] = `
-"import { t } from 'ttag';
+"\\"use strict\\";
+
+var _ttag = require(\\"ttag\\");
+
 \\"test translation\\";"
 `;
 
 exports[`replace translations 2`] = `
-"import { t } from 'ttag';
+"\\"use strict\\";
+
+var _ttag = require(\\"ttag\\");
+
 \\"test 2 translation\\";"
 `;

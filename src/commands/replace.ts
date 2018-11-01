@@ -1,8 +1,7 @@
 import "../declarations";
 import * as ora from "ora";
 import * as c3poTypes from "../types";
-import * as babelPresetReact from "@babel/preset-react";
-import babelPluginC3po from "babel-plugin-ttag";
+import { makeBabelConf } from "../defaults";
 import * as babel from "@babel/core";
 import * as path from "path";
 import * as fs from "fs";
@@ -19,18 +18,14 @@ async function replace(
         `[ttag] replacing source files with translations ...`
     );
     progress.start();
-    let c3pOptions: c3poTypes.TtagOpts = {
+    let ttagOpts: c3poTypes.TtagOpts = {
         resolve: { translations: pofile }
     };
 
     if (overrideOpts) {
-        c3pOptions = Object.assign(c3pOptions, overrideOpts);
+        ttagOpts = Object.assign(ttagOpts, overrideOpts);
     }
-    const babelOptions = {
-        presets: [babelPresetReact],
-        plugins: [[babelPluginC3po, c3pOptions]]
-    };
-
+    const babelOptions = makeBabelConf(ttagOpts);
     const transformFn: TransformFn = file => {
         const relativePath = path.relative(srcPath, file);
         const resultPath = path.join(out, relativePath);
