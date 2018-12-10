@@ -6,11 +6,10 @@
   "author": "",
   "license": "MIT",
   "scripts": {
-    "preversion": "yarn run build && yarn test",
+    "preversion": "npm run build && npm test",
     "test": "mkdir -p dist && jest",
     "cli": "ts-node ./src/index.ts",
     "build": "tsc",
-    "upgrade": "yarn upgrade-interactive",
     "pretty": "prettier --write \"./src/**/*.ts\" \"./tests/**/*.ts\"",
     "precommit": "lint-staged",
     "postinstall": "./scripts/install_completion.js",
