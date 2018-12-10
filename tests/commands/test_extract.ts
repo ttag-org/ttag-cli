@@ -51,3 +51,13 @@ test("should extract with numberedExpressions", () => {
     const result = fs.readFileSync(potPath).toString();
     expect(result).toContain("test translation 2 ${ 0 }");
 });
+
+test("should extract with extract.location", () => {
+    execSync(
+        `ts-node src/index.ts extract --extractLocation=never -o ${potPath} ${
+            baseTestPath
+        }`
+    );
+    const result = fs.readFileSync(potPath).toString();
+    expect(result).not.toContain("#: tests/fixtures/baseTest");
+});

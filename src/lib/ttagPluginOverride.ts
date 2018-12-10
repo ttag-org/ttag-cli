@@ -16,9 +16,14 @@ const numberedExpressionsDescr = `boolean overrides babel-plugin-ttag setting - 
     "#confignumberedexpressions"
 )}. Refer to the doc for the details.`;
 
+const extractLocationDescr = `string - 'full' | 'file' | 'never' - ${doc(
+    "#configextractlocation"
+)}. Is used to format location comments in the .po file. `;
+
 const OPTS: { [k: string]: string } = {
     discover: discoverDescription,
-    numberedExpressions: numberedExpressionsDescr
+    numberedExpressions: numberedExpressionsDescr,
+    extractLocation: extractLocationDescr
 };
 
 function hasOverrides(argv: yargs.Arguments): boolean {
@@ -43,11 +48,34 @@ export function parseTtagPluginOpts(
             extendedOpts[opt] = parseDiscover(argv[opt]);
         } else if (opt === "numberedExpressions") {
             extendedOpts[opt] = Boolean(argv[opt]);
+        } else if (opt === "extractLocation") {
+            extendedOpts["extract"] = { location: argv[opt] };
         } else {
             extendedOpts[opt] = argv[opt];
         }
     });
     return <TtagOpts>extendedOpts;
+}
+
+/*
+Will override opts1 with opts2
+*/
+export function mergeOpts(opts1: TtagOpts, opts2: TtagOpts): TtagOpts {
+    const newOpts: TtagOpts = { ...opts1 };
+    if (opts2.hasOwnProperty("discover")) {
+        newOpts.discover = opts2.discover;
+    }
+    if (opts2.hasOwnProperty("numberedExpressions")) {
+        newOpts.numberedExpressions = opts2.numberedExpressions;
+    }
+    if (opts2.extract && opts2.extract.location) {
+        if (newOpts.extract) {
+            newOpts.extract.location = opts2.extract.location;
+        } else {
+            newOpts.extract = opts2.extract;
+        }
+    }
+    return newOpts;
 }
 
 export function getTtagOptsForYargs() {

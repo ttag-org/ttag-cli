@@ -1,8 +1,14 @@
+export type Location = "file" | "full" | "never";
+
 export type TtagOpts = {
-    extract?: Object;
+    extract?: {
+        location?: Location;
+        output?: string;
+    };
     defaultLang?: string;
     resolve?: { translations: string };
     discover?: string[];
+    numberedExpressions?: boolean;
 };
 
 export type Progress = {

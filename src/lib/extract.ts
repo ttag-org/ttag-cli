@@ -5,6 +5,7 @@ import * as tmp from "tmp";
 import { makeBabelConf } from "../defaults";
 import * as ttagTypes from "../types";
 import { TransformFn, pathsWalk } from "./pathsWalk";
+import { mergeOpts } from "./ttagPluginOverride";
 
 export async function extractAll(
     paths: string[],
@@ -18,7 +19,7 @@ export async function extractAll(
         ttagOpts.defaultLang = lang;
     }
     if (overrideOpts) {
-        ttagOpts = Object.assign(ttagOpts, overrideOpts);
+        ttagOpts = mergeOpts(ttagOpts, overrideOpts);
     }
     const babelOptions = makeBabelConf(ttagOpts);
     const transformFn: TransformFn = filepath => {

@@ -27,6 +27,7 @@ will extract translations to .pot file
 	-lang  --l   sets default lang (ISO format)  (default: en)
 	-discover   string overrides babel-plugi-ttag setting - https://ttag.js.org/docs/plugin-api.html#configdiscover. Can be used to discover ttag functions without explicit import.    Only known ttag functions can be used as params (t, jt, ngettext, gettext, _)  
 	-numberedExpressions   boolean overrides babel-plugin-ttag setting -  https://ttag.js.org/docs/plugin-api.html#confignumberedexpressions. Refer to the doc for the details.  
+	-extractLocation   string - 'full' | 'file' | 'never' - https://ttag.js.org/docs/plugin-api.html#configextractlocation. Is used to format location comments in the .po file. 
 
 
 ### `check [lang] <pofile> <src...>`
