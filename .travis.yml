@@ -4,11 +4,11 @@ node_js:
   - 8
 
 before_script:
-  - yarn
+  - npm i
 
 script:
-  - yarn run build
-  - yarn test -- --ci
+  - npm run build
+  - npm test -- --ci
 
 deploy:
   provider: npm
