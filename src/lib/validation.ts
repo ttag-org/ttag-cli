@@ -28,7 +28,8 @@ export function parseTemplateString(str: string): Set<string> {
             node.type == "Identifier" ||
             node.type == "CallExpression" ||
             node.type == "TaggedTemplateExpression" ||
-            node.type == "BinaryExpression"
+            node.type == "BinaryExpression" ||
+            node.type == "MemberExpression"
         ) {
             templates.add(ast2Str(node));
         }
