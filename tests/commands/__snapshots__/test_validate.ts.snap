@@ -1,7 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`command integrity test 1`] = `
-"[33mmsgctxt[39m \\"xxx\\"
+"[34m#: tests/fixtures/testset.js:2[39m
+[34m[39m[33mmsgid[39m \\"test_broken \${foo.bar}\\"
+[33mmsgstr[39m \\"[4m[41mwrong_interpolation \${bar.foo}[49m[24m <--- [32mmissing foo.bar but redundant bar.foo[39m;\\"
+
+
+[33mmsgctxt[39m \\"xxx\\"
 [33mmsgid[39m \\"test_broken \${y}_fuzzy_no_ref\${x(13)}\\"
 [33mmsgstr[39m \\"[4m[41mtail\${y} \${x(12) + 12} \${z}[49m[24m <--- [32mmissing x(13) but redundant x(12) + 12 and z[39m;\\"
 

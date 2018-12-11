@@ -18,3 +18,7 @@ msgstr "xxxx"
 #: tests/fixtures/testset.js:2
 msgid "test_correct_interpolation ${x} ${y()} ${z + 5}"
 msgstr "test_correct_interpolation ${x} ${y()} ${z + 5}"
+
+#: tests/fixtures/testset.js:2
+msgid "test_broken ${foo.bar}"
+msgstr "wrong_interpolation ${bar.foo}"
