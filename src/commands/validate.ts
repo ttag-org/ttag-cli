@@ -10,6 +10,7 @@ export default function validate(path: string) {
     chalk.enabled = true;
     chalk.level = 1;
 
+    let hasErrors = false;
     const data = fs.readFileSync(path).toString();
     const poData = parse(data);
     const messages = iterateTranslations(poData.translations);
@@ -36,9 +37,13 @@ export default function validate(path: string) {
                 msg.msgstr[i] += ` <--- ${explanation};`;
             }
             if (invalid) {
+                hasErrors = true;
                 printMsg(msg);
                 console.log("\n");
             }
         }
+    }
+    if (hasErrors) {
+        throw new Error("Errors during validation");
     }
 }
