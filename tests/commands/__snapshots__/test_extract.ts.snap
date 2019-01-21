@@ -57,7 +57,7 @@ msgstr \\"\\"
 \\"Content-Type: text/plain; charset=utf-8\\\\n\\"
 \\"Plural-Forms: nplurals=2; plural=(n!=1);\\\\n\\"
 
-#: tests/fixtures/tSXParse.tsx:6
+#: tests/fixtures/tSXParse.tsx:4
 msgid \\"test from tsx\\"
 msgstr \\"\\""
 `;
