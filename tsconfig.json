@@ -16,6 +16,7 @@
         }
     },
     "exclude": [
+        "tests/fixtures",
         "node_modules"
     ]
 }
