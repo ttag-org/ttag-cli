@@ -39,3 +39,25 @@ msgstr \\"\\"
 msgid \\"test from jsx\\"
 msgstr \\"\\""
 `;
+
+exports[`extract from ts 1`] = `
+"msgid \\"\\"
+msgstr \\"\\"
+\\"Content-Type: text/plain; charset=utf-8\\\\n\\"
+\\"Plural-Forms: nplurals=2; plural=(n!=1);\\\\n\\"
+
+#: tests/fixtures/tSParse.ts:4
+msgid \\"\${ a } string\\"
+msgstr \\"\\""
+`;
+
+exports[`extract from tsx 1`] = `
+"msgid \\"\\"
+msgstr \\"\\"
+\\"Content-Type: text/plain; charset=utf-8\\\\n\\"
+\\"Plural-Forms: nplurals=2; plural=(n!=1);\\\\n\\"
+
+#: tests/fixtures/tSXParse.tsx:4
+msgid \\"test from tsx\\"
+msgstr \\"\\""
+`;

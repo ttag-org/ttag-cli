@@ -1,3 +1,4 @@
+// import '../fixtures/declarations';
 import * as path from "path";
 import * as fs from "fs";
 import { execSync } from "child_process";
@@ -7,6 +8,8 @@ const baseTestPath = path.resolve(__dirname, "../fixtures/baseTest");
 const ukTestPath = path.resolve(__dirname, "../fixtures/ukLocaleTest");
 const jsxPath = path.resolve(__dirname, "../fixtures/testJSXParse.jsx");
 const globalFn = path.resolve(__dirname, "../fixtures/globalFunc.js");
+const tsPath = path.resolve(__dirname, "../fixtures/tSParse.ts");
+const tsxPath = path.resolve(__dirname, "../fixtures/tSXParse.tsx");
 
 function cleanup() {
     fs.unlinkSync(potPath);
@@ -24,6 +27,18 @@ test("extract base case", () => {
 
 test("extract from jsx", () => {
     execSync(`ts-node src/index.ts extract -o ${potPath} ${jsxPath}`);
+    const result = fs.readFileSync(potPath).toString();
+    expect(result).toMatchSnapshot();
+});
+
+test("extract from ts", () => {
+    execSync(`ts-node src/index.ts extract -o ${potPath} ${tsPath}`);
+    const result = fs.readFileSync(potPath).toString();
+    expect(result).toMatchSnapshot();
+});
+
+test("extract from tsx", () => {
+    execSync(`ts-node src/index.ts extract -o ${potPath} ${tsxPath}`);
     const result = fs.readFileSync(potPath).toString();
     expect(result).toMatchSnapshot();
 });

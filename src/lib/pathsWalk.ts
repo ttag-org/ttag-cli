@@ -11,7 +11,12 @@ function walkFile(
     transformFn: TransformFn
 ) {
     const extname = path.extname(filepath);
-    if (extname === ".js" || extname === ".jsx") {
+    if (
+        extname === ".js" ||
+        extname === ".jsx" ||
+        extname === ".ts" ||
+        extname === ".tsx"
+    ) {
         progress.text = filepath;
         transformFn(filepath);
     }
