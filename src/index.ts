@@ -10,6 +10,7 @@ import filter from "./commands/filter";
 import stats from "./commands/stats";
 import replace from "./commands/replace";
 import color from "./commands/color";
+import pseudo from "./commands/pseudo";
 import spell from "./commands/spell";
 import validate from "./commands/validate";
 import web from "./commands/web";
@@ -240,6 +241,9 @@ yargs
             color(argv.pofile);
         }
     )
+    .command("pseudo <pofile>", "FIXME", {}, argv => {
+        pseudo(argv.profile);
+    })
     .command(
         "spell <pofile> [locale]",
         "will spellcheck po file messages with given locale, locale can be autodetected from pofile",
