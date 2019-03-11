@@ -1,26 +1,21 @@
 import * as fs from "fs";
-//import { printMsg } from "../lib/print";
-//import { iterateTranslations } from "../lib/utils";
-//import { checkFormat } from "../lib/validation";
-import { serialize } from "../lib/serializer";
-import { parse, PoData, Translations } from "../lib/parser";
+import { iterateTranslations } from "../lib/utils";
+import { parse } from "../lib/parser";
+import { printHeader, printMsg } from "../lib/print";
 
 export default function pseudo(path: string) {
-    const data = fs.readFileSync(path).toString();
-    const poData = parse(data);
-    //const messages = iterateTranslations(poData.translations);
-    //messages.next(); // skip headers
+    const poData = parse(fs.readFileSync(path).toString());
 
-    function transform(translations: Translations): Translations {
-        return translations;
+    printMsg({ msgid: "", msgstr: [""] });
+    printHeader(poData.headers);
+
+    process.stdout.write("\n");
+    const messages = iterateTranslations(poData.translations);
+    messages.next(); // skip empty translation
+    for (const msg of messages) {
+        printMsg(msg);
+        process.stdout.write("\n");
     }
-
-    const localised = <PoData>{
-        headers: poData.headers,
-        translations: transform(poData.translations)
-    };
-    process.stdout.write(serialize(localised));
-    return;
 
     /*
     for (const msg of messages) {

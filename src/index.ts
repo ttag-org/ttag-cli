@@ -241,9 +241,14 @@ yargs
             color(argv.pofile);
         }
     )
-    .command("pseudo <pofile>", "FIXME", {}, argv => {
-        pseudo(argv.profile);
-    })
+    .command(
+        "pseudo <pofile>",
+        "will output a pseudo-localised translation",
+        {},
+        argv => {
+            pseudo(argv.pofile);
+        }
+    )
     .command(
         "spell <pofile> [locale]",
         "will spellcheck po file messages with given locale, locale can be autodetected from pofile",
