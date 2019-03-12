@@ -61,3 +61,26 @@ msgstr \\"\\"
 msgid \\"test from tsx\\"
 msgstr \\"\\""
 `;
+
+exports[`should extract in the alphabetical order (sortByMsgid) 1`] = `
+"msgid \\"\\"
+msgstr \\"\\"
+\\"Content-Type: text/plain; charset=utf-8\\\\n\\"
+\\"Plural-Forms: nplurals=2; plural=(n!=1);\\\\n\\"
+
+#: tests/fixtures/sortByMsgidTest/test.js:10
+msgid \\"a translation \${ name }\\"
+msgstr \\"\\"
+
+#: tests/fixtures/sortByMsgidTest/test.js:4
+msgid \\"c translation \${ name }\\"
+msgstr \\"\\"
+
+#: tests/fixtures/sortByMsgidTest/test.js:6
+msgid \\"f translation \${ name }\\"
+msgstr \\"\\"
+
+#: tests/fixtures/sortByMsgidTest/test.js:8
+msgid \\"z translation \${ name }\\"
+msgstr \\"\\""
+`;

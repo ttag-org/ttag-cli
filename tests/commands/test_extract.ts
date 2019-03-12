@@ -5,6 +5,7 @@ import { execSync } from "child_process";
 
 const potPath = path.resolve(__dirname, "../../dist/translation.pot");
 const baseTestPath = path.resolve(__dirname, "../fixtures/baseTest");
+const sortByMsgidPath = path.resolve(__dirname, "../fixtures/sortByMsgidTest");
 const ukTestPath = path.resolve(__dirname, "../fixtures/ukLocaleTest");
 const jsxPath = path.resolve(__dirname, "../fixtures/testJSXParse.jsx");
 const globalFn = path.resolve(__dirname, "../fixtures/globalFunc.js");
@@ -75,4 +76,14 @@ test("should extract with extract.location", () => {
     );
     const result = fs.readFileSync(potPath).toString();
     expect(result).not.toContain("#: tests/fixtures/baseTest");
+});
+
+test("should extract in the alphabetical order (sortByMsgid)", () => {
+    execSync(
+        `ts-node src/index.ts extract --sortByMsgid -o ${potPath} ${
+            sortByMsgidPath
+        }`
+    );
+    const result = fs.readFileSync(potPath).toString();
+    expect(result).toMatchSnapshot();
 });

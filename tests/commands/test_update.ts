@@ -50,3 +50,14 @@ test("test update with multiple discover po (plugins settings override test)", (
     expect(result).toContain('msgid "discover _ test"');
     tmpFile.removeCallback();
 });
+
+test("should sort the output alphabetically (apply sortByMsgid option)", () => {
+    const tmpFile = tmp.fileSync();
+    fs.writeFileSync(tmpFile.name, originalPo);
+    execSync(
+        `ts-node src/index.ts update --sortByMsgid ${tmpFile.name} ${srcPath}`
+    );
+    const result = fs.readFileSync(tmpFile.name).toString();
+    expect(result).toMatchSnapshot();
+    tmpFile.removeCallback();
+});

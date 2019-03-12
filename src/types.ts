@@ -9,6 +9,7 @@ export type TtagOpts = {
     resolve?: { translations: string };
     discover?: string[];
     numberedExpressions?: boolean;
+    sortByMsgid?: boolean;
 };
 
 export type Progress = {
