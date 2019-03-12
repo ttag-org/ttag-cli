@@ -1,7 +1,7 @@
 import * as fs from "fs";
-import { iterateTranslations } from "../lib/utils";
 import { parse } from "../lib/parser";
 import { printHeader, printMsg } from "../lib/print";
+import { serialize } from "../lib/serializer";
 import { ast2Str } from "../lib/utils";
 import { ExpressionStatement, TemplateLiteral } from "@babel/types";
 import tpl from "@babel/template";
@@ -24,10 +24,26 @@ function pseudoChar(c: string) {
     return String.fromCodePoint(code);
 }
 
-function pseudoLocalise(str: string) {
+function pseudoString(str: string) {
     return Array.from(str)
         .map(pseudoChar)
         .join("");
+}
+
+function pseudoExpression(msgid: string) {
+    const statement = <ExpressionStatement>tpl("`" + msgid + "`")();
+    const expression = <TemplateLiteral>statement.expression;
+
+    for (const q of expression.quasis) {
+        if (q.value.raw) {
+            q.value.raw = pseudoString(q.value.raw);
+        }
+        if (q.value.cooked) {
+            q.value.cooked = pseudoString(q.value.cooked);
+        }
+    }
+    // FIXME if content has backticks, they are escaped by ast; unescape them here.
+    return ast2Str(expression).replace(/^`|`$/g, "");
 }
 
 export default function pseudo(path: string) {
@@ -36,52 +52,12 @@ export default function pseudo(path: string) {
     printMsg({ msgid: "", msgstr: [""] });
     printHeader(poData.headers);
 
-    process.stdout.write("\n");
-    const messages = iterateTranslations(poData.translations);
-    messages.next(); // skip empty translation
-    for (const msg of messages) {
-        printMsg(msg);
-        process.stdout.write("\n");
-        const msgid: string = msg.msgid;
-        const statement = <ExpressionStatement>tpl("`" + msgid + "`")();
-        const expression = <TemplateLiteral>statement.expression;
-
-        for (const q of expression.quasis) {
-            if (q.value.raw) {
-                q.value.raw = pseudoLocalise(q.value.raw);
-            }
-            if (q.value.cooked) {
-                q.value.cooked = pseudoLocalise(q.value.cooked);
-            }
-        }
-        process.stdout.write("Z: " + ast2Str(expression) + "\n");
-    }
-
-    /*
-    for (const msg of messages) {
-        let invalid = false;
-        for (let i = 0; i < msg.msgstr.length; i++) {
-            if (!msg.msgstr[i]) {
-                continue;
-            }
-            const result = checkFormat(msg.msgid, msg.msgstr[0]);
-            if (!result.valid) {
-                invalid = true;
-                const missing = result.missing.length
-                    ? `missing ${result.missing.join(" and ")}`
-                    : "";
-                const redundant = result.redundant.length
-                    ? `redundant ${result.redundant.join(" and ")}`
-                    : "";
-                const explanation = [missing, redundant].filter(s => !!s).join(" but ");
-                msg.msgstr[i] += ` <--- ${explanation};`;
-            }
-            if (invalid) {
-                //hasErrors = true;
-                printMsg(msg);
-                console.log("\n");
-            }
+    for (const key of Object.keys(poData.translations)) {
+        const ctx = poData.translations[key];
+        for (const msgid of Object.keys(ctx)) {
+            const msg = ctx[msgid];
+            msg.msgstr = msg.msgstr.map(() => pseudoExpression(msgid));
         }
     }
-*/
+    fs.writeFileSync("out.txt", serialize(poData));
 }
