@@ -242,11 +242,17 @@ yargs
         }
     )
     .command(
-        "pseudo <pofile>",
+        "pseudo <path> [args]",
         "will output a pseudo-localised translation",
-        {},
+        {
+            output: {
+                alias: "o",
+                default: "pseudo.po",
+                description: "result file with pseudo translations (.po)"
+            }
+        },
         argv => {
-            pseudo(argv.pofile);
+            pseudo(argv.path, argv.output);
         }
     )
     .command(

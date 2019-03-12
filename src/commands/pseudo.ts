@@ -1,6 +1,5 @@
 import * as fs from "fs";
 import { parse } from "../lib/parser";
-import { printHeader, printMsg } from "../lib/print";
 import { serialize } from "../lib/serializer";
 import { ast2Str } from "../lib/utils";
 import { ExpressionStatement, TemplateLiteral } from "@babel/types";
@@ -46,11 +45,8 @@ function pseudoExpression(msgid: string) {
     return ast2Str(expression).replace(/^`|`$/g, "");
 }
 
-export default function pseudo(path: string) {
+export default function pseudo(path: string, output: string) {
     const poData = parse(fs.readFileSync(path).toString());
-
-    printMsg({ msgid: "", msgstr: [""] });
-    printHeader(poData.headers);
 
     for (const key of Object.keys(poData.translations)) {
         const ctx = poData.translations[key];
@@ -59,5 +55,6 @@ export default function pseudo(path: string) {
             msg.msgstr = msg.msgstr.map(() => pseudoExpression(msgid));
         }
     }
-    fs.writeFileSync("out.txt", serialize(poData));
+    fs.writeFileSync(output, serialize(poData));
+    console.log(`Translations written to ${output}`);
 }
