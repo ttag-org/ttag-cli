@@ -9,9 +9,18 @@ const UPPER_A = <number>"A".codePointAt(0);
 const UPPER_Z = <number>"Z".codePointAt(0);
 const LOWER_A = <number>"a".codePointAt(0);
 const LOWER_Z = <number>"z".codePointAt(0);
+const ZERO = <number>"0".codePointAt(0);
+const NINE = <number>"9".codePointAt(0);
 
-const PSEUDO_UPPER_A = 0x1d608;
-const PSEUDO_LOWER_A = 0x1d622;
+// Italic Math symbols are shorter than plain text
+// const PSEUDO_UPPER_A = 0x1d608;
+// const PSEUDO_LOWER_A = 0x1d622;
+// const PSEUDO_ZERO = 0x1d7e2;
+
+// Bold Cursive Math symbols are longer than plain text
+const PSEUDO_UPPER_A = 0x1d4d0;
+const PSEUDO_LOWER_A = 0x1d4ea;
+const PSEUDO_ZERO = 0x1d7ce;
 
 function pseudoChar(c: string) {
     let code = <number>c.codePointAt(0);
@@ -19,6 +28,8 @@ function pseudoChar(c: string) {
         code = code - UPPER_A + PSEUDO_UPPER_A;
     } else if (code >= LOWER_A && code <= LOWER_Z) {
         code = code - LOWER_A + PSEUDO_LOWER_A;
+    } else if (code >= ZERO && code <= NINE) {
+        code = code - ZERO + PSEUDO_ZERO;
     }
     return String.fromCodePoint(code);
 }
