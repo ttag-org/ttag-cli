@@ -10,6 +10,7 @@ import filter from "./commands/filter";
 import stats from "./commands/stats";
 import replace from "./commands/replace";
 import color from "./commands/color";
+import pseudo from "./commands/pseudo";
 import spell from "./commands/spell";
 import validate from "./commands/validate";
 import web from "./commands/web";
@@ -238,6 +239,20 @@ yargs
         {},
         argv => {
             color(argv.pofile);
+        }
+    )
+    .command(
+        "pseudo <path> [args]",
+        "will output a pseudo-localised translation",
+        {
+            output: {
+                alias: "o",
+                default: "pseudo.po",
+                description: "result file with pseudo translations (.po)"
+            }
+        },
+        argv => {
+            pseudo(argv.path, argv.output);
         }
     )
     .command(
