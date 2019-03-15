@@ -3,8 +3,8 @@
 exports[`colorize test file 1`] = `
 "[33mmsgid[39m \\"\\"
 [33mmsgstr[39m \\"\\"
-[34mContent-Type: text/plain; charset=utf-8[39m
-[34mPlural-Forms: nplurals=2; plural=(n!=1);[39m
+[34mcontent-type: text/plain; charset=utf-8[39m
+[34mplural-forms: nplurals=2; plural=(n!=1);[39m
 [34m[39m
 [34m#: tests/fixtures/checkTest/check-trans-exist.js:2[39m
 [34m[39m[34m#, fuzzy[39m
