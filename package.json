@@ -12,7 +12,7 @@
     "build": "tsc",
     "pretty": "prettier --write \"./src/**/*.ts\" \"./tests/**/*.ts\"",
     "precommit": "lint-staged",
-    "postinstall": "./scripts/install_completion.js",
+    "postinstall": "node ./scripts/install_completion.js",
     "readme": "npm run build && node ./scripts/doc.js"
   },
   "lint-staged": {
