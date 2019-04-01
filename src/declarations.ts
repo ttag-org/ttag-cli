@@ -12,3 +12,4 @@ declare module "@babel/plugin-proposal-export-default-from";
 declare module "@babel/plugin-syntax-dynamic-import";
 declare module "@babel/plugin-proposal-decorators";
 declare module "@babel/preset-typescript";
+declare module "@babel/preset-flow";
