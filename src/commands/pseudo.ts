@@ -41,7 +41,7 @@ function pseudoString(str: string) {
 }
 
 function pseudoExpression(msgid: string) {
-    const statement = <ExpressionStatement>tpl("`" + msgid + "`")();
+    const statement = <ExpressionStatement>tpl.ast("`" + msgid + "`");
     const expression = <TemplateLiteral>statement.expression;
 
     for (const q of expression.quasis) {

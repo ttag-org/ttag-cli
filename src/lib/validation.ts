@@ -20,7 +20,7 @@ export function langValidationMsg(language: string): string {
 /* Parse template string with babel and return a Set of template identifiers and tagged expressions */
 export function parseTemplateString(str: string): Set<string> {
     const templates: Set<string> = new Set();
-    const expressionStmt = <ExpressionStatement>tpl("`" + str + "`")();
+    const expressionStmt = <ExpressionStatement>tpl.ast("`" + str + "`");
     // I cannot into types
     const expression = <TemplateLiteral>expressionStmt.expression;
     for (const node of expression.expressions) {
