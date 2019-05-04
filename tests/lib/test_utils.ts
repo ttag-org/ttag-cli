@@ -87,4 +87,34 @@ describe("convert2Compact", () => {
             "ctx test [translation]"
         ]);
     });
+    test("should remove untranslated and fuzzy", () => {
+        const verbose = {
+            headers: {
+                "plural-forms": "nplurals=2; plural=(n!=1);\n",
+                other: "header"
+            },
+            translations: {
+                "": {
+                    untranslated: {
+                        msgid: "test",
+                        msgstr: []
+                    },
+                    fuzzy: {
+                        msgid: "test",
+                        msgstr: [],
+                        comments: {
+                            flag: "fuzzy"
+                        }
+                    }
+                }
+            }
+        };
+        const result = convert2Compact(verbose);
+        expect(result.contexts[""]).not.toHaveProperty("untranslated", [
+            "untranslated test [translation]"
+        ]);
+        expect(result.contexts[""]).not.toHaveProperty("fuzzy", [
+            "fuzzy test [translation]"
+        ]);
+    });
 });

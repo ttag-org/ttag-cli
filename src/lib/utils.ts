@@ -47,6 +47,12 @@ export function convert2Compact(poData: PoData): PoDataCompact {
     Object.entries(poData.translations).forEach(
         ([context, ctxtTranslations]) => {
             Object.entries(ctxtTranslations).forEach(([msgid, msgidData]) => {
+                if (msgidData.comments && msgidData.comments.flag == "fuzzy") {
+                    return;
+                }
+                if (!msgidData.msgstr.length) {
+                    return;
+                }
                 if (!compactPo.contexts[context]) {
                     compactPo.contexts[context] = {};
                 }
