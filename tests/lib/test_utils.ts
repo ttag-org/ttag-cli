@@ -105,16 +105,17 @@ describe("convert2Compact", () => {
                         comments: {
                             flag: "fuzzy"
                         }
+                    },
+                    test: {
+                        msgid: "test",
+                        msgstr: ["test [translation]"]
                     }
                 }
             }
         };
         const result = convert2Compact(verbose);
-        expect(result.contexts[""]).not.toHaveProperty("untranslated", [
-            "untranslated test [translation]"
-        ]);
-        expect(result.contexts[""]).not.toHaveProperty("fuzzy", [
-            "fuzzy test [translation]"
-        ]);
+        expect(result.contexts[""]).toHaveProperty("test");
+        expect(result.contexts[""]).not.toHaveProperty("untranslated");
+        expect(result.contexts[""]).not.toHaveProperty("fuzzy");
     });
 });
