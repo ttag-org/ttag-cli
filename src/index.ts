@@ -289,10 +289,16 @@ yargs
                 description: "do not strip comments/headers",
                 boolean: true,
                 default: false
+            },
+            format: {
+                description:
+                    "sets the output JSON format (compact is much smaller)",
+                choices: ["compact", "verbose"],
+                default: "verbose"
             }
         },
         argv => {
-            po2js(argv.pofile, argv.pretty, argv.nostrip);
+            po2js(argv.pofile, argv.pretty, argv.nostrip, argv.format);
         }
     )
     .command("doc", false, {}, _ => {

@@ -2,7 +2,7 @@
     "compilerOptions": {
         "target": "es5",
         "outDir": "dist",
-        "lib":["es5", "es6", "dom"],
+        "lib":["es5", "es6", "es2017", "dom"],
         "strictNullChecks": true,
         "noImplicitAny": true,
         "noImplicitReturns": true,

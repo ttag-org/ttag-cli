@@ -37,6 +37,11 @@ export type PoData = {
     charset?: string;
 };
 
+export type PoDataCompact = {
+    headers: { "plural-forms": string };
+    contexts: { [key: string]: { [key: string]: string[] } };
+};
+
 export function parse(str: string): PoData {
     return po.parse(str);
 }

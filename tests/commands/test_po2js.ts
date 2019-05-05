@@ -23,3 +23,12 @@ test("convert po to js nostrip", () => {
     ).toString();
     expect(result).toMatchSnapshot();
 });
+
+test("should apply compact format", () => {
+    const result = execSync(
+        `ts-node src/index.ts po2json --format=compact -n ${poPath}`
+    ).toString();
+    const jsonResult = JSON.parse(result);
+    expect(jsonResult).toHaveProperty("contexts");
+    expect(result).toMatchSnapshot();
+});

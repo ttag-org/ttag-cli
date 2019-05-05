@@ -1,4 +1,4 @@
-import { Translations, Message } from "./parser";
+import { Translations, Message, PoData, PoDataCompact } from "./parser";
 import generate from "@babel/generator";
 import { Node } from "@babel/types";
 
@@ -32,4 +32,34 @@ export function* iterateTranslations(
 
 export function ast2Str(ast: Node): string {
     return generate(ast).code;
+}
+
+export function convert2Compact(poData: PoData): PoDataCompact {
+    const compactPo: PoDataCompact = {
+        headers: {
+            "plural-forms": ""
+        },
+        contexts: {
+            "": {}
+        }
+    };
+    compactPo.headers["plural-forms"] = poData.headers["plural-forms"];
+    Object.entries(poData.translations).forEach(
+        ([context, ctxtTranslations]) => {
+            Object.entries(ctxtTranslations).forEach(([msgid, msgidData]) => {
+                if (msgidData.comments && msgidData.comments.flag == "fuzzy") {
+                    return;
+                }
+                if (!msgidData.msgstr.length) {
+                    return;
+                }
+                if (!compactPo.contexts[context]) {
+                    compactPo.contexts[context] = {};
+                }
+                compactPo.contexts[context][msgid] = msgidData.msgstr;
+            });
+        }
+    );
+    delete compactPo.contexts[""][""];
+    return compactPo;
 }
