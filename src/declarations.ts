@@ -1,3 +1,4 @@
+declare module "open";
 declare module "walk";
 declare module "cross-spawn";
 declare module "hunspell-spellchecker";

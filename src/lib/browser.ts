@@ -9,10 +9,10 @@
 
 import chalk from "chalk";
 import { execSync } from "child_process";
-import * as spawn from "cross-spawn";
-import opn = require("opn");
+const spawn = require("cross-spawn");
+const open = require("open");
 
-// https://github.com/sindresorhus/opn#app
+// https://github.com/sindresorhus/open#app
 const OSX_CHROME = "google chrome";
 
 enum Actions {
@@ -29,7 +29,7 @@ interface BrowserEnv {
 function getBrowserEnv(): BrowserEnv {
     // Attempt to honor this environment variable.
     // It is specific to the operating system.
-    // See https://github.com/sindresorhus/opn#app for documentation.
+    // See https://github.com/sindresorhus/open#app for documentation.
     const value = process.env.BROWSER || "";
     let action;
     if (!value) {
@@ -103,11 +103,11 @@ function startBrowserProcess(browser: string, url: string) {
         browser = "";
     }
 
-    // Fallback to opn
+    // Fallback to `open`
     // (It will always open new tab)
     try {
         var options = { app: browser };
-        opn(url, options).catch(() => {}); // Prevent `unhandledRejection` error.
+        open(url, options).catch(() => {}); // Prevent `unhandledRejection` error.
         return true;
     } catch (err) {
         return false;
