@@ -10,7 +10,7 @@
 import chalk from "chalk";
 import { execSync } from "child_process";
 import * as spawn from "cross-spawn";
-import opn = require("opn");
+import opn = require("open");
 
 // https://github.com/sindresorhus/opn#app
 const OSX_CHROME = "google chrome";
