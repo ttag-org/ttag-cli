@@ -14,7 +14,10 @@ export async function extractAll(
     overrideOpts?: ttagTypes.TtagOpts
 ): Promise<string> {
     const tmpFile = tmp.fileSync();
-    let ttagOpts: ttagTypes.TtagOpts = { extract: { output: tmpFile.name } };
+    let ttagOpts: ttagTypes.TtagOpts = {
+        extract: { output: tmpFile.name },
+        addComments: true
+    };
     if (lang !== "en") {
         ttagOpts.defaultLang = lang;
     }
