@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "preversion": "npm run build && npm test",
-    "test": "mkdir -p dist && jest",
+    "test": "mkdir -p dist && CI=true jest",
     "cli": "ts-node ./src/index.ts",
     "build": "tsc",
     "pretty": "prettier --write \"./src/**/*.ts\" \"./tests/**/*.ts\"",
