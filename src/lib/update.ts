@@ -36,7 +36,11 @@ function updateTranslations(
 ): Translations {
     const updated: Translations = {};
     for (const ctx of Object.keys(pot)) {
-        updated[ctx] = updateMessages(pot[ctx], po[ctx], pluralsNum);
+        updated[ctx] = updateMessages(
+            pot[ctx] || {},
+            po[ctx] || {},
+            pluralsNum
+        );
     }
     return updated;
 }
