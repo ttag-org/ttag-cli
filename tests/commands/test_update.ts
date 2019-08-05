@@ -64,3 +64,18 @@ test("should extract comments by default", () => {
     expect(result).toContain("#. translator: jsx test comment");
     tmpFile.removeCallback();
 });
+
+const contextTest = path.resolve(
+    __dirname,
+    "../fixtures/updateTest/context.jsx"
+);
+
+test("should extract from context", () => {
+    const tmpFile = tmp.fileSync();
+    fs.writeFileSync(tmpFile.name, originalPo);
+    execSync(`ts-node src/index.ts update ${tmpFile.name} ${contextTest}`);
+    const result = fs.readFileSync(tmpFile.name).toString();
+    expect(result).toContain('msgctxt "email"');
+    expect(result).toContain('msgid "context translation"');
+    tmpFile.removeCallback();
+});
