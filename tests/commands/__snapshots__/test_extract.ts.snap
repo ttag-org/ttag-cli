@@ -7,6 +7,7 @@ msgstr \\"\\"
 \\"Plural-Forms: nplurals=2; plural=(n!=1);\\\\n\\"
 
 #: tests/fixtures/baseTest/test1.js:4
+#, javascript-format
 msgid \\"test translation \${ name }\\"
 msgstr \\"\\"
 
@@ -22,6 +23,7 @@ msgstr \\"\\"
 \\"Plural-Forms: nplurals=2; plural=(n!=1);\\\\n\\"
 
 #: tests/fixtures/ukLocaleTest/index.js:5
+#, javascript-format
 msgid \\"\${ n } банан\\"
 msgid_plural \\"\${ n } банана\\"
 msgstr[0] \\"\\"
@@ -47,6 +49,7 @@ msgstr \\"\\"
 \\"Plural-Forms: nplurals=2; plural=(n!=1);\\\\n\\"
 
 #: tests/fixtures/tSParse.ts:4
+#, javascript-format
 msgid \\"\${ a } string\\"
 msgstr \\"\\""
 `;

@@ -15,6 +15,7 @@ msgid \\"new\\"
 msgstr \\"\\"
 
 #: tests/fixtures/updateTest/test.js:6
+#, javascript-format
 msgid \\"\${ n } banana\\"
 msgid_plural \\"\${ n } bananas\\"
 msgstr[0] \\"\\"
