@@ -3,15 +3,11 @@
 exports[`replace translations 1`] = `
 "\\"use strict\\";
 
-var _ttag = require(\\"ttag\\");
-
 \\"test translation\\";"
 `;
 
 exports[`replace translations 2`] = `
 "\\"use strict\\";
-
-var _ttag = require(\\"ttag\\");
 
 \\"test 2 translation\\";"
 `;
