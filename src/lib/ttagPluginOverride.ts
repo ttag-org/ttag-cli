@@ -20,10 +20,15 @@ const extractLocationDescr = `string - 'full' | 'file' | 'never' - ${doc(
     "#configextractlocation"
 )}. Is used to format location comments in the .po file. `;
 
-const OPTS: { [k: string]: string } = {
-    discover: discoverDescription,
-    numberedExpressions: numberedExpressionsDescr,
-    extractLocation: extractLocationDescr
+const sortByMsgidDescr = `boolean - The resulting output will be sorted alphabetically. ${doc(
+    "#configsortbymsgid"
+)}`;
+
+const OPTS: { [k: string]: { description: string; boolean?: boolean } } = {
+    discover: { description: discoverDescription },
+    numberedExpressions: { description: numberedExpressionsDescr },
+    extractLocation: { description: extractLocationDescr },
+    sortByMsgid: { description: sortByMsgidDescr, boolean: true }
 };
 
 function hasOverrides(argv: yargs.Arguments): boolean {
@@ -50,6 +55,8 @@ export function parseTtagPluginOpts(
             extendedOpts[opt] = Boolean(argv[opt]);
         } else if (opt === "extractLocation") {
             extendedOpts["extract"] = { location: argv[opt] };
+        } else if (opt === "sortByMsgid") {
+            extendedOpts.sortByMsgid = true;
         } else {
             extendedOpts[opt] = argv[opt];
         }
@@ -79,9 +86,5 @@ export function mergeOpts(opts1: TtagOpts, opts2: TtagOpts): TtagOpts {
 }
 
 export function getTtagOptsForYargs() {
-    const result: any = {};
-    Object.keys(OPTS).forEach(opt => {
-        result[opt] = { description: OPTS[opt] };
-    });
-    return result;
+    return OPTS;
 }

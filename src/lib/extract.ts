@@ -16,6 +16,7 @@ export async function extractAll(
     const tmpFile = tmp.fileSync();
     let ttagOpts: ttagTypes.TtagOpts = {
         extract: { output: tmpFile.name },
+        sortByMsgid: overrideOpts && overrideOpts.sortByMsgid,
         addComments: true
     };
     if (lang !== "en") {

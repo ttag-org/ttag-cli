@@ -1,5 +1,27 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`should sort the output alphabetically (apply sortByMsgid option) 1`] = `
+"msgid \\"\\"
+msgstr \\"\\"
+\\"Content-Type: text/plain; charset=utf-8\\\\n\\"
+\\"Plural-Forms: nplurals=2; plural=(n!=1);\\\\n\\"
+
+#: tests/fixtures/updateTest/test.js:6
+#, javascript-format
+msgid \\"\${ n } banana\\"
+msgid_plural \\"\${ n } bananas\\"
+msgstr[0] \\"\\"
+msgstr[1] \\"\\"
+
+#: tests/fixtures/updateTest/test.js:4
+msgid \\"new\\"
+msgstr \\"\\"
+
+#: tests/fixtures/updateTest/test.js:3
+msgid \\"test\\"
+msgstr \\"\\""
+`;
+
 exports[`test update po 1`] = `
 "msgid \\"\\"
 msgstr \\"\\"
