@@ -47,3 +47,5 @@ exports[`convert po to js pretty 1`] = `
   }
 }"
 `;
+
+exports[`should apply compact format 1`] = `"{\\"headers\\":{\\"plural-forms\\":\\"nplurals=2; plural=(n!=1);\\"},\\"contexts\\":{\\"\\":{\\"test\\":[\\"test translated\\"]},\\"ctx1\\":{\\"test\\":[\\"test translated\\"]},\\"ctx2\\":{\\"test\\":[\\"test translated\\"]}}}"`;

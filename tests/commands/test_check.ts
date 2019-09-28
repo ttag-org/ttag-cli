@@ -48,7 +48,7 @@ test("validation for translations fromat", () => {
         expect(false).toBe(true); // must fail anyway
     } catch (err) {
         expect(err.status).toBe(1);
-        expect(err.stderr.toString()).toContain("> 3 | t`${name}`;");
+        expect(err.stderr.toString()).toContain("Can not translate '${name}'");
     }
 });
 
@@ -63,6 +63,8 @@ test("plugin settings override test", () => {
     } catch (err) {
         expect(err.status).toBe(1);
         console.log(err.stderr.toString());
-        expect(err.stderr.toString()).toContain("> 1 | _(name);");
+        expect(err.stderr.toString()).toContain(
+            "You can not use Identifier 'name' as an argument to gettext"
+        );
     }
 });

@@ -16,7 +16,7 @@ msgid "obsolete"
 msgstr "obsolete trans"
 `;
 
-const srcPath = path.resolve(__dirname, "../fixtures/updateTest");
+const srcPath = path.resolve(__dirname, "../fixtures/updateTest/test.js");
 
 test("test update po", () => {
     const tmpFile = tmp.fileSync();
@@ -59,5 +59,34 @@ test("should sort the output alphabetically (apply sortByMsgid option)", () => {
     );
     const result = fs.readFileSync(tmpFile.name).toString();
     expect(result).toMatchSnapshot();
+    tmpFile.removeCallback();
+});
+
+const commentsTest = path.resolve(
+    __dirname,
+    "../fixtures/updateTest/comments.jsx"
+);
+test("should extract comments by default", () => {
+    const tmpFile = tmp.fileSync();
+    fs.writeFileSync(tmpFile.name, originalPo);
+    execSync(`ts-node src/index.ts update ${tmpFile.name} ${commentsTest}`);
+    const result = fs.readFileSync(tmpFile.name).toString();
+    expect(result).toContain("#. translator: test comment");
+    expect(result).toContain("#. translator: jsx test comment");
+    tmpFile.removeCallback();
+});
+
+const contextTest = path.resolve(
+    __dirname,
+    "../fixtures/updateTest/context.jsx"
+);
+
+test("should extract from context", () => {
+    const tmpFile = tmp.fileSync();
+    fs.writeFileSync(tmpFile.name, originalPo);
+    execSync(`ts-node src/index.ts update ${tmpFile.name} ${contextTest}`);
+    const result = fs.readFileSync(tmpFile.name).toString();
+    expect(result).toContain('msgctxt "email"');
+    expect(result).toContain('msgid "context translation"');
     tmpFile.removeCallback();
 });

@@ -13,6 +13,10 @@ test("parse template string", () => {
     expect(Array.from(taggedexpression.values()).join("|")).toBe(
         "x + z|y() * 5"
     );
+
+    // should work with upper case characters as variables (regression)
+    const uppercaseVariables = parseTemplateString("${X} and ${Y}");
+    expect(Array.from(uppercaseVariables.values()).join("|")).toBe("X|Y");
 });
 
 test("invalid format checks", () => {

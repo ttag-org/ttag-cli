@@ -10,6 +10,7 @@ import filter from "./commands/filter";
 import stats from "./commands/stats";
 import replace from "./commands/replace";
 import color from "./commands/color";
+import pseudo from "./commands/pseudo";
 import spell from "./commands/spell";
 import validate from "./commands/validate";
 import web from "./commands/web";
@@ -241,6 +242,20 @@ yargs
         }
     )
     .command(
+        "pseudo <path> [args]",
+        "will output a pseudo-localised translation",
+        {
+            output: {
+                alias: "o",
+                default: "pseudo.po",
+                description: "result file with pseudo translations (.po)"
+            }
+        },
+        argv => {
+            pseudo(argv.path, argv.output);
+        }
+    )
+    .command(
         "spell <pofile> [locale]",
         "will spellcheck po file messages with given locale, locale can be autodetected from pofile",
         {},
@@ -274,10 +289,16 @@ yargs
                 description: "do not strip comments/headers",
                 boolean: true,
                 default: false
+            },
+            format: {
+                description:
+                    "sets the output JSON format (compact is much smaller)",
+                choices: ["compact", "verbose"],
+                default: "verbose"
             }
         },
         argv => {
-            po2js(argv.pofile, argv.pretty, argv.nostrip);
+            po2js(argv.pofile, argv.pretty, argv.nostrip, argv.format);
         }
     )
     .command("doc", false, {}, _ => {

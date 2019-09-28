@@ -2,6 +2,7 @@
 import * as presetEnv from "@babel/preset-env";
 import * as presetReact from "@babel/preset-react";
 import * as presetTS from "@babel/preset-typescript";
+import * as presetFlow from "@babel/preset-flow";
 import { TransformOptions, ConfigItem } from "@babel/core";
 import * as ttagTypes from "./types";
 
@@ -21,7 +22,12 @@ export const defaultPlugins: ConfigItem[] = [
     babelDynamicImportPlugin
 ];
 
-export const defaultPresets: ConfigItem[] = [presetTS, presetEnv, presetReact];
+export const defaultPresets: ConfigItem[] = [
+    presetTS,
+    presetFlow,
+    presetEnv,
+    presetReact
+];
 
 export function makeBabelConf(ttagOpts: ttagTypes.TtagOpts): TransformOptions {
     return {

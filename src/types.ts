@@ -10,6 +10,7 @@ export type TtagOpts = {
     discover?: string[];
     numberedExpressions?: boolean;
     sortByMsgid?: boolean;
+    addComments?: boolean;
 };
 
 export type Progress = {

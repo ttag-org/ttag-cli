@@ -115,6 +115,8 @@ will parse and output po file as loadable JSON
 #### Arguments:
 	-pretty  --p   pretty print js  (default: false)
 	-nostrip  --n   do not strip comments/headers  (default: false)
+	--format  sets the output JSON format (compact is much smaller)
+        [choices: "compact", "verbose"] [default: "verbose"]
 
 
 <!--- END COMMANDS --->

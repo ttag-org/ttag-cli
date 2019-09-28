@@ -7,6 +7,7 @@ msgstr \\"\\"
 \\"Plural-Forms: nplurals=2; plural=(n!=1);\\\\n\\"
 
 #: tests/fixtures/updateTest/test.js:6
+#, javascript-format
 msgid \\"\${ n } banana\\"
 msgid_plural \\"\${ n } bananas\\"
 msgstr[0] \\"\\"
@@ -36,6 +37,7 @@ msgid \\"new\\"
 msgstr \\"\\"
 
 #: tests/fixtures/updateTest/test.js:6
+#, javascript-format
 msgid \\"\${ n } banana\\"
 msgid_plural \\"\${ n } bananas\\"
 msgstr[0] \\"\\"
