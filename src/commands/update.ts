@@ -19,7 +19,6 @@ async function update(
             await extractAll(src, lang, progress, ttagOverrideOpts)
         );
         const po = parse(fs.readFileSync(pofile).toString());
-        console.log(pot, po);
         const resultPo = updatePo(pot, po);
         fs.writeFileSync(pofile, serialize(resultPo));
         progress.succeed(`${pofile} updated`);
