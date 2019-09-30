@@ -1,11 +1,12 @@
 import { convert2Compact } from "../../src/lib/utils";
 
 describe("convert2Compact", () => {
-    test("should strip headers except of plural-forms", () => {
+    test("should strip headers except of plural-forms and language", () => {
         const verbose = {
             headers: {
                 "plural-forms": "nplurals=2; plural=(n!=1);\n",
-                other: "header"
+                other: "header",
+                language: "en"
             },
             translations: {
                 "": {}
@@ -17,6 +18,7 @@ describe("convert2Compact", () => {
             "plural-forms",
             "nplurals=2; plural=(n!=1);\n"
         );
+        expect(result.headers).toHaveProperty("language", "en");
     });
     test("should omit the empty string translation", () => {
         const verbose = {
