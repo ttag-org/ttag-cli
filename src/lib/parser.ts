@@ -38,7 +38,7 @@ export type PoData = {
 };
 
 export type PoDataCompact = {
-    headers: { "plural-forms": string };
+    headers: Headers;
     contexts: { [key: string]: { [key: string]: string[] } };
 };
 

@@ -37,13 +37,15 @@ export function ast2Str(ast: Node): string {
 export function convert2Compact(poData: PoData): PoDataCompact {
     const compactPo: PoDataCompact = {
         headers: {
-            "plural-forms": ""
+            "plural-forms": "",
+            language: "en"
         },
         contexts: {
             "": {}
         }
     };
     compactPo.headers["plural-forms"] = poData.headers["plural-forms"];
+    compactPo.headers.language = poData.headers.language;
     Object.entries(poData.translations).forEach(
         ([context, ctxtTranslations]) => {
             Object.entries(ctxtTranslations).forEach(([msgid, msgidData]) => {
