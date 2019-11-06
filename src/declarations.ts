@@ -13,3 +13,4 @@ declare module "@babel/plugin-syntax-dynamic-import";
 declare module "@babel/plugin-proposal-decorators";
 declare module "@babel/preset-typescript";
 declare module "@babel/preset-flow";
+declare module "@babel/plugin-proposal-optional-chaining";
