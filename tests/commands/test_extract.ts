@@ -10,6 +10,7 @@ const ukTestPath = path.resolve(__dirname, "../fixtures/ukLocaleTest");
 const jsxPath = path.resolve(__dirname, "../fixtures/testJSXParse.jsx");
 const globalFn = path.resolve(__dirname, "../fixtures/globalFunc.js");
 const tsPath = path.resolve(__dirname, "../fixtures/tSParse.ts");
+const tsChaning = path.resolve(__dirname, "../fixtures/tsOptionalChaning.ts");
 const tsxPath = path.resolve(__dirname, "../fixtures/tSXParse.tsx");
 
 function cleanup() {
@@ -60,9 +61,7 @@ test("should override babel plugin settings", () => {
 
 test("should extract with numberedExpressions", () => {
     execSync(
-        `ts-node src/index.ts extract --numberedExpressions -o ${potPath} ${
-            baseTestPath
-        }`
+        `ts-node src/index.ts extract --numberedExpressions -o ${potPath} ${baseTestPath}`
     );
     const result = fs.readFileSync(potPath).toString();
     expect(result).toContain("test translation 2 ${ 0 }");
@@ -70,9 +69,7 @@ test("should extract with numberedExpressions", () => {
 
 test("should extract with extract.location", () => {
     execSync(
-        `ts-node src/index.ts extract --extractLocation=never -o ${potPath} ${
-            baseTestPath
-        }`
+        `ts-node src/index.ts extract --extractLocation=never -o ${potPath} ${baseTestPath}`
     );
     const result = fs.readFileSync(potPath).toString();
     expect(result).not.toContain("#: tests/fixtures/baseTest");
@@ -80,10 +77,14 @@ test("should extract with extract.location", () => {
 
 test("should extract in the alphabetical order (sortByMsgid)", () => {
     execSync(
-        `ts-node src/index.ts extract --sortByMsgid -o ${potPath} ${
-            sortByMsgidPath
-        }`
+        `ts-node src/index.ts extract --sortByMsgid -o ${potPath} ${sortByMsgidPath}`
     );
+    const result = fs.readFileSync(potPath).toString();
+    expect(result).toMatchSnapshot();
+});
+
+test("extract from ts", () => {
+    execSync(`ts-node src/index.ts extract -o ${potPath} ${tsChaning}`);
     const result = fs.readFileSync(potPath).toString();
     expect(result).toMatchSnapshot();
 });

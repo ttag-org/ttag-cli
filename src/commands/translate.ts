@@ -1,7 +1,7 @@
 import * as fs from "fs";
 import * as readlineSync from "readline-sync";
 import chalk from "chalk";
-import { parse, Message, Translations, PoData } from "../lib/parser";
+import { parse, Translations, PoData } from "../lib/parser";
 import { serialize } from "../lib/serializer";
 import {
     printComments,
@@ -11,9 +11,7 @@ import {
 } from "../lib/print";
 
 /* Generate untranslated messages along with context */
-export function* untranslatedStream(
-    translations: Translations
-): IterableIterator<[string, Message]> {
+export function* untranslatedStream(translations: Translations): any {
     for (const contextKey of Object.keys(translations)) {
         const context = translations[contextKey];
         for (const msgid of Object.keys(context)) {

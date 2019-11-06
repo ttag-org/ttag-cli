@@ -54,6 +54,18 @@ msgid \\"\${ a } string\\"
 msgstr \\"\\""
 `;
 
+exports[`extract from ts 2`] = `
+"msgid \\"\\"
+msgstr \\"\\"
+\\"Content-Type: text/plain; charset=utf-8\\\\n\\"
+\\"Plural-Forms: nplurals=2; plural=(n!=1);\\\\n\\"
+
+#: tests/fixtures/tsOptionalChaning.ts:5
+#, javascript-format
+msgid \\"test \${ name }\\"
+msgstr \\"\\""
+`;
+
 exports[`extract from tsx 1`] = `
 "msgid \\"\\"
 msgstr \\"\\"

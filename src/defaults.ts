@@ -13,13 +13,15 @@ import * as exportDefaultFromPlugin from "@babel/plugin-proposal-export-default-
 import * as babelTtagPlugin from "babel-plugin-ttag";
 import * as babelDynamicImportPlugin from "@babel/plugin-syntax-dynamic-import";
 import * as babelPluginDecorators from "@babel/plugin-proposal-decorators";
+import * as optionalChaningPlugin from "@babel/plugin-proposal-optional-chaining";
 
 export const defaultPlugins: ConfigItem[] = [
     [babelPluginDecorators, { legacy: true }],
     [classPropPlugin, { loose: true }],
     restSpreadPlugin,
     exportDefaultFromPlugin,
-    babelDynamicImportPlugin
+    babelDynamicImportPlugin,
+    optionalChaningPlugin
 ];
 
 export const defaultPresets: ConfigItem[] = [
