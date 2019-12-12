@@ -1,6 +1,6 @@
 {
   "name": "ttag-cli",
-  "version": "1.7.26",
+  "version": "1.7.27",
   "main": "index.js",
   "repository": "git@github.com:ttag-org/ttag-cli.git",
   "author": "",
