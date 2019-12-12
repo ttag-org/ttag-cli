@@ -11,6 +11,10 @@ const jsxPath = path.resolve(__dirname, "../fixtures/testJSXParse.jsx");
 const globalFn = path.resolve(__dirname, "../fixtures/globalFunc.js");
 const tsPath = path.resolve(__dirname, "../fixtures/tSParse.ts");
 const tsChaning = path.resolve(__dirname, "../fixtures/tsOptionalChaning.ts");
+const tsCoalescing = path.resolve(
+    __dirname,
+    "../fixtures/tsNullishCoalescing.ts"
+);
 const tsxPath = path.resolve(__dirname, "../fixtures/tSXParse.tsx");
 
 function cleanup() {
@@ -85,6 +89,12 @@ test("should extract in the alphabetical order (sortByMsgid)", () => {
 
 test("extract from ts", () => {
     execSync(`ts-node src/index.ts extract -o ${potPath} ${tsChaning}`);
+    const result = fs.readFileSync(potPath).toString();
+    expect(result).toMatchSnapshot();
+});
+
+test("extract from ts", () => {
+    execSync(`ts-node src/index.ts extract -o ${potPath} ${tsCoalescing}`);
     const result = fs.readFileSync(potPath).toString();
     expect(result).toMatchSnapshot();
 });
