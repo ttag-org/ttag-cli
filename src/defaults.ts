@@ -14,6 +14,7 @@ import * as babelTtagPlugin from "babel-plugin-ttag";
 import * as babelDynamicImportPlugin from "@babel/plugin-syntax-dynamic-import";
 import * as babelPluginDecorators from "@babel/plugin-proposal-decorators";
 import * as optionalChaningPlugin from "@babel/plugin-proposal-optional-chaining";
+import * as nullishCoalescingOperatorPlugin from "@babel/plugin-proposal-nullish-coalescing-operator";
 
 export const defaultPlugins: ConfigItem[] = [
     [babelPluginDecorators, { legacy: true }],
@@ -21,7 +22,8 @@ export const defaultPlugins: ConfigItem[] = [
     restSpreadPlugin,
     exportDefaultFromPlugin,
     babelDynamicImportPlugin,
-    optionalChaningPlugin
+    optionalChaningPlugin,
+    nullishCoalescingOperatorPlugin
 ];
 
 export const defaultPresets: ConfigItem[] = [
