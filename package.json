@@ -84,7 +84,7 @@
     "supports-color": "^5.0.1",
     "tmp": "0.0.33",
     "walk": "2.3.9",
-    "yargs": "^10.1.2"
+    "yargs": "^11.1.1"
   },
   "jest": {
     "transform": {
