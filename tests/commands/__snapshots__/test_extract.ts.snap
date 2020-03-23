@@ -89,6 +89,17 @@ msgid \\"test from tsx\\"
 msgstr \\"\\""
 `;
 
+exports[`extract from vue 1`] = `
+"msgid \\"\\"
+msgstr \\"\\"
+\\"Content-Type: text/plain; charset=utf-8\\\\n\\"
+\\"Plural-Forms: nplurals=2; plural=(n!=1);\\\\n\\"
+
+#: tests/fixtures/testVueParse.vue:7
+msgid \\"test from vue file\\"
+msgstr \\"\\""
+`;
+
 exports[`should extract in the alphabetical order (sortByMsgid) 1`] = `
 "msgid \\"\\"
 msgstr \\"\\"
