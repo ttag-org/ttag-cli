@@ -2,6 +2,8 @@ import "../declarations";
 import * as babel from "@babel/core";
 import * as fs from "fs";
 import * as tmp from "tmp";
+import { extname } from "path";
+import { Parser } from "htmlparser2";
 import { makeBabelConf } from "../defaults";
 import * as ttagTypes from "../types";
 import { TransformFn, pathsWalk } from "./pathsWalk";
@@ -28,7 +30,41 @@ export async function extractAll(
     const babelOptions = makeBabelConf(ttagOpts);
     const transformFn: TransformFn = filepath => {
         try {
-            babel.transformFileSync(filepath, babelOptions);
+            if (extname(filepath) === ".vue") {
+                let shouldExtractCode = false;
+                const jsCodes: string[] = [];
+                const parser = new Parser(
+                    {
+                        onopentag(name, attrs) {
+                            const isJavaScript =
+                                !attrs.type || attrs.type === "text/javascript";
+                            if (name === "script" && isJavaScript) {
+                                shouldExtractCode = true;
+                            }
+                        },
+                        ontext(text) {
+                            shouldExtractCode && jsCodes.push(text);
+                        },
+                        onclosetag(tagname) {
+                            if (tagname === "script") {
+                                shouldExtractCode = false;
+                            }
+                        }
+                    },
+                    { decodeEntities: true }
+                );
+                parser.write(fs.readFileSync(filepath).toString());
+                parser.end();
+
+                jsCodes.map(script =>
+                    babel.transformSync(script, {
+                        filename: filepath,
+                        ...babelOptions
+                    })
+                );
+            } else {
+                babel.transformFileSync(filepath, babelOptions);
+            }
         } catch (err) {
             if (err.codeFrame) {
                 console.error(err.codeFrame);

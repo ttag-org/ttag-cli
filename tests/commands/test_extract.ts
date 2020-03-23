@@ -8,6 +8,7 @@ const baseTestPath = path.resolve(__dirname, "../fixtures/baseTest");
 const sortByMsgidPath = path.resolve(__dirname, "../fixtures/sortByMsgidTest");
 const ukTestPath = path.resolve(__dirname, "../fixtures/ukLocaleTest");
 const jsxPath = path.resolve(__dirname, "../fixtures/testJSXParse.jsx");
+const vuePath = path.resolve(__dirname, "../fixtures/testVueParse.vue");
 const globalFn = path.resolve(__dirname, "../fixtures/globalFunc.js");
 const tsPath = path.resolve(__dirname, "../fixtures/tSParse.ts");
 const tsChaning = path.resolve(__dirname, "../fixtures/tsOptionalChaning.ts");
@@ -33,6 +34,12 @@ test("extract base case", () => {
 
 test("extract from jsx", () => {
     execSync(`ts-node src/index.ts extract -o ${potPath} ${jsxPath}`);
+    const result = fs.readFileSync(potPath).toString();
+    expect(result).toMatchSnapshot();
+});
+
+test("extract from vue", () => {
+    execSync(`ts-node src/index.ts extract -o ${potPath} ${vuePath}`);
     const result = fs.readFileSync(potPath).toString();
     expect(result).toMatchSnapshot();
 });
