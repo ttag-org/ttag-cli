@@ -6,6 +6,7 @@ import { extname } from "path";
 import { Parser } from "htmlparser2";
 import { walk } from "estree-walker";
 import { parse as parseSvelte } from "svelte/compiler";
+import { TemplateNode } from "svelte/types/compiler/interfaces";
 import { makeBabelConf } from "../defaults";
 import * as ttagTypes from "../types";
 import { TransformFn, pathsWalk } from "./pathsWalk";
@@ -76,7 +77,7 @@ export async function extractAll(
                     // <script> tag should include `import {t } from 'ttag'`
                     // We put this in the front
                     walk(instance, {
-                        enter(node) {
+                        enter(node: TemplateNode) {
                             if (node.type !== "Program") return;
                             jsCodes.push(source.slice(node.start, node.end));
                         }
@@ -84,7 +85,7 @@ export async function extractAll(
 
                     // Collect t`...` in {...} in template
                     walk(html, {
-                        enter(node) {
+                        enter(node: TemplateNode) {
                             if (
                                 node.type !== "MustacheTag" &&
                                 node.type !== "RawMustacheTag"
