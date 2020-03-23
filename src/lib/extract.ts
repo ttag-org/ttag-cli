@@ -4,6 +4,8 @@ import * as fs from "fs";
 import * as tmp from "tmp";
 import { extname } from "path";
 import { Parser } from "htmlparser2";
+import { walk } from "estree-walker";
+import { parse as parseSvelte } from "svelte/compiler";
 import { makeBabelConf } from "../defaults";
 import * as ttagTypes from "../types";
 import { TransformFn, pathsWalk } from "./pathsWalk";
@@ -30,40 +32,81 @@ export async function extractAll(
     const babelOptions = makeBabelConf(ttagOpts);
     const transformFn: TransformFn = filepath => {
         try {
-            if (extname(filepath) === ".vue") {
-                let shouldExtractCode = false;
-                const jsCodes: string[] = [];
-                const parser = new Parser(
-                    {
-                        onopentag(name, attrs) {
-                            const isJavaScript =
-                                !attrs.type || attrs.type === "text/javascript";
-                            if (name === "script" && isJavaScript) {
-                                shouldExtractCode = true;
+            switch (extname(filepath)) {
+                case ".vue": {
+                    let shouldExtractCode = false;
+                    const jsCodes: string[] = [];
+                    const parser = new Parser(
+                        {
+                            onopentag(name, attrs) {
+                                const isJavaScript =
+                                    !attrs.type ||
+                                    attrs.type === "text/javascript";
+                                if (name === "script" && isJavaScript) {
+                                    shouldExtractCode = true;
+                                }
+                            },
+                            ontext(text) {
+                                shouldExtractCode && jsCodes.push(text);
+                            },
+                            onclosetag(tagname) {
+                                if (tagname === "script") {
+                                    shouldExtractCode = false;
+                                }
                             }
                         },
-                        ontext(text) {
-                            shouldExtractCode && jsCodes.push(text);
-                        },
-                        onclosetag(tagname) {
-                            if (tagname === "script") {
-                                shouldExtractCode = false;
-                            }
-                        }
-                    },
-                    { decodeEntities: true }
-                );
-                parser.write(fs.readFileSync(filepath).toString());
-                parser.end();
+                        { decodeEntities: true }
+                    );
+                    parser.write(fs.readFileSync(filepath).toString());
+                    parser.end();
 
-                jsCodes.map(script =>
-                    babel.transformSync(script, {
+                    jsCodes.map(script =>
+                        babel.transformSync(script, {
+                            filename: filepath,
+                            ...babelOptions
+                        })
+                    );
+                    break;
+                }
+                case ".svelte": {
+                    const source = fs.readFileSync(filepath).toString();
+                    const jsCodes: string[] = [];
+                    const { html, instance } = parseSvelte(source);
+
+                    // <script> tag should include `import {t } from 'ttag'`
+                    // We put this in the front
+                    walk(instance, {
+                        enter(node) {
+                            if (node.type !== "Program") return;
+                            jsCodes.push(source.slice(node.start, node.end));
+                        }
+                    });
+
+                    // Collect t`...` in {...} in template
+                    walk(html, {
+                        enter(node) {
+                            if (
+                                node.type !== "MustacheTag" &&
+                                node.type !== "RawMustacheTag"
+                            )
+                                return;
+                            jsCodes.push(
+                                source.slice(
+                                    node.expression.start,
+                                    node.expression.end
+                                )
+                            );
+                        }
+                    });
+
+                    babel.transformSync(jsCodes.join("\n"), {
                         filename: filepath,
                         ...babelOptions
-                    })
-                );
-            } else {
-                babel.transformFileSync(filepath, babelOptions);
+                    });
+                    break;
+                }
+                default:
+                    babel.transformFileSync(filepath, babelOptions);
             }
         } catch (err) {
             if (err.codeFrame) {
