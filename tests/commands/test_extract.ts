@@ -48,7 +48,7 @@ test("extract from vue", () => {
     expect(result).toMatchSnapshot();
 });
 
-test.only("extract from svelte", () => {
+test("extract from svelte", () => {
     execSync(`ts-node src/index.ts extract -o ${potPath} ${sveltePath}`);
     const result = fs.readFileSync(potPath).toString();
     expect(result).toMatchSnapshot();
