@@ -42,6 +42,35 @@ msgid \\"test from jsx\\"
 msgstr \\"\\""
 `;
 
+exports[`extract from svelte 1`] = `
+"msgid \\"\\"
+msgstr \\"\\"
+\\"Content-Type: text/plain; charset=utf-8\\\\n\\"
+\\"Plural-Forms: nplurals=2; plural=(n!=1);\\\\n\\"
+
+#: tests/fixtures/testSvelteParse.svelte:6
+msgid \\"world\\"
+msgstr \\"\\"
+
+#: tests/fixtures/testSvelteParse.svelte:8
+#, javascript-format
+msgid \\"Hello \${ translated } !\\"
+msgstr \\"\\"
+
+#: tests/fixtures/testSvelteParse.svelte:9
+msgid \\"Instruction\\"
+msgstr \\"\\"
+
+#: tests/fixtures/testSvelteParse.svelte:10
+#, javascript-format
+msgid \\"Click <a href=\${ moreUrl }>here</a> for more info\\"
+msgstr \\"\\"
+
+#: tests/fixtures/testSvelteParse.svelte:11
+msgid \\"Log out\\"
+msgstr \\"\\""
+`;
+
 exports[`extract from ts 1`] = `
 "msgid \\"\\"
 msgstr \\"\\"

@@ -16,7 +16,8 @@ function walkFile(
         extname === ".jsx" ||
         extname === ".ts" ||
         extname === ".tsx" ||
-        extname === ".vue"
+        extname === ".vue" ||
+        extname === ".svelte"
     ) {
         progress.text = filepath;
         transformFn(filepath);
