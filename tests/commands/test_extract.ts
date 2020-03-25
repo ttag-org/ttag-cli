@@ -8,7 +8,11 @@ const baseTestPath = path.resolve(__dirname, "../fixtures/baseTest");
 const sortByMsgidPath = path.resolve(__dirname, "../fixtures/sortByMsgidTest");
 const ukTestPath = path.resolve(__dirname, "../fixtures/ukLocaleTest");
 const jsxPath = path.resolve(__dirname, "../fixtures/testJSXParse.jsx");
-const vuePath = path.resolve(__dirname, "../fixtures/testVueParse.vue");
+const vuePath = path.resolve(__dirname, "../fixtures/vueTest/testVueParse.vue");
+const vuePath2 = path.resolve(
+    __dirname,
+    "../fixtures/vueTest/testVueWithTagInScript.vue"
+);
 const sveltePath = path.resolve(
     __dirname,
     "../fixtures/testSvelteParse.svelte"
@@ -44,6 +48,12 @@ test("extract from jsx", () => {
 
 test("extract from vue", () => {
     execSync(`ts-node src/index.ts extract -o ${potPath} ${vuePath}`);
+    const result = fs.readFileSync(potPath).toString();
+    expect(result).toMatchSnapshot();
+});
+
+test("extract from vue with tag inside the script", () => {
+    execSync(`ts-node src/index.ts extract -o ${potPath} ${vuePath2}`);
     const result = fs.readFileSync(potPath).toString();
     expect(result).toMatchSnapshot();
 });
