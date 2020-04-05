@@ -15,3 +15,6 @@ declare module "@babel/preset-typescript";
 declare module "@babel/preset-flow";
 declare module "@babel/plugin-proposal-optional-chaining";
 declare module "@babel/plugin-proposal-nullish-coalescing-operator";
+declare module "magic-string" {
+    export type SourceMap = any;
+}
