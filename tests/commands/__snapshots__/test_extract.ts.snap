@@ -124,8 +124,19 @@ msgstr \\"\\"
 \\"Content-Type: text/plain; charset=utf-8\\\\n\\"
 \\"Plural-Forms: nplurals=2; plural=(n!=1);\\\\n\\"
 
-#: tests/fixtures/testVueParse.vue:7
+#: tests/fixtures/vueTest/testVueParse.vue:10
 msgid \\"test from vue file\\"
+msgstr \\"\\""
+`;
+
+exports[`extract from vue with tag inside the script 1`] = `
+"msgid \\"\\"
+msgstr \\"\\"
+\\"Content-Type: text/plain; charset=utf-8\\\\n\\"
+\\"Plural-Forms: nplurals=2; plural=(n!=1);\\\\n\\"
+
+#: tests/fixtures/vueTest/testVueWithTagInScript.vue:6
+msgid \\"test from vue file <a>Hello</a>\\"
 msgstr \\"\\""
 `;
 

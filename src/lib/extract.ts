@@ -3,7 +3,7 @@ import * as babel from "@babel/core";
 import * as fs from "fs";
 import * as tmp from "tmp";
 import { extname } from "path";
-import { Parser } from "htmlparser2";
+import { parseComponent } from "vue-sfc-parser";
 import { walk } from "estree-walker";
 import { parse as parseSvelte } from "svelte/compiler";
 import { TemplateNode } from "svelte/types/compiler/interfaces";
@@ -35,38 +35,20 @@ export async function extractAll(
         try {
             switch (extname(filepath)) {
                 case ".vue": {
-                    let shouldExtractCode = false;
-                    const jsCodes: string[] = [];
-                    const parser = new Parser(
-                        {
-                            onopentag(name, attrs) {
-                                const isJavaScript =
-                                    !attrs.type ||
-                                    attrs.type === "text/javascript";
-                                if (name === "script" && isJavaScript) {
-                                    shouldExtractCode = true;
-                                }
-                            },
-                            ontext(text) {
-                                shouldExtractCode && jsCodes.push(text);
-                            },
-                            onclosetag(tagname) {
-                                if (tagname === "script") {
-                                    shouldExtractCode = false;
-                                }
+                    const source = fs.readFileSync(filepath).toString();
+                    const script = parseComponent(source).script;
+                    if (script) {
+                        const lineCount =
+                            source.slice(0, script.start).split(/\r\n|\r|\n/)
+                                .length - 1;
+                        babel.transformSync(
+                            "\n".repeat(lineCount) + script.content,
+                            {
+                                filename: filepath,
+                                ...babelOptions
                             }
-                        },
-                        { decodeEntities: true }
-                    );
-                    parser.write(fs.readFileSync(filepath).toString());
-                    parser.end();
-
-                    jsCodes.map(script =>
-                        babel.transformSync(script, {
-                            filename: filepath,
-                            ...babelOptions
-                        })
-                    );
+                        );
+                    }
                     break;
                 }
                 case ".svelte": {
