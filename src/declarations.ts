@@ -18,3 +18,5 @@ declare module "@babel/plugin-proposal-nullish-coalescing-operator";
 declare module "magic-string" {
     export type SourceMap = any;
 }
+
+declare module "vue-sfc-parser";
