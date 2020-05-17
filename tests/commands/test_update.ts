@@ -42,9 +42,7 @@ test("test update with multiple discover po (plugins settings override test)", (
     const tmpFile = tmp.fileSync();
     fs.writeFileSync(tmpFile.name, originalPo);
     execSync(
-        `ts-node src/index.ts update --discover=_ --discover=gettext ${
-            tmpFile.name
-        } ${srcPath}`
+        `ts-node src/index.ts update --discover=_ --discover=gettext ${tmpFile.name} ${srcPath}`
     );
     const result = fs.readFileSync(tmpFile.name).toString();
     expect(result).toContain('msgid "discover _ test"');
@@ -84,6 +82,17 @@ const contextTest = path.resolve(
 test("should extract from context", () => {
     const tmpFile = tmp.fileSync();
     fs.writeFileSync(tmpFile.name, originalPo);
+    execSync(`ts-node src/index.ts update ${tmpFile.name} ${contextTest}`);
+    const result = fs.readFileSync(tmpFile.name).toString();
+    expect(result).toContain('msgctxt "email"');
+    expect(result).toContain('msgid "context translation"');
+    tmpFile.removeCallback();
+});
+
+test("should extract context consistently", () => {
+    const tmpFile = tmp.fileSync();
+    fs.writeFileSync(tmpFile.name, originalPo);
+    execSync(`ts-node src/index.ts update ${tmpFile.name} ${contextTest}`);
     execSync(`ts-node src/index.ts update ${tmpFile.name} ${contextTest}`);
     const result = fs.readFileSync(tmpFile.name).toString();
     expect(result).toContain('msgctxt "email"');
