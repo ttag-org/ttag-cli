@@ -68,7 +68,8 @@ export function mergeMessage(
         msgid: leftMessage.msgid,
         comments: mergeComments(leftMessage.comments, rightMessage.comments),
         msgstr: msgstr,
-        msgid_plural: leftMessage.msgid_plural
+        msgid_plural: leftMessage.msgid_plural,
+        msgctxt: leftMessage.msgctxt
     };
 }
 
