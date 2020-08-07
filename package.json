@@ -74,9 +74,9 @@
     "estree-walker": "^2.0.1",
     "gettext-parser": "4.0.0-alpha.0",
     "hunspell-spellchecker": "^1.0.2",
-    "koa": "^2.7.0",
-    "koa-body": "^2.5.0",
-    "koa-router": "^7.3.0",
+    "koa": "^2.13.0",
+    "koa-body": "^4.2.0",
+    "koa-router": "^9.1.0",
     "mkdirp": "^0.5.1",
     "node-fetch": "^1.7.3",
     "open": "^6.4.0",
@@ -89,7 +89,7 @@
     "tmp": "0.0.33",
     "vue-sfc-parser": "^0.1.2",
     "walk": "2.3.9",
-    "yargs": "^11.1.1"
+    "yargs": "^15.4.1"
   },
   "jest": {
     "transform": {
