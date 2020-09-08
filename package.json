@@ -89,7 +89,7 @@
     "tmp": "0.0.33",
     "vue-sfc-parser": "^0.1.2",
     "walk": "2.3.9",
-    "yargs": "^11.1.1"
+    "yargs": "^15.4.1"
   },
   "jest": {
     "transform": {
