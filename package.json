@@ -45,10 +45,10 @@
     "@types/yargs": "8.0.2",
     "babel-core": "^7.0.0-bridge.0",
     "husky": "^0.14.3",
-    "jest": "^24.8.0",
+    "jest": "^24.9.0",
     "lint-staged": "^5.0.0",
     "prettier": "^1.18.2",
-    "ts-jest": "^24.0.2",
+    "ts-jest": "^26.3.0",
     "ts-node": "3.3.0",
     "typescript": "^3.7.2"
   },
