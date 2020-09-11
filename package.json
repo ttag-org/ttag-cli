@@ -45,12 +45,12 @@
     "@types/yargs": "8.0.2",
     "babel-core": "^7.0.0-bridge.0",
     "husky": "^0.14.3",
-    "jest": "^24.8.0",
+    "jest": "^24.9.0",
     "lint-staged": "^5.0.0",
     "prettier": "^1.18.2",
-    "ts-jest": "^24.0.2",
+    "ts-jest": "^26.3.0",
     "ts-node": "3.3.0",
-    "typescript": "^3.7.2"
+    "typescript": "^3.9.7"
   },
   "dependencies": {
     "@babel/core": "^7.5.4",
@@ -68,7 +68,7 @@
     "@babel/preset-typescript": "7.7.0",
     "@babel/template": "^7.4.4",
     "ansi": "^0.3.1",
-    "babel-plugin-ttag": "^1.7.25",
+    "babel-plugin-ttag": "^1.7.26",
     "chalk": "^2.4.2",
     "cross-spawn": "^5.1.0",
     "estree-walker": "^2.0.1",
@@ -89,7 +89,7 @@
     "tmp": "0.0.33",
     "vue-sfc-parser": "^0.1.2",
     "walk": "2.3.9",
-    "yargs": "^11.1.1"
+    "yargs": "^15.4.1"
   },
   "jest": {
     "transform": {
