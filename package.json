@@ -78,7 +78,7 @@
     "koa-body": "^4.2.0",
     "koa-router": "^9.1.0",
     "mkdirp": "^0.5.1",
-    "node-fetch": "^1.7.3",
+    "node-fetch": "^2.6.1",
     "open": "^6.4.0",
     "ora": "1.3.0",
     "plural-forms": "0.3.3",
