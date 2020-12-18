@@ -74,6 +74,7 @@
     "estree-walker": "^2.0.1",
     "gettext-parser": "4.0.0-alpha.0",
     "hunspell-spellchecker": "^1.0.2",
+    "ignore": "^5.1.8",
     "koa": "^2.13.0",
     "koa-body": "^4.2.0",
     "koa-router": "^9.1.0",

@@ -20,3 +20,10 @@ export type Progress = {
     warn(text?: string | undefined): any;
     fail(text?: string): any;
 };
+
+export type TtagRc = {
+    extractor?: {
+        ignoreFiles?: string[];
+        paths?: string[];
+    };
+};

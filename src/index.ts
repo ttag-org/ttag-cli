@@ -19,6 +19,7 @@ import {
     getTtagOptsForYargs,
     parseTtagPluginOpts
 } from "./lib/ttagPluginOverride";
+import { parseTtagRcOpts } from "./lib/ttagRcOverride";
 
 import "./declarations";
 
@@ -90,7 +91,8 @@ yargs
                 argv.output,
                 argv.src,
                 argv.lang,
-                parseTtagPluginOpts(argv)
+                parseTtagPluginOpts(argv),
+                parseTtagRcOpts()
             );
         }
     )
