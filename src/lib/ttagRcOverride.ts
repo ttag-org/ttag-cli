@@ -12,7 +12,7 @@ function readTtagRC(): TtagRc {
     const opts: any = {};
     try {
         const jsonRaw = fs.readFileSync(".ttagrc", "utf8");
-        const parsedJSON: RC_TMPL = JSON.parse(jsonRaw);
+        const parsedJSON = <RC_TMPL>JSON.parse(jsonRaw);
         if ("extractor" in parsedJSON) {
             opts.extractor = parseExtractor(parsedJSON.extractor);
         }

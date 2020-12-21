@@ -62,7 +62,8 @@ async function check(
     pofile: string,
     paths: string[],
     lang: string,
-    overrideOpts?: c3poTypes.TtagOpts
+    overrideOpts?: c3poTypes.TtagOpts,
+    ttagRcOpts?: c3poTypes.TtagRc
 ) {
     const progress: c3poTypes.Progress = ora(
         `[ttag] checking translations from ${paths} ...`
@@ -71,7 +72,7 @@ async function check(
 
     const translations = parse(fs.readFileSync(pofile).toString());
     const keysOnly = parse(
-        await extractAll(paths, lang, progress, overrideOpts)
+        await extractAll(paths, lang, progress, overrideOpts, ttagRcOpts)
     );
 
     let untranslatedStream = getUntranslated(translations, keysOnly);

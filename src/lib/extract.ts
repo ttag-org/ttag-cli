@@ -118,27 +118,20 @@ function getWalkingPaths(
     originPaths: string[],
     rcOpts?: ttagTypes.TtagRc
 ): string[] {
-    try {
-        return rcOpts.extractor.paths || originPaths;
-    } catch (err) {
-        return originPaths;
-    }
+    return rcOpts?.extractor?.paths || originPaths;
 }
 
 function decorateTransformFn(
     originFunc: TransformFn,
     rcOpts?: ttagTypes.TtagRc
 ): TransformFn {
-    const ignoreFiles =
-        "extractor" in rcOpts && "ignoreFiles" in rcOpts.extractor
-            ? rcOpts.extractor.ignoreFiles
-            : null;
+    const ignoreFiles = rcOpts?.extractor?.ignoreFiles;
     if (ignoreFiles) {
         const ig = ignore().add(ignoreFiles);
         return function(filename: string): void {
-            return ig.ignores(filename) === false
-                ? originFunc(filename)
-                : undefined;
+            if (ig.ignores(filename) === false) {
+                originFunc(filename);
+            }
         };
     }
     return originFunc;
