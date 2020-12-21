@@ -47,7 +47,7 @@
     "husky": "^0.14.3",
     "jest": "^24.9.0",
     "lint-staged": "^5.0.0",
-    "prettier": "^1.18.2",
+    "prettier": "^1.19.1",
     "ts-jest": "^26.3.0",
     "ts-node": "3.3.0",
     "typescript": "^3.9.7"
@@ -74,6 +74,7 @@
     "estree-walker": "^2.0.1",
     "gettext-parser": "4.0.0-alpha.0",
     "hunspell-spellchecker": "^1.0.2",
+    "ignore": "^5.1.8",
     "koa": "^2.13.0",
     "koa-body": "^4.2.0",
     "koa-router": "^9.1.0",

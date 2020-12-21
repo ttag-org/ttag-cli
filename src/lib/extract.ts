@@ -6,6 +6,7 @@ import { extname } from "path";
 import { parseComponent } from "vue-sfc-parser";
 import { walk } from "estree-walker";
 import { parse as parseSvelte } from "svelte/compiler";
+import ignore from "ignore";
 import { TemplateNode } from "svelte/types/compiler/interfaces";
 import { makeBabelConf } from "../defaults";
 import * as ttagTypes from "../types";
@@ -16,7 +17,8 @@ export async function extractAll(
     paths: string[],
     lang: string,
     progress: ttagTypes.Progress,
-    overrideOpts?: ttagTypes.TtagOpts
+    overrideOpts?: ttagTypes.TtagOpts,
+    rcOpts?: ttagTypes.TtagRc
 ): Promise<string> {
     const tmpFile = tmp.fileSync();
     let ttagOpts: ttagTypes.TtagOpts = {
@@ -102,8 +104,35 @@ export async function extractAll(
             return;
         }
     };
-    await pathsWalk(paths, progress, transformFn);
+    await pathsWalk(
+        getWalkingPaths(paths, rcOpts),
+        progress,
+        decorateTransformFn(transformFn, rcOpts)
+    );
     const result = fs.readFileSync(tmpFile.name).toString();
     tmpFile.removeCallback();
     return result;
+}
+
+function getWalkingPaths(
+    originPaths: string[],
+    rcOpts?: ttagTypes.TtagRc
+): string[] {
+    return rcOpts?.extractor?.paths || originPaths;
+}
+
+function decorateTransformFn(
+    originFunc: TransformFn,
+    rcOpts?: ttagTypes.TtagRc
+): TransformFn {
+    const ignoreFiles = rcOpts?.extractor?.ignoreFiles;
+    if (ignoreFiles) {
+        const ig = ignore().add(ignoreFiles);
+        return function(filename: string): void {
+            if (ig.ignores(filename) === false) {
+                originFunc(filename);
+            }
+        };
+    }
+    return originFunc;
 }

@@ -19,6 +19,7 @@ import {
     getTtagOptsForYargs,
     parseTtagPluginOpts
 } from "./lib/ttagPluginOverride";
+import { parseTtagRcOpts } from "./lib/ttagRcOverride";
 
 import "./declarations";
 
@@ -90,7 +91,8 @@ yargs
                 argv.output,
                 argv.src,
                 argv.lang,
-                parseTtagPluginOpts(argv)
+                parseTtagPluginOpts(argv),
+                parseTtagRcOpts()
             );
         }
     )
@@ -106,7 +108,13 @@ yargs
             ...getTtagOptsForYargs()
         },
         argv => {
-            check(argv.pofile, argv.src, argv.lang, parseTtagPluginOpts(argv));
+            check(
+                argv.pofile,
+                argv.src,
+                argv.lang,
+                parseTtagPluginOpts(argv),
+                parseTtagRcOpts()
+            );
         }
     )
     .command(
@@ -217,7 +225,13 @@ yargs
             ...getTtagOptsForYargs()
         },
         argv => {
-            update(argv.pofile, argv.src, argv.lang, parseTtagPluginOpts(argv));
+            update(
+                argv.pofile,
+                argv.src,
+                argv.lang,
+                parseTtagPluginOpts(argv),
+                parseTtagRcOpts()
+            );
         }
     )
     .command(
