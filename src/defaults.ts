@@ -15,6 +15,7 @@ import * as babelDynamicImportPlugin from "@babel/plugin-syntax-dynamic-import";
 import * as babelPluginDecorators from "@babel/plugin-proposal-decorators";
 import * as optionalChaningPlugin from "@babel/plugin-proposal-optional-chaining";
 import * as nullishCoalescingOperatorPlugin from "@babel/plugin-proposal-nullish-coalescing-operator";
+import * as presetConstEnumTS from "babel-preset-const-enum";
 
 export const defaultPlugins: ConfigItem[] = [
     [babelPluginDecorators, { legacy: true }],
@@ -28,6 +29,7 @@ export const defaultPlugins: ConfigItem[] = [
 
 export const defaultPresets: ConfigItem[] = [
     presetTS,
+    presetConstEnumTS,
     presetFlow,
     presetEnv,
     presetReact

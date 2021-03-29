@@ -69,6 +69,7 @@
     "@babel/template": "^7.10.4",
     "ansi": "^0.3.1",
     "babel-plugin-ttag": "1.7.30",
+    "babel-preset-const-enum": "^1.0.0",
     "chalk": "^2.4.2",
     "cross-spawn": "^5.1.0",
     "estree-walker": "^2.0.1",

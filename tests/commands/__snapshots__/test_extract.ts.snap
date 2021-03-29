@@ -107,6 +107,18 @@ msgid \\"test \${ name }\\"
 msgstr \\"\\""
 `;
 
+exports[`extract from ts with const enum 1`] = `
+"msgid \\"\\"
+msgstr \\"\\"
+\\"Content-Type: text/plain; charset=utf-8\\\\n\\"
+\\"Plural-Forms: nplurals=2; plural=(n!=1);\\\\n\\"
+
+#: tests/fixtures/tsConstEnum.ts:8
+#, javascript-format
+msgid \\"\${ a } string \${ eTestEnum.Test }\\"
+msgstr \\"\\""
+`;
+
 exports[`extract from tsx 1`] = `
 "msgid \\"\\"
 msgstr \\"\\"
