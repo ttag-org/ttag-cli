@@ -20,6 +20,7 @@ const sveltePath = path.resolve(
 const globalFn = path.resolve(__dirname, "../fixtures/globalFunc.js");
 const tsPath = path.resolve(__dirname, "../fixtures/tSParse.ts");
 const tsChaning = path.resolve(__dirname, "../fixtures/tsOptionalChaning.ts");
+const tsConstEnum = path.resolve(__dirname, "../fixtures/tsConstEnum.ts");
 const tsCoalescing = path.resolve(
     __dirname,
     "../fixtures/tsNullishCoalescing.ts"
@@ -122,6 +123,12 @@ test("extract from ts", () => {
 
 test("extract from ts", () => {
     execSync(`ts-node src/index.ts extract -o ${potPath} ${tsCoalescing}`);
+    const result = fs.readFileSync(potPath).toString();
+    expect(result).toMatchSnapshot();
+});
+
+test("extract from ts with const enum", () => {
+    execSync(`ts-node src/index.ts extract -o ${potPath} ${tsConstEnum}`);
     const result = fs.readFileSync(potPath).toString();
     expect(result).toMatchSnapshot();
 });
