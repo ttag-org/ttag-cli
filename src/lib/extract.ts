@@ -56,10 +56,23 @@ export async function extractAll(
                 case ".svelte": {
                     const source = fs.readFileSync(filepath).toString();
                     const jsCodes: string[] = [];
-                    const { html, instance } = parseSvelte(source);
+                    const { html, instance, module } = parseSvelte(source);
 
-                    // <script> tag should include `import {t } from 'ttag'`
-                    // We put this in the front
+                    // <script> tag should include `import { t } from 'ttag'`
+                    // We put this in the front.
+                    // FIXME: Because we need to put imports first,
+                    // the extracted line numbers will be messed up.
+                    //
+                    if (module) {
+                        walk(module, {
+                            enter(node: TemplateNode) {
+                                if (node.type !== "Program") return;
+                                jsCodes.push(
+                                    source.slice(node.start, node.end)
+                                );
+                            }
+                        });
+                    }
                     walk(instance, {
                         enter(node: TemplateNode) {
                             if (node.type !== "Program") return;
@@ -75,11 +88,13 @@ export async function extractAll(
                                 node.type !== "RawMustacheTag"
                             )
                                 return;
+                            // Attributes can be any valid Javascript expression,
+                            // thus wrap in `(...);` and collect them in `jsCodes`
                             jsCodes.push(
-                                source.slice(
+                                `(${source.slice(
                                     node.expression.start,
                                     node.expression.end
-                                )
+                                )});`
                             );
                         }
                     });
