@@ -48,25 +48,41 @@ msgstr \\"\\"
 \\"Content-Type: text/plain; charset=utf-8\\\\n\\"
 \\"Plural-Forms: nplurals=2; plural=(n!=1);\\\\n\\"
 
-#: tests/fixtures/testSvelteParse.svelte:6
+#: tests/fixtures/testSvelteParse.svelte:3
+msgid \\"String from module\\"
+msgstr \\"\\"
+
+#: tests/fixtures/testSvelteParse.svelte:9
 msgid \\"world\\"
 msgstr \\"\\"
 
-#: tests/fixtures/testSvelteParse.svelte:8
+#: tests/fixtures/testSvelteParse.svelte:12
 #, javascript-format
 msgid \\"Hello \${ translated } !\\"
 msgstr \\"\\"
 
-#: tests/fixtures/testSvelteParse.svelte:9
+#: tests/fixtures/testSvelteParse.svelte:13
 msgid \\"Instruction\\"
 msgstr \\"\\"
 
-#: tests/fixtures/testSvelteParse.svelte:10
+#: tests/fixtures/testSvelteParse.svelte:14
 #, javascript-format
 msgid \\"Click <a href=\${ moreUrl }>here</a> for more info\\"
 msgstr \\"\\"
 
-#: tests/fixtures/testSvelteParse.svelte:11
+#: tests/fixtures/testSvelteParse.svelte:16
+msgid \\"Title in obj\\"
+msgstr \\"\\"
+
+#: tests/fixtures/testSvelteParse.svelte:18
+msgid \\"True\\"
+msgstr \\"\\"
+
+#: tests/fixtures/testSvelteParse.svelte:18
+msgid \\"False\\"
+msgstr \\"\\"
+
+#: tests/fixtures/testSvelteParse.svelte:19
 msgid \\"Log out\\"
 msgstr \\"\\""
 `;
