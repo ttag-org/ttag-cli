@@ -31,7 +31,7 @@ export const defaultPresets: ConfigItem[] = [
     presetTS,
     presetConstEnumTS,
     presetFlow,
-    presetEnv,
+    [presetEnv, { loose: true }],
     presetReact
 ];
 
