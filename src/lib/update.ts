@@ -46,7 +46,12 @@ function updateTranslations(
 }
 
 export function updatePo(pot: PoData, po: PoData): PoData {
-    const pluralsNum = getPluralFormsNumber(po.headers["plural-forms"]);
+    const pluralHeader =
+        po.headers["plural-forms"] || po.headers["Plural-Forms"];
+    if (!pluralHeader) {
+        throw new Error('Bad .po file. "Plural-Forms" header is missing ');
+    }
+    const pluralsNum = getPluralFormsNumber(pluralHeader);
     return {
         headers: po.headers,
         translations: updateTranslations(
