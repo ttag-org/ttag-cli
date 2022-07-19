@@ -44,7 +44,12 @@ export function convert2Compact(poData: PoData): PoDataCompact {
             "": {}
         }
     };
-    compactPo.headers["plural-forms"] = poData.headers["plural-forms"];
+    const pluralHeader =
+        poData.headers["plural-forms"] || poData.headers["Plural-Forms"];
+    if (!pluralHeader) {
+        throw new Error('Bad .po file. "Plural-Forms" header is missing ');
+    }
+    compactPo.headers["plural-forms"] = pluralHeader;
     compactPo.headers.language = poData.headers.language;
     Object.entries(poData.translations).forEach(
         ([context, ctxtTranslations]) => {

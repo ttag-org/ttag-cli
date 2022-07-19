@@ -27,8 +27,10 @@ export type Translations = {
 
 export type Headers = {
     language?: string;
+    Language?: string;
     "content-type"?: string;
-    "plural-forms": string;
+    "plural-forms"?: string;
+    "Plural-Forms"?: string;
 };
 
 export type PoData = {
