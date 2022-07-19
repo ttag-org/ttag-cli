@@ -16,7 +16,7 @@ export default function spell(path: string, locale?: string) {
 
     const data = fs.readFileSync(path).toString();
     const poData = parse(data);
-    locale = locale || poData.headers.language;
+    locale = locale || poData.headers.language || poData.headers.Language;
     if (!locale) {
         console.log("Cannot detect locale from pofile, please provide it");
         return;
