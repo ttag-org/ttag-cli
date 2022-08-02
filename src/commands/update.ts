@@ -4,14 +4,15 @@ import * as fs from "fs";
 import { extractAll } from "../lib/extract";
 import { updatePo } from "../lib/update";
 import { parse } from "../lib/parser";
-import { serialize } from "../lib/serializer";
+import { serialize, SerializeOptions } from "../lib/serializer";
 
 async function update(
     pofile: string,
     src: string[],
     lang: string,
     ttagOverrideOpts?: ttagTypes.TtagOpts,
-    ttagRcOpts?: ttagTypes.TtagRc
+    ttagRcOpts?: ttagTypes.TtagRc,
+    serializeOpts?: SerializeOptions
 ) {
     const progress: ttagTypes.Progress = ora(`[ttag] updating ${pofile} ...`);
     progress.start();
@@ -21,7 +22,7 @@ async function update(
         );
         const po = parse(fs.readFileSync(pofile).toString());
         const resultPo = updatePo(pot, po);
-        fs.writeFileSync(pofile, serialize(resultPo));
+        fs.writeFileSync(pofile, serialize(resultPo, serializeOpts));
         progress.succeed(`${pofile} updated`);
     } catch (err) {
         progress.fail(`Failed to update. ${err.message}. ${err.stack}`);
