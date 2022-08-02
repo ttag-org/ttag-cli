@@ -18,7 +18,7 @@ npm install -g ttag-cli
 ttag extract some.js
 ```
 
-# Comands description
+# Commands description
 <!--- BEGIN COMMANDS --->
 
 ### `extract [output|lang] <src...>`
