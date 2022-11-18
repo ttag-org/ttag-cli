@@ -99,3 +99,17 @@ test("should extract context consistently", () => {
     expect(result).toContain('msgid "context translation"');
     tmpFile.removeCallback();
 });
+
+const hoistingTest = path.resolve(
+    __dirname,
+    "../fixtures/updateTest/hoisting.js"
+);
+
+test("should not transpile const to vars (avoid scope hoisting)", () => {
+    const tmpFile = tmp.fileSync();
+    fs.writeFileSync(tmpFile.name, originalPo);
+    execSync(`ts-node src/index.ts update ${tmpFile.name} ${hoistingTest}`);
+    const result = fs.readFileSync(tmpFile.name).toString();
+    expect(result).toContain('msgid "test ${ days }"');
+    tmpFile.removeCallback();
+});

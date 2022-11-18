@@ -1,3 +1,4 @@
+import "./declarations";
 // presets
 import * as presetEnv from "@babel/preset-env";
 import * as presetReact from "@babel/preset-react";
@@ -31,7 +32,7 @@ export const defaultPresets: ConfigItem[] = [
     presetTS,
     presetConstEnumTS,
     presetFlow,
-    [presetEnv, { loose: true }],
+    [presetEnv, { loose: true, targets: "node 6.5" }],
     presetReact
 ];
 
