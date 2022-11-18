@@ -14,5 +14,6 @@ msgstr \\"test\\"
 msgid \\"test_plural\\"
 msgid_plural \\"test_plural\\"
 msgstr[0] \\"test1\\"
-msgstr[1] \\"test2\\""
+msgstr[1] \\"test2\\"
+"
 `;

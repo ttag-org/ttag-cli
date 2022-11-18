@@ -15,5 +15,6 @@ msgstr \\"test translated\\"
 #: tests/fixtures/checkTest/check-trans-exist.js:3
 msgctxt \\"ctx\\"
 msgid \\"test\\"
-msgstr \\"test translated\\""
+msgstr \\"test translated\\"
+"
 `;

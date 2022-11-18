@@ -19,7 +19,8 @@ msgstr \\"\\"
 
 #: tests/fixtures/updateTest/test.js:3
 msgid \\"test\\"
-msgstr \\"\\""
+msgstr \\"\\"
+"
 `;
 
 exports[`test update po 1`] = `
@@ -41,5 +42,6 @@ msgstr \\"\\"
 msgid \\"\${ n } banana\\"
 msgid_plural \\"\${ n } bananas\\"
 msgstr[0] \\"\\"
-msgstr[1] \\"\\""
+msgstr[1] \\"\\"
+"
 `;
