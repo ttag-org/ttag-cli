@@ -222,7 +222,11 @@ yargs
             src: {
                 description: "path to source files/directories"
             },
-            ...getTtagOptsForYargs()
+            ...getTtagOptsForYargs(),
+            foldLength: {
+                description: "line width in .po file",
+                number: true
+            }
         },
         argv => {
             update(
@@ -230,7 +234,10 @@ yargs
                 argv.src,
                 argv.lang,
                 parseTtagPluginOpts(argv),
-                parseTtagRcOpts()
+                parseTtagRcOpts(),
+                {
+                    foldLength: argv.foldLength
+                }
             );
         }
     )
