@@ -13,7 +13,8 @@ msgstr \\"\\"
 
 #: tests/fixtures/baseTest/nested/test2.js:4
 msgid \\"test translation 2 \${ name }\\"
-msgstr \\"\\""
+msgstr \\"\\"
+"
 `;
 
 exports[`extract from js with another default locale 1`] = `
@@ -28,7 +29,8 @@ msgid \\"\${ n } банан\\"
 msgid_plural \\"\${ n } банана\\"
 msgstr[0] \\"\\"
 msgstr[1] \\"\\"
-msgstr[2] \\"\\""
+msgstr[2] \\"\\"
+"
 `;
 
 exports[`extract from jsx 1`] = `
@@ -39,7 +41,8 @@ msgstr \\"\\"
 
 #: tests/fixtures/testJSXParse.jsx:6
 msgid \\"test from jsx\\"
-msgstr \\"\\""
+msgstr \\"\\"
+"
 `;
 
 exports[`extract from svelte 1`] = `
@@ -84,7 +87,8 @@ msgstr \\"\\"
 
 #: tests/fixtures/testSvelteParse.svelte:19
 msgid \\"Log out\\"
-msgstr \\"\\""
+msgstr \\"\\"
+"
 `;
 
 exports[`extract from ts 1`] = `
@@ -96,7 +100,8 @@ msgstr \\"\\"
 #: tests/fixtures/tSParse.ts:4
 #, javascript-format
 msgid \\"\${ a } string\\"
-msgstr \\"\\""
+msgstr \\"\\"
+"
 `;
 
 exports[`extract from ts 2`] = `
@@ -108,7 +113,8 @@ msgstr \\"\\"
 #: tests/fixtures/tsOptionalChaning.ts:5
 #, javascript-format
 msgid \\"test \${ name }\\"
-msgstr \\"\\""
+msgstr \\"\\"
+"
 `;
 
 exports[`extract from ts 3`] = `
@@ -120,7 +126,8 @@ msgstr \\"\\"
 #: tests/fixtures/tsNullishCoalescing.ts:5
 #, javascript-format
 msgid \\"test \${ name }\\"
-msgstr \\"\\""
+msgstr \\"\\"
+"
 `;
 
 exports[`extract from ts with const enum 1`] = `
@@ -132,7 +139,8 @@ msgstr \\"\\"
 #: tests/fixtures/tsConstEnum.ts:8
 #, javascript-format
 msgid \\"\${ a } string \${ eTestEnum.Test }\\"
-msgstr \\"\\""
+msgstr \\"\\"
+"
 `;
 
 exports[`extract from tsx 1`] = `
@@ -143,7 +151,8 @@ msgstr \\"\\"
 
 #: tests/fixtures/tSXParse.tsx:4
 msgid \\"test from tsx\\"
-msgstr \\"\\""
+msgstr \\"\\"
+"
 `;
 
 exports[`extract from vue 1`] = `
@@ -154,7 +163,8 @@ msgstr \\"\\"
 
 #: tests/fixtures/vueTest/testVueParse.vue:10
 msgid \\"test from vue file\\"
-msgstr \\"\\""
+msgstr \\"\\"
+"
 `;
 
 exports[`extract from vue with tag inside the script 1`] = `
@@ -165,7 +175,8 @@ msgstr \\"\\"
 
 #: tests/fixtures/vueTest/testVueWithTagInScript.vue:6
 msgid \\"test from vue file <a>Hello</a>\\"
-msgstr \\"\\""
+msgstr \\"\\"
+"
 `;
 
 exports[`should extract in the alphabetical order (sortByMsgid) 1`] = `
@@ -190,5 +201,6 @@ msgstr \\"\\"
 #: tests/fixtures/sortByMsgidTest/test.js:8
 #, javascript-format
 msgid \\"z translation \${ name }\\"
-msgstr \\"\\""
+msgstr \\"\\"
+"
 `;
