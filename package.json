@@ -85,7 +85,7 @@
     "plural-forms": "0.5.3",
     "readline-sync": "^1.4.7",
     "serialize-javascript": "^4.0.0",
-    "svelte": "^3.20.1",
+    "svelte": "^3.49.0",
     "tmp": "0.0.33",
     "vue-sfc-parser": "^0.1.2",
     "walk": "2.3.9",
