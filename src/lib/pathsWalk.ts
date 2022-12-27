@@ -3,9 +3,9 @@ import * as path from "path";
 import * as c3poTypes from "../types";
 import * as fs from "fs";
 
-export type TransformFn = (filepath: string) => void;
+export type TransformFn = (filepath: string) => Promise<void>;
 
-function walkFile(
+async function walkFile(
     filepath: string,
     progress: c3poTypes.Progress,
     transformFn: TransformFn
@@ -20,7 +20,7 @@ function walkFile(
         extname === ".svelte"
     ) {
         progress.text = filepath;
-        transformFn(filepath);
+        await transformFn(filepath);
     }
 }
 
@@ -31,8 +31,11 @@ async function walkDir(
 ) {
     const walker = walk.walk(dirpath);
     walker.on("file", (root: string, fileState: any, next: any) => {
-        walkFile(path.join(root, fileState.name), progress, transformFn);
-        next();
+        walkFile(
+            path.join(root, fileState.name),
+            progress,
+            transformFn
+        ).then(() => next());
     });
     return new Promise(res => {
         walker.on("end", () => res());
@@ -49,7 +52,7 @@ export async function pathsWalk(
             if (fs.lstatSync(filePath).isDirectory()) {
                 await walkDir(filePath, progress, transformFn);
             } else {
-                walkFile(filePath, progress, transformFn);
+                await walkFile(filePath, progress, transformFn);
             }
         })
     );

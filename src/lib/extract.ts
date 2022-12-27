@@ -33,17 +33,18 @@ export async function extractAll(
         ttagOpts = mergeOpts(ttagOpts, overrideOpts);
     }
     const babelOptions = makeBabelConf(ttagOpts);
-    const transformFn: TransformFn = filepath => {
+    const transformFn: TransformFn = async filepath => {
         try {
             switch (extname(filepath)) {
                 case ".vue": {
-                    const source = fs.readFileSync(filepath).toString();
+                    const sourceBuffer = await fs.promises.readFile(filepath);
+                    const source = sourceBuffer.toString();
                     const script = parseComponent(source).script;
                     if (script) {
                         const lineCount =
                             source.slice(0, script.start).split(/\r\n|\r|\n/)
                                 .length - 1;
-                        babel.transformSync(
+                        await babel.transformAsync(
                             "\n".repeat(lineCount) + script.content,
                             {
                                 filename: filepath,
@@ -54,7 +55,8 @@ export async function extractAll(
                     break;
                 }
                 case ".svelte": {
-                    const source = fs.readFileSync(filepath).toString();
+                    const sourceBuffer = await fs.promises.readFile(filepath);
+                    const source = sourceBuffer.toString();
                     const jsCodes: string[] = [];
                     const { html, instance, module } = parseSvelte(source);
 
@@ -99,14 +101,14 @@ export async function extractAll(
                         }
                     });
 
-                    babel.transformSync(jsCodes.join("\n"), {
+                    await babel.transformAsync(jsCodes.join("\n"), {
                         filename: filepath,
                         ...babelOptions
                     });
                     break;
                 }
                 default:
-                    babel.transformFileSync(filepath, babelOptions);
+                    await babel.transformFileAsync(filepath, babelOptions);
             }
         } catch (err) {
             if (err.codeFrame) {
@@ -143,9 +145,9 @@ function decorateTransformFn(
     const ignoreFiles = rcOpts?.extractor?.ignoreFiles;
     if (ignoreFiles) {
         const ig = ignore().add(ignoreFiles);
-        return function(filename: string): void {
+        return async function(filename: string): Promise<void> {
             if (ig.ignores(filename) === false) {
-                originFunc(filename);
+                await originFunc(filename);
             }
         };
     }
