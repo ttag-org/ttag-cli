@@ -38,19 +38,6 @@ export async function extractAll(
             switch (extname(filepath)) {
                 case ".vue": {
                     const source = fs.readFileSync(filepath).toString();
-                    const template = parseComponent(source).template;
-                    if (template) {
-                        const lineCount =
-                            source.slice(0, template.start).split(/\r\n|\r|\n/)
-                                .length - 1;
-                        babel.transformSync(
-                            "\n".repeat(lineCount) + template.content,
-                            {
-                                filename: filepath,
-                                ...babelOptions
-                            }
-                        );
-                    }
                     const script = parseComponent(source).script;
                     if (script) {
                         const lineCount =
