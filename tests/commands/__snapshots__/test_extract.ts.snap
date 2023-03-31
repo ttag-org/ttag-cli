@@ -161,12 +161,6 @@ msgstr \\"\\"
 \\"Content-Type: text/plain; charset=utf-8\\\\n\\"
 \\"Plural-Forms: nplurals=2; plural=(n!=1);\\\\n\\"
 
-#: tests/fixtures/vueTest/testVueParse.vue:2
-msgid \\"test from vue file (template)\\"
-msgstr \\"\\"
-"
-`;
-
 #: tests/fixtures/vueTest/testVueParse.vue:10
 msgid \\"test from vue file\\"
 msgstr \\"\\"
