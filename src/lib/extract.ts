@@ -38,6 +38,23 @@ export async function extractAll(
             switch (extname(filepath)) {
                 case ".vue": {
                     const source = fs.readFileSync(filepath).toString();
+                    const template = parseComponent(source).template;
+                    if (template) {
+                        const jsCodes: string[] = [];
+                        const regex = /(?:{{\s*t\s*`(.*?)`\s*}}|{{\s*t\s*\(\s*'(.*?)'\s*\)\s*}})/g;
+                        let tmparr;
+                        while (
+                            (tmparr = regex.exec(template.content)) !== null
+                        ) {
+                            jsCodes.push(tmparr[0]);
+                        }
+                        if (jsCodes.length > 0) {
+                            babel.transformSync(jsCodes.join("\n"), {
+                                filename: filepath,
+                                ...babelOptions
+                            });
+                        }
+                    }
                     const script = parseComponent(source).script;
                     if (script) {
                         const lineCount =

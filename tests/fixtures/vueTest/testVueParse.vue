@@ -1,5 +1,6 @@
 <template>
     <h1>{{ t`Hello World!` }}</h1>
+    <h2>{{ t('Hi!') }}</h2>
 </template>
 <script>
 import { t } from "ttag";
