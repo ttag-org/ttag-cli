@@ -1,5 +1,5 @@
 <template>
-    <h1>Hello World</h1>
+    <h1>{{ t`test from vue file (template)` }}</h1>
 </template>
 <script>
 import { t } from "ttag";
