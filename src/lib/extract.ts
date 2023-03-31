@@ -39,34 +39,32 @@ export async function extractAll(
                 case ".vue": {
                     const source = fs.readFileSync(filepath).toString();
                     const template = parseComponent(source).template;
-                    if (template) {
-                        const jsCodes: string[] = [];
-                        const regex = /(?:{{\s*t\s*`(.*?)`\s*}}|{{\s*t\s*\(\s*'(.*?)'\s*\)\s*}})/g;
-                        let tmparr;
-                        while (
-                            (tmparr = regex.exec(template.content)) !== null
-                        ) {
-                            jsCodes.push(tmparr[0]);
-                        }
-                        if (jsCodes.length > 0) {
-                            babel.transformSync(jsCodes.join("\n"), {
-                                filename: filepath,
-                                ...babelOptions
-                            });
-                        }
-                    }
+                    let tr = "";
+                    let jsCodes: string[] = [];
                     const script = parseComponent(source).script;
                     if (script) {
                         const lineCount =
                             source.slice(0, script.start).split(/\r\n|\r|\n/)
                                 .length - 1;
-                        babel.transformSync(
-                            "\n".repeat(lineCount) + script.content,
-                            {
-                                filename: filepath,
-                                ...babelOptions
-                            }
-                        );
+                        tr += "\n".repeat(lineCount) + script.content;
+                    }
+                    // FIXME: Because we need to put imports first,
+                    // the extracted line numbers will be messed up.
+                    if (template) {
+                        const regex = /(?:{{\s*t\s*`(.*?)`\s*}}|{{\s*t\s*\(\s*'(.*?)'\s*\)\s*}})/g;
+                        let tmparr;
+                        while (
+                            (tmparr = regex.exec(template.content)) !== null
+                        ) {
+                            tr += `\n${tmparr[0]}`;
+                        }
+                    }
+                    if (tr) {
+                        jsCodes.push(tr);
+                        babel.transformSync(jsCodes.join("\n"), {
+                            filename: filepath,
+                            ...babelOptions
+                        });
                     }
                     break;
                 }
