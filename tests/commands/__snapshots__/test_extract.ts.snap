@@ -12,6 +12,7 @@ msgid \\"test translation \${ name }\\"
 msgstr \\"\\"
 
 #: tests/fixtures/baseTest/nested/test2.js:4
+#, javascript-format
 msgid \\"test translation 2 \${ name }\\"
 msgstr \\"\\"
 "
@@ -186,6 +187,7 @@ msgstr \\"\\"
 \\"Plural-Forms: nplurals=2; plural=(n!=1);\\\\n\\"
 
 #: tests/fixtures/sortByMsgidTest/test.js:10
+#, javascript-format
 msgid \\"a translation \${ name }\\"
 msgstr \\"\\"
 
@@ -195,6 +197,7 @@ msgid \\"c translation \${ name }\\"
 msgstr \\"\\"
 
 #: tests/fixtures/sortByMsgidTest/test.js:6
+#, javascript-format
 msgid \\"f translation \${ name }\\"
 msgstr \\"\\"
 
