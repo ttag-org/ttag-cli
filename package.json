@@ -67,7 +67,7 @@
     "@babel/preset-react": "^7.12.5",
     "@babel/preset-typescript": "7.7.0",
     "@babel/template": "^7.10.4",
-    "babel-plugin-ttag": "1.8.11",
+    "babel-plugin-ttag": "1.8.12",
     "babel-preset-const-enum": "^1.0.0",
     "chalk": "^2.4.2",
     "cross-spawn": "^5.1.0",
