@@ -26,10 +26,10 @@ async function replace(
         ttagOpts = Object.assign(ttagOpts, overrideOpts);
     }
     const babelOptions = makeBabelConf(ttagOpts);
-    const transformFn: TransformFn = file => {
+    const transformFn: TransformFn = async file => {
         const relativePath = path.relative(srcPath, file);
         const resultPath = path.join(out, relativePath);
-        const result = babel.transformFileSync(file, babelOptions);
+        const result = await babel.transformFileAsync(file, babelOptions);
         const dir = path.dirname(resultPath);
         if (dir !== ".") {
             mkdirp.sync(dir);
@@ -38,7 +38,7 @@ async function replace(
             progress.fail("Failed to replace");
             return;
         }
-        fs.writeFileSync(resultPath, result.code);
+        await fs.promises.writeFile(resultPath, result.code);
     };
 
     await pathsWalk([srcPath], progress, transformFn);
