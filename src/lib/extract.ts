@@ -18,7 +18,8 @@ export async function extractAll(
     lang: string,
     progress: ttagTypes.Progress,
     overrideOpts?: ttagTypes.TtagOpts,
-    rcOpts?: ttagTypes.TtagRc
+    rcOpts?: ttagTypes.TtagRc,
+    excludeRegexp?: RegExp
 ): Promise<string> {
     const tmpFile = tmp.fileSync();
     let ttagOpts: ttagTypes.TtagOpts = {
@@ -34,6 +35,11 @@ export async function extractAll(
     }
     const babelOptions = makeBabelConf(ttagOpts);
     const transformFn: TransformFn = filepath => {
+        // exclude paths
+        if (excludeRegexp && excludeRegexp.test(filepath)) {
+            return;
+        }
+
         try {
             switch (extname(filepath)) {
                 case ".vue": {
@@ -116,9 +122,9 @@ export async function extractAll(
             }
             progress.fail("Failed to extract translations");
             process.exit(1);
-            return;
         }
     };
+
     await pathsWalk(
         getWalkingPaths(paths, rcOpts),
         progress,

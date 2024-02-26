@@ -84,6 +84,11 @@ yargs
                 default: "en",
                 description: "sets default lang (ISO format)"
             },
+            exclude: {
+                alias: "e",
+                type: "array",
+                description: "exclude files or directories from extraction"
+            },
             ...getTtagOptsForYargs()
         },
         argv => {
@@ -92,7 +97,8 @@ yargs
                 argv.src,
                 argv.lang,
                 parseTtagPluginOpts(argv),
-                parseTtagRcOpts()
+                parseTtagRcOpts(),
+                argv.exclude // pass the exclude option value to the extract function
             );
         }
     )
