@@ -16,7 +16,9 @@ export function* untranslatedStream(translations: Translations): any {
         const context = translations[contextKey];
         for (const msgid of Object.keys(context)) {
             const msg = context[msgid];
-            msg.msgstr = yield [contextKey, msg];
+            if (msg.msgstr.includes("") || !msgid) {
+                msg.msgstr = yield [contextKey, msg];
+            }
         }
     }
 }
