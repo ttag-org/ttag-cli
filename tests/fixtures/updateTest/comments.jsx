@@ -1,6 +1,6 @@
 import { jt , t } from "ttag";
 
-// translator: test comment
+// test comment
 t`test`
 
 const Component = () => {
