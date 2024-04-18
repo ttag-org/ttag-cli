@@ -5,3 +5,4 @@ translations.pot
 .vscode/
 *.swp
 .DS_Store
+.idea
