@@ -19,7 +19,7 @@ function FuzzyTest(msg: Message): boolean {
     if (msg.comments == undefined) {
         return false;
     }
-    return msg.comments.flag == "fuzzy";
+    return msg.comments.flag && msg.comments.flag.includes("fuzzy");
 }
 
 function TranslatedTest(msg: Message): boolean {
