@@ -1,3 +1,5 @@
+[![Stand With Ukraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/banner-direct.svg)](https://stand-with-ukraine.pp.ua)
+
 # ttag-cli
 
 > :warning: This project [was previously named `c-3po-cli`](https://github.com/ttag-org/ttag/issues/105).
