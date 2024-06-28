@@ -48,6 +48,7 @@
     "jest": "^24.9.0",
     "lint-staged": "^5.0.0",
     "prettier": "^1.19.1",
+    "svelte-preprocess": "^5.0.0",
     "ts-jest": "^26.3.0",
     "ts-node": "3.3.0",
     "typescript": "^3.9.7"

@@ -1,5 +1,22 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`extract and preprocess from svelte 1`] = `
+"msgid \\"\\"
+msgstr \\"\\"
+\\"Content-Type: text/plain; charset=utf-8\\\\n\\"
+\\"Plural-Forms: nplurals=2; plural=(n!=1);\\\\n\\"
+
+#: testSveltePreprocess.svelte:2
+msgid \\"world\\"
+msgstr \\"\\"
+
+#: testSveltePreprocess.svelte:4
+#, javascript-format
+msgid \\"Hello \${ translated }!\\"
+msgstr \\"\\"
+"
+`;
+
 exports[`extract base case 1`] = `
 "msgid \\"\\"
 msgstr \\"\\"

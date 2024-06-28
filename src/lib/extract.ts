@@ -1,17 +1,46 @@
 import "../declarations";
 import * as babel from "@babel/core";
 import * as fs from "fs";
+import * as path from "path";
 import * as tmp from "tmp";
+import { pathToFileURL } from "url";
 import { extname } from "path";
 import { parseComponent } from "vue-sfc-parser";
 import { walk } from "estree-walker";
-import { parse as parseSvelte } from "svelte/compiler";
+import {
+    parse as parseSvelte,
+    preprocess as preprocessSvelte
+} from "svelte/compiler";
 import ignore from "ignore";
 import { TemplateNode } from "svelte/types/compiler/interfaces";
 import { makeBabelConf } from "../defaults";
 import * as ttagTypes from "../types";
 import { TransformFn, pathsWalk } from "./pathsWalk";
 import { mergeOpts } from "./ttagPluginOverride";
+
+async function getSvelteConfigFile(searchDir: string): Promise<string | null> {
+    const filePath = path.resolve(searchDir, "svelte.config.js");
+    try {
+        const stat = await fs.promises.stat(filePath);
+
+        if (stat.isFile()) {
+            return filePath;
+        }
+    } catch {
+        // Ignored
+    }
+
+    const parentDir = path.resolve(searchDir, "..");
+    return parentDir === searchDir
+        ? null
+        : await getSvelteConfigFile(parentDir);
+}
+
+// https://github.com/microsoft/TypeScript/issues/43329
+async function dynamicImport(filename: string) {
+    const url = pathToFileURL(filename).toString();
+    return eval(`import("${url}")`);
+}
 
 export async function extractAll(
     paths: string[],
@@ -33,17 +62,18 @@ export async function extractAll(
         ttagOpts = mergeOpts(ttagOpts, overrideOpts);
     }
     const babelOptions = makeBabelConf(ttagOpts);
-    const transformFn: TransformFn = filepath => {
+    const transformFn: TransformFn = async filepath => {
         try {
             switch (extname(filepath)) {
                 case ".vue": {
-                    const source = fs.readFileSync(filepath).toString();
+                    const sourceBuffer = await fs.promises.readFile(filepath);
+                    const source = sourceBuffer.toString();
                     const script = parseComponent(source).script;
                     if (script) {
                         const lineCount =
                             source.slice(0, script.start).split(/\r\n|\r|\n/)
                                 .length - 1;
-                        babel.transformSync(
+                        await babel.transformAsync(
                             "\n".repeat(lineCount) + script.content,
                             {
                                 filename: filepath,
@@ -54,8 +84,28 @@ export async function extractAll(
                     break;
                 }
                 case ".svelte": {
-                    const source = fs.readFileSync(filepath).toString();
+                    const sourceBuffer = await fs.promises.readFile(filepath);
+                    let source = sourceBuffer.toString();
                     const jsCodes: string[] = [];
+                    const configFilePath = await getSvelteConfigFile(".");
+                    if (configFilePath) {
+                        const config = await dynamicImport(configFilePath);
+                        const preprocess = config?.default?.preprocess;
+                        if (
+                            Array.isArray(preprocess) &&
+                            preprocess.length > 0
+                        ) {
+                            const preprocessed = await preprocessSvelte(
+                                source,
+                                preprocess,
+                                {
+                                    filename: filepath
+                                }
+                            );
+                            source = preprocessed.code;
+                        }
+                    }
+
                     const { html, instance, module } = parseSvelte(source);
 
                     // <script> tag should include `import { t } from 'ttag'`
@@ -73,12 +123,17 @@ export async function extractAll(
                             }
                         });
                     }
-                    walk(instance, {
-                        enter(node: TemplateNode) {
-                            if (node.type !== "Program") return;
-                            jsCodes.push(source.slice(node.start, node.end));
-                        }
-                    });
+
+                    if (instance) {
+                        walk(instance, {
+                            enter(node: TemplateNode) {
+                                if (node.type !== "Program") return;
+                                jsCodes.push(
+                                    source.slice(node.start, node.end)
+                                );
+                            }
+                        });
+                    }
 
                     // Collect t`...` in {...} in template
                     walk(html, {
@@ -99,14 +154,14 @@ export async function extractAll(
                         }
                     });
 
-                    babel.transformSync(jsCodes.join("\n"), {
+                    await babel.transformAsync(jsCodes.join("\n"), {
                         filename: filepath,
                         ...babelOptions
                     });
                     break;
                 }
                 default:
-                    babel.transformFileSync(filepath, babelOptions);
+                    await babel.transformFileAsync(filepath, babelOptions);
             }
         } catch (err) {
             if (err.codeFrame) {
@@ -143,9 +198,9 @@ function decorateTransformFn(
     const ignoreFiles = rcOpts?.extractor?.ignoreFiles;
     if (ignoreFiles) {
         const ig = ignore().add(ignoreFiles);
-        return function(filename: string): void {
+        return async function(filename: string): Promise<void> {
             if (ig.ignores(filename) === false) {
-                originFunc(filename);
+                await originFunc(filename);
             }
         };
     }

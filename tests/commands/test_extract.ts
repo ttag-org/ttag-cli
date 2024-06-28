@@ -13,9 +13,14 @@ const vuePath2 = path.resolve(
     __dirname,
     "../fixtures/vueTest/testVueWithTagInScript.vue"
 );
+const svelteFixturePath = path.resolve(__dirname, "../fixtures/svelteTest/");
 const sveltePath = path.resolve(
     __dirname,
     "../fixtures/testSvelteParse.svelte"
+);
+const sveltePreprocessPath = path.resolve(
+    svelteFixturePath,
+    "testSveltePreprocess.svelte"
 );
 const globalFn = path.resolve(__dirname, "../fixtures/globalFunc.js");
 const tsPath = path.resolve(__dirname, "../fixtures/tSParse.ts");
@@ -61,6 +66,17 @@ test("extract from vue with tag inside the script", () => {
 
 test("extract from svelte", () => {
     execSync(`ts-node src/index.ts extract -o ${potPath} ${sveltePath}`);
+    const result = fs.readFileSync(potPath).toString();
+    expect(result).toMatchSnapshot();
+});
+
+test("extract and preprocess from svelte", () => {
+    execSync(
+        `ts-node ../../../src/index.ts extract -o ${potPath} ${sveltePreprocessPath}`,
+        {
+            cwd: svelteFixturePath
+        }
+    );
     const result = fs.readFileSync(potPath).toString();
     expect(result).toMatchSnapshot();
 });
