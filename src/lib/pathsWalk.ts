@@ -16,6 +16,8 @@ function walkFile(
         extname === ".jsx" ||
         extname === ".ts" ||
         extname === ".tsx" ||
+        extname === ".mjs" ||
+        extname === ".cjs" ||
         extname === ".vue" ||
         extname === ".svelte"
     ) {

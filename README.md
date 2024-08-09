@@ -6,7 +6,7 @@
 > Some of the talks, presentations, and documentation _may_ reference it with both names.
 
 Command line utility for [ttag](https://github.com/ttag-org/ttag) translation library.
-Works out of the box with **js**, **ts**, **jsx**, **tsx**, **vue**, **svelte**,  files.
+Works out of the box with **js**, **ts**, **jsx**, **tsx**, **mjs**, **cjs**, **vue**, **svelte**,  files.
 
 # Installation
 ```bash
