@@ -180,6 +180,49 @@ msgstr \\"\\"
 "
 `;
 
+exports[`extract with e alias 1`] = `
+"msgid \\"\\"
+msgstr \\"\\"
+\\"Content-Type: text/plain; charset=utf-8\\\\n\\"
+\\"Plural-Forms: nplurals=2; plural=(n!=1);\\\\n\\"
+
+#: tests/fixtures/extractExcludeTest/test1.js:4
+#, javascript-format
+msgid \\"test translation \${ name }\\"
+msgstr \\"\\"
+"
+`;
+
+exports[`extract with exclude by regexp 1`] = `
+"msgid \\"\\"
+msgstr \\"\\"
+\\"Content-Type: text/plain; charset=utf-8\\\\n\\"
+\\"Plural-Forms: nplurals=2; plural=(n!=1);\\\\n\\"
+
+#: tests/fixtures/extractExcludeTest/test1.js:4
+#, javascript-format
+msgid \\"test translation \${ name }\\"
+msgstr \\"\\"
+"
+`;
+
+exports[`extract with excludePaths 1`] = `
+"msgid \\"\\"
+msgstr \\"\\"
+\\"Content-Type: text/plain; charset=utf-8\\\\n\\"
+\\"Plural-Forms: nplurals=2; plural=(n!=1);\\\\n\\"
+
+#: tests/fixtures/extractExcludeTest/test1.js:4
+#, javascript-format
+msgid \\"test translation \${ name }\\"
+msgstr \\"\\"
+
+#: tests/fixtures/extractExcludeTest/excluded/test2.js:4
+msgid \\"test translation 2 \${ name }\\"
+msgstr \\"\\"
+"
+`;
+
 exports[`should extract in the alphabetical order (sortByMsgid) 1`] = `
 "msgid \\"\\"
 msgstr \\"\\"
