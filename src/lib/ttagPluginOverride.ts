@@ -24,11 +24,16 @@ const sortByMsgidDescr = `boolean - The resulting output will be sorted alphabet
     "#configsortbymsgid"
 )}`;
 
+const addCommentsDescr = `boolean | string - Extract leading comments before a translatable string. ${doc(
+    "#configaddcomments"
+)}`;
+
 const OPTS: { [k: string]: { description: string; boolean?: boolean } } = {
     discover: { description: discoverDescription },
     numberedExpressions: { description: numberedExpressionsDescr },
     extractLocation: { description: extractLocationDescr },
-    sortByMsgid: { description: sortByMsgidDescr, boolean: true }
+    sortByMsgid: { description: sortByMsgidDescr, boolean: true },
+    addComments: { description: addCommentsDescr }
 };
 
 function hasOverrides(argv: yargs.Arguments): boolean {
@@ -57,6 +62,12 @@ export function parseTtagPluginOpts(
             extendedOpts["extract"] = { location: argv[opt] };
         } else if (opt === "sortByMsgid") {
             extendedOpts.sortByMsgid = true;
+        } else if (opt === "addComments") {
+            let value = argv[opt];
+            extendedOpts.addComments =
+                value === "true" || value === "false"
+                    ? JSON.parse(value)
+                    : value;
         } else {
             extendedOpts[opt] = argv[opt];
         }
@@ -81,6 +92,12 @@ export function mergeOpts(opts1: TtagOpts, opts2: TtagOpts): TtagOpts {
         } else {
             newOpts.extract = opts2.extract;
         }
+    }
+    if (opts2.hasOwnProperty("sortByMsgid")) {
+        newOpts.sortByMsgid = opts2.sortByMsgid;
+    }
+    if (opts2.hasOwnProperty("addComments")) {
+        newOpts.addComments = opts2.addComments;
     }
     return newOpts;
 }
