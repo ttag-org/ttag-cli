@@ -105,6 +105,11 @@ yargs
                 default: "en",
                 description: "sets default lang (ISO format)"
             },
+            skip: {
+                description: "let skip translation check",
+                choices: ["translation"],
+                default: undefined
+            },
             ...getTtagOptsForYargs()
         },
         argv => {
@@ -113,7 +118,8 @@ yargs
                 argv.src,
                 argv.lang,
                 parseTtagPluginOpts(argv),
-                parseTtagRcOpts()
+                parseTtagRcOpts(),
+                argv.skip
             );
         }
     )

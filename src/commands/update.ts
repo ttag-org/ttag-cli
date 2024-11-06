@@ -5,6 +5,7 @@ import { extractAll } from "../lib/extract";
 import { updatePo } from "../lib/update";
 import { parse } from "../lib/parser";
 import { serialize, SerializeOptions } from "../lib/serializer";
+import { checkDuplicateKeys } from "../lib/checkDuplicateKeys";
 
 async function update(
     pofile: string,
@@ -20,6 +21,12 @@ async function update(
         const pot = parse(
             await extractAll(src, lang, progress, ttagOverrideOpts, ttagRcOpts)
         );
+        const errMessage = checkDuplicateKeys(pot);
+
+        if (errMessage) {
+            progress.fail(errMessage);
+            process.exit(1);
+        }
         const po = parse(fs.readFileSync(pofile).toString());
         const resultPo = updatePo(pot, po);
         fs.writeFileSync(pofile, serialize(resultPo, serializeOpts));

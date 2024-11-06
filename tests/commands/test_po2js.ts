@@ -32,3 +32,19 @@ test("should apply compact format", () => {
     expect(jsonResult).toHaveProperty("contexts");
     expect(result).toMatchSnapshot();
 });
+
+const errMessage =
+    'Duplicate msgid ("test ${ num2 }" and "test ${ num1 }"' +
+    ' in the same context will be interpreted as the same key "test ${0}")' +
+    " this potentially can lead to translation loss.";
+
+const poPath2 = path.resolve(__dirname, "../fixtures/checkTest/same_key.po");
+test("Should get exception about same key", () => {
+    try {
+        execSync(`ts-node src/index.ts po2json --format=compact -n ${poPath2}`);
+        expect(false).toBe(true); // must fail anyway
+    } catch (err) {
+        expect(err.status).toBe(1);
+        expect(err.stderr.toString()).toContain(errMessage);
+    }
+});
