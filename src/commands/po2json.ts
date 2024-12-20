@@ -1,5 +1,8 @@
+import * as ora from "ora";
+import * as ttagTypes from "../types";
 import { parse, PoDataCompact, PoData } from "../lib/parser";
 import { iterateTranslations, convert2Compact } from "../lib/utils";
+import { checkDuplicateKeys } from "../lib/checkDuplicateKeys";
 import * as fs from "fs";
 
 export default function po2json(
@@ -8,9 +11,18 @@ export default function po2json(
     nostrip: boolean,
     format: "compact" | "verbose"
 ) {
+    const progress: ttagTypes.Progress = ora(
+        `[ttag] po2json translation from ${path} ...`
+    );
     let poData: PoData | PoDataCompact = parse(
         fs.readFileSync(path).toString()
     );
+    const errMessage = checkDuplicateKeys(poData);
+
+    if (errMessage) {
+        progress.fail(errMessage);
+        process.exit(1);
+    }
     const messages = iterateTranslations(poData.translations);
     if (!nostrip) {
         const header = messages.next().value;

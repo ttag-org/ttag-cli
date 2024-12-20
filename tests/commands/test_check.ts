@@ -2,6 +2,8 @@ import * as path from "path";
 import { execSync } from "child_process";
 
 const poPath = path.resolve(__dirname, "../fixtures/checkTest/check.po");
+const poPath2 = path.resolve(__dirname, "../fixtures/checkTest/same_key.po");
+
 const checkPass = path.resolve(
     __dirname,
     "../fixtures/checkTest/check-trans-exist.js"
@@ -18,6 +20,11 @@ const checkInvalidFormat = path.resolve(
 const checkInvalidFormatDiscover = path.resolve(
     __dirname,
     "../fixtures/checkTest/check-invalid-format-discover.js"
+);
+
+const checkSameKey = path.resolve(
+    __dirname,
+    "../fixtures/checkTest/check-same-key.js"
 );
 
 test("check when all string are translated", () => {
@@ -42,6 +49,17 @@ test("check when some translation is missing", () => {
     }
 });
 
+test("should ignore when some translation is missing", () => {
+    try {
+        execSync(
+            `ts-node src/index.ts check  --skip=translation ${poPath} ${checkNotPass}`
+        );
+        expect(true).toBe(true); // Shouldn't fail
+    } catch (err) {
+        expect(err.status).not.toBe(1);
+    }
+});
+
 test("validation for translations fromat", () => {
     try {
         execSync(`ts-node src/index.ts check ${poPath} ${checkInvalidFormat}`);
@@ -55,9 +73,7 @@ test("validation for translations fromat", () => {
 test("plugin settings override test", () => {
     try {
         execSync(
-            `ts-node src/index.ts check --discover=_ ${poPath} ${
-                checkInvalidFormatDiscover
-            }`
+            `ts-node src/index.ts check --discover=_ ${poPath} ${checkInvalidFormatDiscover}`
         );
         expect(false).toBe(true); // must fail anyway
     } catch (err) {
@@ -66,5 +82,18 @@ test("plugin settings override test", () => {
         expect(err.stderr.toString()).toContain(
             "You can not use Identifier 'name' as an argument to gettext"
         );
+    }
+});
+const errMessage =
+    'Duplicate msgid ("test ${ num2 }" and "test ${ num1 }"' +
+    ' in the same context will be interpreted as the same key "test ${0}")' +
+    " this potentially can lead to translation loss.";
+test("check same key", () => {
+    try {
+        execSync(`ts-node src/index.ts check ${poPath2} ${checkSameKey}`);
+        expect(false).toBe(true); // must fail anyway
+    } catch (err) {
+        expect(err.status).toBe(1);
+        expect(err.stderr.toString()).toContain(errMessage);
     }
 });

@@ -1,0 +1,10 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=utf-8\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+#: tests/fixtures/checkTest/check-same-key.js:5
+#, javascript-format
+msgid "test ${ num1 }"
+msgstr "translated test ${ num1 }"
+

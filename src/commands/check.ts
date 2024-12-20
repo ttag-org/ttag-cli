@@ -5,6 +5,7 @@ Compare designated pofile with pot file extracted from all files in all paths
 import * as ora from "ora";
 import * as fs from "fs";
 import { extractAll } from "../lib/extract";
+import { checkDuplicateKeys } from "../lib/checkDuplicateKeys";
 import * as c3poTypes from "../types";
 import { parse, PoData } from "../lib/parser";
 
@@ -63,7 +64,8 @@ async function check(
     paths: string[],
     lang: string,
     overrideOpts?: c3poTypes.TtagOpts,
-    ttagRcOpts?: c3poTypes.TtagRc
+    ttagRcOpts?: c3poTypes.TtagRc,
+    skip?: "translation"
 ) {
     const progress: c3poTypes.Progress = ora(
         `[ttag] checking translations from ${paths} ...`
@@ -79,7 +81,14 @@ async function check(
     untranslatedStream = warningPipe(pofile, progress, untranslatedStream);
     const untranslated = Array.from(untranslatedStream);
 
-    if (untranslated.length) {
+    const errMessage = checkDuplicateKeys(translations);
+
+    if (errMessage) {
+        progress.fail(errMessage);
+        process.exit(1);
+    }
+
+    if (untranslated.length && skip !== "translation") {
         progress.fail(
             `[ttag] has found ${untranslated.length} untranslated string(s)`
         );

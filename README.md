@@ -38,6 +38,8 @@ will extract translations to .pot file
 will check if all translations are present in .po file
 #### Arguments:
 	--lang  -l   sets default lang (ISO format)  (default: en)
+	--skip	allows you to skip some instances of validation. This can be useful when you want to check your .po file for duplicate keys
+		[choices: "translation"]
 	--discover   string overrides babel-plugi-ttag setting - https://ttag.js.org/docs/plugin-api.html#configdiscover. Can be used to discover ttag functions without explicit import.    Only known ttag functions can be used as params (t, jt, ngettext, gettext, _)  
 	--numberedExpressions   boolean overrides babel-plugin-ttag setting -  https://ttag.js.org/docs/plugin-api.html#confignumberedexpressions. Refer to the doc for the details.  
 

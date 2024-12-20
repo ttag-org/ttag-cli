@@ -113,3 +113,27 @@ test("should not transpile const to vars (avoid scope hoisting)", () => {
     expect(result).toContain('msgid "test ${ days }"');
     tmpFile.removeCallback();
 });
+
+const poPath2 = path.resolve(
+    __dirname,
+    "../fixtures/checkTest/same_key_update.po"
+);
+const checkSameKey = path.resolve(
+    __dirname,
+    "../fixtures/checkTest/check-same-key.js"
+);
+
+const errMessage =
+    'Duplicate msgid ("test ${ num2 }" and "test ${ num1 }"' +
+    ' in the same context will be interpreted as the same key "test ${0}")' +
+    " this potentially can lead to translation loss.";
+
+test("Should get exception about same key", () => {
+    try {
+        execSync(`ts-node src/index.ts update ${poPath2} ${checkSameKey}`);
+        expect(false).toBe(true); // must fail anyway
+    } catch (err) {
+        expect(err.status).toBe(1);
+        expect(err.stderr.toString()).toContain(errMessage);
+    }
+});
