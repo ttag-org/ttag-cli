@@ -2,3 +2,4 @@ tests/
 src/
 dist/tests
 .idea
+!dist/src
