@@ -25,7 +25,7 @@
     ]
   },
   "bin": {
-    "ttag": "bin/ttag"
+    "ttag": "./bin/ttag"
   },
   "devDependencies": {
     "@types/babel__core": "7.1.2",
