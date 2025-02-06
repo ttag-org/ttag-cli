@@ -73,12 +73,16 @@ export async function extractAll(
                             }
                         });
                     }
-                    walk(instance, {
-                        enter(node: TemplateNode) {
-                            if (node.type !== "Program") return;
-                            jsCodes.push(source.slice(node.start, node.end));
-                        }
-                    });
+                    if (instance) {
+                        walk(instance, {
+                            enter(node: TemplateNode) {
+                                if (node.type !== "Program") return;
+                                jsCodes.push(
+                                    source.slice(node.start, node.end)
+                                );
+                            }
+                        });
+                    }
 
                     // Collect t`...` in {...} in template
                     walk(html, {
