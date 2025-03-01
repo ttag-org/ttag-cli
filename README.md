@@ -32,7 +32,7 @@ will extract translations to .pot file
 	--numberedExpressions   boolean overrides babel-plugin-ttag setting -  https://ttag.js.org/docs/plugin-api.html#confignumberedexpressions. Refer to the doc for the details.  
 	--extractLocation   string - 'full' | 'file' | 'never' - https://ttag.js.org/docs/plugin-api.html#configextractlocation. Is used to format location comments in the .po file.
 	--sortByMsgid boolean. Will sort output in alphabetically by msgid. https://ttag.js.org/docs/plugin-api.html#configsortbymsgid
-
+	--addComments boolean | string. Will extract leading comments before a translatable string. https://ttag.js.org/docs/plugin-api.html#configaddcomments
 
 ### `check [lang] <pofile> <src...>`
 will check if all translations are present in .po file
@@ -89,6 +89,7 @@ will update existing po file. Add/remove new translations
 	--numberedExpressions   boolean overrides babel-plugin-ttag setting -  https://ttag.js.org/docs/plugin-api.html#confignumberedexpressions. Refer to the doc for the details.
 	--extractLocation   string - 'full' | 'file' | 'never' - https://ttag.js.org/docs/plugin-api.html#configextractlocation. Is used to format location comments in the .po file.
 	--sortByMsgid boolean. Will sort output in alphabetically by msgid. https://ttag.js.org/docs/plugin-api.html#configsortbymsgid
+	--addComments boolean | string. Will extract leading comments before a translatable string. https://ttag.js.org/docs/plugin-api.html#configaddcomments
 	--foldLength   number. Output .po file line width.
 
 ### `replace [options] <pofile> <out> <path>`

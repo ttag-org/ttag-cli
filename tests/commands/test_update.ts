@@ -69,8 +69,32 @@ test("should extract comments by default", () => {
     fs.writeFileSync(tmpFile.name, originalPo);
     execSync(`ts-node src/index.ts update ${tmpFile.name} ${commentsTest}`);
     const result = fs.readFileSync(tmpFile.name).toString();
-    expect(result).toContain("#. translator: test comment");
+    expect(result).toContain("#. test comment");
     expect(result).toContain("#. translator: jsx test comment");
+    tmpFile.removeCallback();
+});
+
+test("should not extract comments, via addComments option", () => {
+    const tmpFile = tmp.fileSync();
+    fs.writeFileSync(tmpFile.name, originalPo);
+    execSync(
+        `ts-node src/index.ts update --addComments=false ${tmpFile.name} ${commentsTest}`
+    );
+    const result = fs.readFileSync(tmpFile.name).toString();
+    expect(result).not.toContain("#. test comment");
+    expect(result).not.toContain("#. translator: jsx test comment");
+    tmpFile.removeCallback();
+});
+
+test("should extract comments with prefix, via addComments option", () => {
+    const tmpFile = tmp.fileSync();
+    fs.writeFileSync(tmpFile.name, originalPo);
+    execSync(
+        `ts-node src/index.ts update --addComments=translator: ${tmpFile.name} ${commentsTest}`
+    );
+    const result = fs.readFileSync(tmpFile.name).toString();
+    expect(result).not.toContain("#. test comment");
+    expect(result).toContain("#. jsx test comment");
     tmpFile.removeCallback();
 });
 
