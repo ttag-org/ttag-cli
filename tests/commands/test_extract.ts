@@ -17,6 +17,10 @@ const sveltePath = path.resolve(
     __dirname,
     "../fixtures/testSvelteParse.svelte"
 );
+const extractExcludePath = path.resolve(
+    __dirname,
+    "../fixtures/extractExcludeTest"
+);
 const globalFn = path.resolve(__dirname, "../fixtures/globalFunc.js");
 const tsPath = path.resolve(__dirname, "../fixtures/tSParse.ts");
 const tsChaning = path.resolve(__dirname, "../fixtures/tsOptionalChaning.ts");
@@ -129,6 +133,30 @@ test("extract from ts", () => {
 
 test("extract from ts with const enum", () => {
     execSync(`ts-node src/index.ts extract -o ${potPath} ${tsConstEnum}`);
+    const result = fs.readFileSync(potPath).toString();
+    expect(result).toMatchSnapshot();
+});
+
+test("extract with excludePaths", () => {
+    execSync(
+        `ts-node src/index.ts extract --exclude="nested" -o ${potPath} ${extractExcludePath}`
+    );
+    const result = fs.readFileSync(potPath).toString();
+    expect(result).toMatchSnapshot();
+});
+
+test("extract with exclude by regexp", () => {
+    execSync(
+        `ts-node src/index.ts extract --exclude="nested|excluded" -o ${potPath} ${extractExcludePath}`
+    );
+    const result = fs.readFileSync(potPath).toString();
+    expect(result).toMatchSnapshot();
+});
+
+test("extract with e alias", () => {
+    execSync(
+        `ts-node src/index.ts extract -e "nested" "excluded" -o ${potPath} ${extractExcludePath}`
+    );
     const result = fs.readFileSync(potPath).toString();
     expect(result).toMatchSnapshot();
 });
