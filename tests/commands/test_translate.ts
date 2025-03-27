@@ -15,6 +15,7 @@ test("translate poFile", () => {
     stream.next("");
     stream.next(["test"]);
     stream.next(["test1", "test2"]);
+    stream.next(["overwritten test1", "overwritten test2"]);
     const data = serialize(poData).toString();
     expect(data).toMatchSnapshot();
 });
