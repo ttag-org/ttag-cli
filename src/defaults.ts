@@ -38,6 +38,7 @@ export const defaultPresets: ConfigItem[] = [
 
 export function makeBabelConf(ttagOpts: ttagTypes.TtagOpts): TransformOptions {
     return {
+        babelrc: false,
         presets: [...defaultPresets],
         plugins: [...defaultPlugins, [babelTtagPlugin, ttagOpts]]
     };

@@ -137,3 +137,17 @@ test("Should get exception about same key", () => {
         expect(err.stderr.toString()).toContain(errMessage);
     }
 });
+
+const reactCompilerTest = path.resolve(
+    __dirname,
+    "../fixtures/updateReactCompilerTest/index.tsx"
+);
+
+test('should transpile with react compiler enabled', () => {
+    const tmpFile = tmp.fileSync();
+    fs.writeFileSync(tmpFile.name, originalPo);
+    execSync(`ts-node src/index.ts update --lang ru ${tmpFile.name} ${reactCompilerTest}`);
+    const result = fs.readFileSync(tmpFile.name).toString();
+    expect(result).toContain('msgid_plural "месяца"');
+    tmpFile.removeCallback();
+})
