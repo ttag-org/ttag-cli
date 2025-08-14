@@ -13,6 +13,10 @@ export type TtagOpts = {
     addComments?: boolean;
 };
 
+export type CliOpts = {
+    useProjectBabelrc?: boolean;
+};
+
 export type Progress = {
     text: string;
     start(text?: string | undefined): any;

@@ -24,11 +24,19 @@ const sortByMsgidDescr = `boolean - The resulting output will be sorted alphabet
     "#configsortbymsgid"
 )}`;
 
+const useProjectBabelrcDescription = `boolean - Ttag cli will use projects babel config files. ${doc(
+    "#useProjectBabelrcDescription"
+)}`;
+
 const OPTS: { [k: string]: { description: string; boolean?: boolean } } = {
     discover: { description: discoverDescription },
     numberedExpressions: { description: numberedExpressionsDescr },
     extractLocation: { description: extractLocationDescr },
-    sortByMsgid: { description: sortByMsgidDescr, boolean: true }
+    sortByMsgid: { description: sortByMsgidDescr, boolean: true },
+    useProjectBabelrc: {
+        description: useProjectBabelrcDescription,
+        boolean: true
+    }
 };
 
 function hasOverrides(argv: yargs.Arguments): boolean {
@@ -57,6 +65,8 @@ export function parseTtagPluginOpts(
             extendedOpts["extract"] = { location: argv[opt] };
         } else if (opt === "sortByMsgid") {
             extendedOpts.sortByMsgid = true;
+        } else if (opt === "useProjectBabelrc") {
+            extendedOpts.useProjectBabelrc = true;
         } else {
             extendedOpts[opt] = argv[opt];
         }

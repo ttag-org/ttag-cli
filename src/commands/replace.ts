@@ -12,7 +12,7 @@ async function replace(
     pofile: string,
     out: string,
     srcPath: string,
-    overrideOpts?: c3poTypes.TtagOpts
+    overrideOpts?: c3poTypes.TtagOpts & c3poTypes.CliOpts
 ) {
     const progress: c3poTypes.Progress = ora(
         `[ttag] replacing source files with translations ...`
@@ -25,7 +25,9 @@ async function replace(
     if (overrideOpts) {
         ttagOpts = Object.assign(ttagOpts, overrideOpts);
     }
-    const babelOptions = makeBabelConf(ttagOpts);
+    const babelOptions = makeBabelConf(ttagOpts, {
+        useProjectBabelrc: overrideOpts && overrideOpts.useProjectBabelrc
+    });
     const transformFn: TransformFn = file => {
         const relativePath = path.relative(srcPath, file);
         const resultPath = path.join(out, relativePath);
