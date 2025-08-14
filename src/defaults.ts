@@ -36,9 +36,10 @@ export const defaultPresets: ConfigItem[] = [
     presetReact
 ];
 
-export function makeBabelConf(ttagOpts: ttagTypes.TtagOpts): TransformOptions {
+export function makeBabelConf(ttagOpts: ttagTypes.TtagOpts, cliOpts: ttagTypes.CliOpts ): TransformOptions {
     return {
-        babelrc: false,
+        babelrc: Boolean(cliOpts.useProjectBabelrc),
+        configFile: Boolean(cliOpts.useProjectBabelrc) ? undefined : false,
         presets: [...defaultPresets],
         plugins: [...defaultPlugins, [babelTtagPlugin, ttagOpts]]
     };

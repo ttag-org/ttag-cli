@@ -17,7 +17,7 @@ export async function extractAll(
     paths: string[],
     lang: string,
     progress: ttagTypes.Progress,
-    overrideOpts?: ttagTypes.TtagOpts,
+    overrideOpts?: ttagTypes.TtagOpts & ttagTypes.CliOpts,
     rcOpts?: ttagTypes.TtagRc
 ): Promise<string> {
     const tmpFile = tmp.fileSync();
@@ -32,7 +32,9 @@ export async function extractAll(
     if (overrideOpts) {
         ttagOpts = mergeOpts(ttagOpts, overrideOpts);
     }
-    const babelOptions = makeBabelConf(ttagOpts);
+    const babelOptions = makeBabelConf(ttagOpts, {
+        useProjectBabelrc: overrideOpts && overrideOpts.useProjectBabelrc
+    });
     const transformFn: TransformFn = filepath => {
         try {
             switch (extname(filepath)) {

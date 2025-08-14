@@ -151,3 +151,18 @@ test('should transpile with react compiler enabled', () => {
     expect(result).toContain('msgid_plural "месяца"');
     tmpFile.removeCallback();
 })
+
+test("should apply useProjectBabelrc opt and fail with react compiler", () => {
+    const tmpFile = tmp.fileSync();
+    fs.writeFileSync(tmpFile.name, originalPo);
+    try {
+        execSync(
+            `ts-node src/index.ts update --useProjectBabelrc --lang ru ${tmpFile.name} ${reactCompilerTest}`
+        );
+        expect(false).toBe(true); // must fail anyway
+    } catch (err) {
+        expect(err.status).toBe(1);
+    } finally {
+        tmpFile.removeCallback();
+    }
+});
