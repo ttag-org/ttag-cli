@@ -157,14 +157,14 @@ export function checkDuplicateKeys(poData: PoData) {
             if (transformedMsgids.has(newMsgid)) {
                 const duplicatedMsgid = findDuplicatingMsgid(msgids, newMsgid);
                 errors.push(
-                    `Duplicate msgid ("${msgid}" and "${duplicatedMsgid}" in the same context will be interpreted as the same key "${newMsgid}") this potentially can lead to translation loss.` +
-                        " Consider using deferent context for one of those msgid's. See the context doc here - https://ttag.js.org/docs/context.html"
+                    `Duplicate msgid ("${msgid}" and "${duplicatedMsgid}" in the same context will be interpreted as the same key "${newMsgid}") this potentially can lead to translation loss.`
                 );
             }
             transformedMsgids.add(newMsgid);
         }
     }
     if (errors.length > 0) {
+        errors.push("Consider using deferent context for one of those msgid\'s. See the context doc here - https://ttag.js.org/docs/context.html")
         return errors.join("\n");
     }
     return null;
