@@ -64,6 +64,7 @@ function pluralFnBody(pluralStr: string) {
 }
 
 const fnCache: { [key: string]: ReturnType<typeof Function> } = {};
+
 export function makePluralFunc(pluralStr: string) {
     let fn = fnCache[pluralStr];
     if (!fn) {
@@ -74,6 +75,7 @@ export function makePluralFunc(pluralStr: string) {
 }
 
 const pluralRegex = /\splural ?=?([\s\S]*);?/;
+
 export function getPluralFunc(headers: { [headerName: string]: string }) {
     const pluralFormsHeader =
         headers["plural-forms"] || headers["Plural-Forms"];
@@ -144,6 +146,7 @@ function findDuplicatingMsgid(msgids: string[], transformedMsgid: string) {
 
 export function checkDuplicateKeys(poData: PoData) {
     const ctxKeys = getObjectKeys(poData.translations);
+    const errors = [];
     for (let i = 0; i < ctxKeys.length; i++) {
         const ctx = ctxKeys[i];
         const transformedMsgids: Set<string> = new Set();
@@ -153,14 +156,16 @@ export function checkDuplicateKeys(poData: PoData) {
             const newMsgid = transformCompactTranslate(msgid); // msgid where vars replaced by number t`test ${num1}`  => t`test ${0}`
             if (transformedMsgids.has(newMsgid)) {
                 const duplicatedMsgid = findDuplicatingMsgid(msgids, newMsgid);
-
-                return (
+                errors.push(
                     `Duplicate msgid ("${msgid}" and "${duplicatedMsgid}" in the same context will be interpreted as the same key "${newMsgid}") this potentially can lead to translation loss.` +
-                    " Consider using deferent context for one of those msgid's. See the context doc here - https://ttag.js.org/docs/context.html"
+                        " Consider using deferent context for one of those msgid's. See the context doc here - https://ttag.js.org/docs/context.html"
                 );
             }
             transformedMsgids.add(newMsgid);
         }
+    }
+    if (errors.length > 0) {
+        return errors.join("\n");
     }
     return null;
 }
