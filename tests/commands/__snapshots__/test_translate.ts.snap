@@ -15,5 +15,18 @@ msgid \\"test_plural\\"
 msgid_plural \\"test_plural\\"
 msgstr[0] \\"test1\\"
 msgstr[1] \\"test2\\"
+
+msgid \\"filled_test\\"
+msgstr \\"filled value\\"
+
+msgid \\"partially_filled_test_plural\\"
+msgid_plural \\"test_plural\\"
+msgstr[0] \\"overwritten test1\\"
+msgstr[1] \\"overwritten test2\\"
+
+msgid \\"fully_filled_test_plural\\"
+msgid_plural \\"test_plural\\"
+msgstr[0] \\"filled value\\"
+msgstr[1] \\"filled values\\"
 "
 `;
