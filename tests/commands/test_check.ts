@@ -36,7 +36,9 @@ test("check when all string are translated", () => {
 
 test("check when some translation is missing", () => {
     try {
-        execSync(`ts-node src/index.ts check ${poPath} ${checkNotPass}`);
+        execSync(`ts-node src/index.ts check ${poPath} ${checkNotPass}`, {
+            stdio: "pipe"
+        });
         expect(false).toBe(true); // must fail anyway
     } catch (err) {
         expect(err.status).toBe(1);
@@ -52,7 +54,8 @@ test("check when some translation is missing", () => {
 test("should ignore when some translation is missing", () => {
     try {
         execSync(
-            `ts-node src/index.ts check  --skip=translation ${poPath} ${checkNotPass}`
+            `ts-node src/index.ts check  --skip=translation ${poPath} ${checkNotPass}`,
+            { stdio: "pipe" }
         );
         expect(true).toBe(true); // Shouldn't fail
     } catch (err) {
@@ -62,7 +65,9 @@ test("should ignore when some translation is missing", () => {
 
 test("validation for translations fromat", () => {
     try {
-        execSync(`ts-node src/index.ts check ${poPath} ${checkInvalidFormat}`);
+        execSync(`ts-node src/index.ts check ${poPath} ${checkInvalidFormat}`, {
+            stdio: "pipe"
+        });
         expect(false).toBe(true); // must fail anyway
     } catch (err) {
         expect(err.status).toBe(1);
@@ -73,12 +78,12 @@ test("validation for translations fromat", () => {
 test("plugin settings override test", () => {
     try {
         execSync(
-            `ts-node src/index.ts check --discover=_ ${poPath} ${checkInvalidFormatDiscover}`
+            `ts-node src/index.ts check --discover=_ ${poPath} ${checkInvalidFormatDiscover}`,
+            { stdio: "pipe" }
         );
         expect(false).toBe(true); // must fail anyway
     } catch (err) {
         expect(err.status).toBe(1);
-        console.log(err.stderr.toString());
         expect(err.stderr.toString()).toContain(
             "You can not use Identifier 'name' as an argument to gettext"
         );
@@ -90,7 +95,9 @@ const errMessage =
     " this potentially can lead to translation loss.";
 test("check same key", () => {
     try {
-        execSync(`ts-node src/index.ts check ${poPath2} ${checkSameKey}`);
+        execSync(`ts-node src/index.ts check ${poPath2} ${checkSameKey}`, {
+            stdio: "pipe"
+        });
         expect(false).toBe(true); // must fail anyway
     } catch (err) {
         expect(err.status).toBe(1);

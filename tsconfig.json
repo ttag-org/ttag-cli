@@ -10,7 +10,10 @@
         "noUnusedLocals": true,
         "downlevelIteration":true,
         "baseUrl": ".",
+        "ignoreDeprecations": "5.0",
         "pretty": true,
+        "skipLibCheck": true,
+        "types": ["jest", "node"],
         "paths": {
             "*": ["./node_modules/@types/*", "*"]
         }

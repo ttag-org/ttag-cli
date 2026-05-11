@@ -7,11 +7,12 @@ import { parseComponent } from "vue-sfc-parser";
 import { walk } from "estree-walker";
 import { parse as parseSvelte } from "svelte/compiler";
 import ignore from "ignore";
-import { TemplateNode } from "svelte/types/compiler/interfaces";
 import { makeBabelConf } from "../defaults";
 import * as ttagTypes from "../types";
 import { TransformFn, pathsWalk } from "./pathsWalk";
 import { mergeOpts } from "./ttagPluginOverride";
+
+type TemplateNode = any;
 
 export async function extractAll(
     paths: string[],
@@ -111,10 +112,11 @@ export async function extractAll(
                     babel.transformFileSync(filepath, babelOptions);
             }
         } catch (err) {
-            if (err.codeFrame) {
-                console.error(err.codeFrame);
+            const error = err as any;
+            if (error.codeFrame) {
+                console.error(error.codeFrame);
             } else {
-                console.error(err);
+                console.error(error);
             }
             progress.fail("Failed to extract translations");
             process.exit(1);

@@ -1,7 +1,7 @@
 import openBrowser from "../lib/browser";
 import * as Application from "koa";
 import * as Router from "koa-router";
-import * as koaBody from "koa-body";
+import { koaBody } from "koa-body";
 import * as fs from "fs";
 
 async function editor(ctx: Application.Context) {
@@ -49,7 +49,7 @@ export default function translate(path: string) {
     }
 
     async function save(ctx: Application.Context) {
-        const translatedData = ctx.request.body;
+        const translatedData = String(ctx.request.body || "");
         fs.writeFileSync(path, translatedData);
         ctx.body = "ok";
         ctx.status = 200;

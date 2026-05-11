@@ -86,7 +86,7 @@ yargs
             },
             ...getTtagOptsForYargs()
         },
-        argv => {
+        (argv: any) => {
             extract(
                 argv.output,
                 argv.src,
@@ -112,7 +112,7 @@ yargs
             },
             ...getTtagOptsForYargs()
         },
-        argv => {
+        (argv: any) => {
             check(
                 argv.pofile,
                 argv.src,
@@ -127,7 +127,7 @@ yargs
         "merge <path...>",
         "will merge two or more po(t) files together using first non-empty msgstr and header from left-most file",
         {},
-        argv => {
+        (argv: any) => {
             merge(argv.path);
         }
     )
@@ -141,7 +141,7 @@ yargs
                 description: "result file with translations (.po)"
             }
         },
-        argv => {
+        (argv: any) => {
             translate(argv.path, argv.output);
         }
     )
@@ -149,7 +149,7 @@ yargs
         "stats <path>",
         "will display various pofile statistics(encoding, plurals, translated, fuzzyness)",
         {},
-        argv => {
+        (argv: any) => {
             stats(argv.path);
         }
     )
@@ -187,7 +187,7 @@ yargs
                 default: ""
             }
         },
-        argv => {
+        (argv: any) => {
             filter(
                 argv.path,
                 argv.fuzzy,
@@ -210,7 +210,7 @@ yargs
                 description: "path to the .po file"
             }
         },
-        argv => {
+        (argv: any) => {
             init(argv.lang, argv.filename);
         }
     )
@@ -234,7 +234,7 @@ yargs
                 number: true
             }
         },
-        argv => {
+        (argv: any) => {
             update(
                 argv.pofile,
                 argv.src,
@@ -251,7 +251,7 @@ yargs
         "replace [options] <pofile> <out> <path>",
         "will replace all strings with translations from the .po file",
         { ...getTtagOptsForYargs() },
-        argv => {
+        (argv: any) => {
             replace(
                 argv.pofile,
                 argv.out,
@@ -264,7 +264,7 @@ yargs
         "color <pofile>",
         "will output po(t)file with pretty colors on, combine with | less -r",
         {},
-        argv => {
+        (argv: any) => {
             color(argv.pofile);
         }
     )
@@ -278,7 +278,7 @@ yargs
                 description: "result file with pseudo translations (.po)"
             }
         },
-        argv => {
+        (argv: any) => {
             pseudo(argv.path, argv.output);
         }
     )
@@ -286,7 +286,7 @@ yargs
         "spell <pofile> [locale]",
         "will spellcheck po file messages with given locale, locale can be autodetected from pofile",
         {},
-        argv => {
+        (argv: any) => {
             spell(argv.pofile, argv.locale);
         }
     )
@@ -294,13 +294,18 @@ yargs
         "validate <pofile>",
         "will validate js template strings (`${x}`) in messages and translations and against each other",
         {},
-        argv => {
+        (argv: any) => {
             validate(argv.pofile);
         }
     )
-    .command("web <pofile>", "will open pofile in web editor", {}, argv => {
-        web(argv.pofile);
-    })
+    .command(
+        "web <pofile>",
+        "will open pofile in web editor",
+        {},
+        (argv: any) => {
+            web(argv.pofile);
+        }
+    )
     .command(
         "po2json <pofile> [args]",
         "will parse and output po file as loadable JSON",
@@ -324,11 +329,11 @@ yargs
                 default: "verbose"
             }
         },
-        argv => {
+        (argv: any) => {
             po2js(argv.pofile, argv.pretty, argv.nostrip, argv.format);
         }
     )
-    .command("doc", false, {}, _ => {
+    .command("doc", false, {}, (_: any) => {
         const isIgnored = (c: string) =>
             c == "doc" || c == "completion" || c == "$0";
         const printOption = (name: string, option: Options) => {
@@ -370,7 +375,7 @@ yargs
             );
         }
     })
-    .command("*", "", {}, argv => {
+    .command("*", "", {}, (argv: any) => {
         const possibleCommand = commands.find(s => s.startsWith(argv._[0]));
         if (possibleCommand) {
             process.stdout.write(`Did you mean ${possibleCommand}? \n`);

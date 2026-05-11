@@ -28,7 +28,9 @@ test("invalid format checks", () => {
 
 test("command integrity test", () => {
     try {
-        execSync(`ts-node src/index.ts validate ${poPath}`);
+        execSync(`ts-node src/index.ts validate ${poPath}`, {
+            stdio: "pipe"
+        });
     } catch (err) {
         expect(err.status).toBe(1);
     }

@@ -36,7 +36,7 @@ async function walkDir(
         walkFile(path.join(root, fileState.name), progress, transformFn);
         next();
     });
-    return new Promise(res => {
+    return new Promise<void>(res => {
         walker.on("end", () => res());
     });
 }

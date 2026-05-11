@@ -40,7 +40,7 @@ async function replace(
             progress.fail("Failed to replace");
             return;
         }
-        fs.writeFileSync(resultPath, result.code);
+        fs.writeFileSync(resultPath, result.code || "");
     };
 
     await pathsWalk([srcPath], progress, transformFn);

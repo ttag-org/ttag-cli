@@ -41,7 +41,12 @@ const errMessage =
 const poPath2 = path.resolve(__dirname, "../fixtures/checkTest/same_key.po");
 test("Should get exception about same key", () => {
     try {
-        execSync(`ts-node src/index.ts po2json --format=compact -n ${poPath2}`);
+        execSync(
+            `ts-node src/index.ts po2json --format=compact -n ${poPath2}`,
+            {
+                stdio: "pipe"
+            }
+        );
         expect(false).toBe(true); // must fail anyway
     } catch (err) {
         expect(err.status).toBe(1);

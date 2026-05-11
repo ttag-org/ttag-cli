@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`convert po to js 1`] = `"{\\"charset\\":\\"utf-8\\",\\"headers\\":{\\"Content-Type\\":\\"text/plain; charset=utf-8\\",\\"Plural-Forms\\":\\"nplurals=2; plural=(n!=1);\\"},\\"translations\\":{\\"\\":{\\"\\":{\\"msgid\\":\\"\\",\\"msgstr\\":[\\"Content-Type: text/plain; charset=utf-8\\\\nPlural-Forms: nplurals=2; plural=(n!=1);\\\\n\\"]},\\"test\\":{\\"msgid\\":\\"test\\",\\"msgstr\\":[\\"test translated\\"]}},\\"ctx1\\":{\\"test\\":{\\"msgid\\":\\"test\\",\\"msgctxt\\":\\"ctx1\\",\\"msgstr\\":[\\"test translated\\"]}},\\"ctx2\\":{\\"test\\":{\\"msgid\\":\\"test\\",\\"msgctxt\\":\\"ctx2\\",\\"msgstr\\":[\\"test translated\\"]}}}}"`;
 

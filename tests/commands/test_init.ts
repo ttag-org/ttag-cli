@@ -24,7 +24,9 @@ test("should init en locale", () => {
 
 test("should handle unknown lang code properly", () => {
     try {
-        execSync(`ts-node src/index.ts init enn ${poPath}`);
+        execSync(`ts-node src/index.ts init enn ${poPath}`, {
+            stdio: "pipe"
+        });
     } catch (err) {
         expect(err.status).toBe(1);
         expect(err.stderr.toString()).toContain("Unknown lang code");

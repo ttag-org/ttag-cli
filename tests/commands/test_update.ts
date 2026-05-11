@@ -130,7 +130,9 @@ const errMessage =
 
 test("Should get exception about same key", () => {
     try {
-        execSync(`ts-node src/index.ts update ${poPath2} ${checkSameKey}`);
+        execSync(`ts-node src/index.ts update ${poPath2} ${checkSameKey}`, {
+            stdio: "pipe"
+        });
         expect(false).toBe(true); // must fail anyway
     } catch (err) {
         expect(err.status).toBe(1);
@@ -143,21 +145,24 @@ const reactCompilerTest = path.resolve(
     "../fixtures/updateReactCompilerTest/index.tsx"
 );
 
-test('should transpile with react compiler enabled', () => {
+test("should transpile with react compiler enabled", () => {
     const tmpFile = tmp.fileSync();
     fs.writeFileSync(tmpFile.name, originalPo);
-    execSync(`ts-node src/index.ts update --lang ru ${tmpFile.name} ${reactCompilerTest}`);
+    execSync(
+        `ts-node src/index.ts update --lang ru ${tmpFile.name} ${reactCompilerTest}`
+    );
     const result = fs.readFileSync(tmpFile.name).toString();
     expect(result).toContain('msgid_plural "месяца"');
     tmpFile.removeCallback();
-})
+});
 
 test("should apply useProjectBabelrc opt and fail with react compiler", () => {
     const tmpFile = tmp.fileSync();
     fs.writeFileSync(tmpFile.name, originalPo);
     try {
         execSync(
-            `ts-node src/index.ts update --useProjectBabelrc --lang ru ${tmpFile.name} ${reactCompilerTest}`
+            `ts-node src/index.ts update --useProjectBabelrc --lang ru ${tmpFile.name} ${reactCompilerTest}`,
+            { stdio: "pipe" }
         );
         expect(false).toBe(true); // must fail anyway
     } catch (err) {

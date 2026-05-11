@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`find basic spelling error with locale autodetect 1`] = `
 "[33mmsgid[39m \\"test_incorrect_spelling\\"

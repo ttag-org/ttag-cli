@@ -58,7 +58,7 @@ export function parseTtagPluginOpts(
     pluginOpts.forEach(opt => {
         if (!argv[opt]) return;
         if (opt === "discover") {
-            extendedOpts[opt] = parseDiscover(argv[opt]);
+            extendedOpts[opt] = parseDiscover(argv[opt] as string | string[]);
         } else if (opt === "numberedExpressions") {
             extendedOpts[opt] = Boolean(argv[opt]);
         } else if (opt === "extractLocation") {
