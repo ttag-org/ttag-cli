@@ -13,7 +13,7 @@ import * as babelTtagPlugin from "babel-plugin-ttag";
 import * as babelPluginDecorators from "@babel/plugin-proposal-decorators";
 
 export const defaultPlugins: ConfigItem[] = [
-    [babelPluginDecorators, { legacy: true }],
+    [babelPluginDecorators, { version: "2023-11" }],
     exportDefaultFromPlugin,
 ];
 

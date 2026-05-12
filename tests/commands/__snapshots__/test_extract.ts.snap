@@ -192,6 +192,18 @@ msgstr \\"\\"
 "
 `;
 
+exports[`extract with decorator 1`] = `
+"msgid \\"\\"
+msgstr \\"\\"
+\\"Content-Type: text/plain; charset=utf-8\\\\n\\"
+\\"Plural-Forms: nplurals=2; plural=(n!=1);\\\\n\\"
+
+#: tests/fixtures/testDecoratorParse.js:3
+msgid \\"hi from a module with decorators\\"
+msgstr \\"\\"
+"
+`;
+
 exports[`should extract in the alphabetical order (sortByMsgid) 1`] = `
 "msgid \\"\\"
 msgstr \\"\\"
