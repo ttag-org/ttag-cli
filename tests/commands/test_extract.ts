@@ -8,6 +8,10 @@ const baseTestPath = path.resolve(__dirname, "../fixtures/baseTest");
 const sortByMsgidPath = path.resolve(__dirname, "../fixtures/sortByMsgidTest");
 const ukTestPath = path.resolve(__dirname, "../fixtures/ukLocaleTest");
 const jsxPath = path.resolve(__dirname, "../fixtures/testJSXParse.jsx");
+const decoratorPath = path.resolve(
+    __dirname,
+    "../fixtures/testDecoratorParse.js"
+);
 const vuePath = path.resolve(__dirname, "../fixtures/vueTest/testVueParse.vue");
 const vuePath2 = path.resolve(
     __dirname,
@@ -44,6 +48,12 @@ test("extract base case", () => {
 
 test("extract from jsx", () => {
     execSync(`ts-node src/index.ts extract -o ${potPath} ${jsxPath}`);
+    const result = fs.readFileSync(potPath).toString();
+    expect(result).toMatchSnapshot();
+});
+
+test("extract with decorator", () => {
+    execSync(`ts-node src/index.ts extract -o ${potPath} ${decoratorPath}`);
     const result = fs.readFileSync(potPath).toString();
     expect(result).toMatchSnapshot();
 });
