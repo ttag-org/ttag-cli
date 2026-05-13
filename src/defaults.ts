@@ -8,32 +8,20 @@ import { TransformOptions, ConfigItem } from "@babel/core";
 import * as ttagTypes from "./types";
 
 // plugins
-import * as classPropPlugin from "@babel/plugin-proposal-class-properties";
-import * as restSpreadPlugin from "@babel/plugin-proposal-object-rest-spread";
 import * as exportDefaultFromPlugin from "@babel/plugin-proposal-export-default-from";
 import * as babelTtagPlugin from "babel-plugin-ttag";
-import * as babelDynamicImportPlugin from "@babel/plugin-syntax-dynamic-import";
 import * as babelPluginDecorators from "@babel/plugin-proposal-decorators";
-import * as optionalChaningPlugin from "@babel/plugin-proposal-optional-chaining";
-import * as nullishCoalescingOperatorPlugin from "@babel/plugin-proposal-nullish-coalescing-operator";
-import * as presetConstEnumTS from "babel-preset-const-enum";
 
 export const defaultPlugins: ConfigItem[] = [
     [babelPluginDecorators, { legacy: true }],
-    [classPropPlugin, { loose: true }],
-    restSpreadPlugin,
     exportDefaultFromPlugin,
-    babelDynamicImportPlugin,
-    optionalChaningPlugin,
-    nullishCoalescingOperatorPlugin
 ];
 
 export const defaultPresets: ConfigItem[] = [
-    presetTS,
-    presetConstEnumTS,
     presetFlow,
     [presetEnv, { loose: true, targets: "node 6.5" }],
-    presetReact
+    presetReact,
+    [presetTS, { allowDeclareFields: true }],
 ];
 
 export function makeBabelConf(ttagOpts: ttagTypes.TtagOpts, cliOpts: ttagTypes.CliOpts ): TransformOptions {
