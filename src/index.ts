@@ -120,12 +120,22 @@ yargs
                 choices: ["translation"],
                 default: undefined
             },
+            src: {
+                description:
+                    "path to source files/directories (supports glob, but needs to be quoted)"
+            },
+            ignore: {
+                alias: "i",
+                description:
+                    "paths to ignore (supports glob, but needs to be quoted)"
+            },
             ...getTtagOptsForYargs()
         },
         (argv: any) => {
             check(
                 argv.pofile,
                 argv.src,
+                argv.ignore,
                 argv.lang,
                 parseTtagPluginOpts(argv),
                 parseTtagRcOpts(),
