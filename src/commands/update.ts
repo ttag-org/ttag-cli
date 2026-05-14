@@ -6,20 +6,30 @@ import { updatePo } from "../lib/update";
 import { parse } from "../lib/parser";
 import { serialize, SerializeOptions } from "../lib/serializer";
 import { checkDuplicateKeys } from "../lib/checkDuplicateKeys";
+import { resolvePaths } from "../lib/utils";
 
 async function update(
     pofile: string,
     src: string[],
+    ignore: string[] | string | undefined,
     lang: string,
     ttagOverrideOpts?: ttagTypes.TtagOpts,
     ttagRcOpts?: ttagTypes.TtagRc,
     serializeOpts?: SerializeOptions
 ) {
+    const paths = resolvePaths(src, ignore);
+
     const progress: ttagTypes.Progress = ora(`[ttag] updating ${pofile} ...`);
     progress.start();
     try {
         const pot = parse(
-            await extractAll(src, lang, progress, ttagOverrideOpts, ttagRcOpts)
+            await extractAll(
+                paths,
+                lang,
+                progress,
+                ttagOverrideOpts,
+                ttagRcOpts
+            )
         );
         const errMessage = checkDuplicateKeys(pot);
 

@@ -17,6 +17,7 @@ msgstr "obsolete trans"
 `;
 
 const srcPath = path.resolve(__dirname, "../fixtures/updateTest/test.js");
+const srcPathGlob = path.resolve(__dirname, "../fixtures/updateTest/test.*");
 
 test("test update po", () => {
     const tmpFile = tmp.fileSync();
@@ -170,4 +171,13 @@ test("should apply useProjectBabelrc opt and fail with react compiler", () => {
     } finally {
         tmpFile.removeCallback();
     }
+});
+
+test("test update po with glob", () => {
+    const tmpFile = tmp.fileSync();
+    fs.writeFileSync(tmpFile.name, originalPo);
+    execSync(`ts-node src/index.ts update ${tmpFile.name} ${srcPathGlob}`);
+    const result = fs.readFileSync(tmpFile.name).toString();
+    expect(result).toMatchSnapshot();
+    tmpFile.removeCallback();
 });

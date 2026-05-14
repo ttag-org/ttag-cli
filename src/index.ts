@@ -246,7 +246,13 @@ yargs
                 description: "path to .po file with translations"
             },
             src: {
-                description: "path to source files/directories"
+                description:
+                    "path to source files/directories (supports glob, but needs to be quoted)"
+            },
+            ignore: {
+                alias: "i",
+                description:
+                    "paths to ignore (supports glob, but needs to be quoted)"
             },
             ...getTtagOptsForYargs(),
             foldLength: {
@@ -258,6 +264,7 @@ yargs
             update(
                 argv.pofile,
                 argv.src,
+                argv.ignore,
                 argv.lang,
                 parseTtagPluginOpts(argv),
                 parseTtagRcOpts(),
