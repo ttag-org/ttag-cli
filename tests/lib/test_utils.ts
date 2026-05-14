@@ -1,4 +1,5 @@
-import { convert2Compact } from "../../src/lib/utils";
+import { convert2Compact, resolvePaths } from "../../src/lib/utils";
+import * as path from "path";
 
 describe("convert2Compact", () => {
     test("should strip headers except of plural-forms and language", () => {
@@ -119,5 +120,110 @@ describe("convert2Compact", () => {
         expect(result.contexts[""]).toHaveProperty("test");
         expect(result.contexts[""]).not.toHaveProperty("untranslated");
         expect(result.contexts[""]).not.toHaveProperty("fuzzy");
+    });
+});
+
+describe("resolvePaths", () => {
+    test("should resolve file paths when non-glob sources are used", () => {
+        const src1 = path.resolve(
+            __dirname,
+            "../fixtures/utilsTest/subfolder-1"
+        );
+        const src2 = path.resolve(
+            __dirname,
+            "../fixtures/utilsTest/subfolder-2"
+        );
+
+        const paths = resolvePaths([src1, src2]);
+        expect(paths.sort()).toEqual([
+            path.resolve(__dirname, "../fixtures/utilsTest/subfolder-1/a.ts"),
+            path.resolve(__dirname, "../fixtures/utilsTest/subfolder-1/b.js"),
+            path.resolve(__dirname, "../fixtures/utilsTest/subfolder-2/a.ts"),
+            path.resolve(__dirname, "../fixtures/utilsTest/subfolder-2/b.js")
+        ]);
+    });
+
+    test("should resolve file paths when non-glob sources and ignores are used", () => {
+        const src1 = path.resolve(
+            __dirname,
+            "../fixtures/utilsTest/subfolder-1"
+        );
+        const src2 = path.resolve(
+            __dirname,
+            "../fixtures/utilsTest/subfolder-2"
+        );
+        const ignore1 = src1;
+
+        const paths = resolvePaths([src1, src2], ignore1);
+        expect(paths.sort()).toEqual([
+            path.resolve(__dirname, "../fixtures/utilsTest/subfolder-2/a.ts"),
+            path.resolve(__dirname, "../fixtures/utilsTest/subfolder-2/b.js")
+        ]);
+    });
+
+    test("should resolve file paths when glob sources are used", () => {
+        const src1 = path.resolve(
+            __dirname,
+            "../fixtures/utilsTest/subfolder-1/**"
+        );
+        const src2 = path.resolve(
+            __dirname,
+            "../fixtures/utilsTest/subfolder-2/**"
+        );
+
+        const paths = resolvePaths([src1, src2]);
+        expect(paths.sort()).toEqual([
+            path.resolve(__dirname, "../fixtures/utilsTest/subfolder-1/a.ts"),
+            path.resolve(__dirname, "../fixtures/utilsTest/subfolder-1/b.js"),
+            path.resolve(__dirname, "../fixtures/utilsTest/subfolder-2/a.ts"),
+            path.resolve(__dirname, "../fixtures/utilsTest/subfolder-2/b.js")
+        ]);
+    });
+
+    test("should resolve file paths when glob sources and ignores are used", () => {
+        const src1 = path.resolve(
+            __dirname,
+            "../fixtures/utilsTest/subfolder-1/**"
+        );
+
+        const ignore1 = path.resolve(
+            __dirname,
+            "../fixtures/utilsTest/**/*.ts"
+        );
+
+        const paths = resolvePaths([src1], [ignore1]);
+        expect(paths.sort()).toEqual([
+            path.resolve(__dirname, "../fixtures/utilsTest/subfolder-1/b.js")
+        ]);
+    });
+
+    test("should resolve file paths when mixin regular and glob paths in source and ignores", () => {
+        const srcGlob1 = path.resolve(__dirname, "../fixtures/utilsTest/**"); // glob
+        const srcGlob2 = path.resolve(
+            __dirname,
+            "../fixtures/utilsTest/subfolder-1/**" // glob
+        );
+        const srcRegular = path.resolve(
+            __dirname,
+            "../fixtures/utilsTest/subfolder-2/a.ts" // non-glob
+        );
+
+        const ignoreGlob = path.resolve(
+            __dirname,
+            "../fixtures/utilsTest/subfolder-1" // non-glob
+        );
+        const ignoreRegular = path.resolve(
+            __dirname,
+            "../fixtures/utilsTest/**/*.js" // glob
+        );
+
+        const paths = resolvePaths(
+            [srcGlob1, srcGlob2, srcRegular],
+            [ignoreRegular, ignoreGlob]
+        );
+        expect(paths.sort()).toEqual([
+            path.resolve(__dirname, "../fixtures/utilsTest/root.ts"),
+            path.resolve(__dirname, "../fixtures/utilsTest/subfolder-2/a.ts")
+        ]);
     });
 });

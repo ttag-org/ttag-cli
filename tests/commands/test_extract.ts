@@ -5,6 +5,7 @@ import { execSync } from "child_process";
 
 const potPath = path.resolve(__dirname, "../../dist/translation.pot");
 const baseTestPath = path.resolve(__dirname, "../fixtures/baseTest");
+const baseTestPathGlob = path.resolve(__dirname, "../fixtures/baseTest/**");
 const sortByMsgidPath = path.resolve(__dirname, "../fixtures/sortByMsgidTest");
 const ukTestPath = path.resolve(__dirname, "../fixtures/ukLocaleTest");
 const jsxPath = path.resolve(__dirname, "../fixtures/testJSXParse.jsx");
@@ -146,6 +147,22 @@ test("extract from ts with const enum", () => {
 
 test("extract from ts with declare", () => {
     execSync(`ts-node src/index.ts extract -o ${potPath} ${tsDeclare}`);
+    const result = fs.readFileSync(potPath).toString();
+    expect(result).toMatchSnapshot();
+});
+
+test("extract from glob source with filter", () => {
+    execSync(
+        `ts-node src/index.ts extract -o ${potPath} ${baseTestPathGlob} -i **/test1.js`
+    );
+    const result = fs.readFileSync(potPath).toString();
+    expect(result).toMatchSnapshot();
+});
+
+test("extract from glob source with filter (ignore all)", () => {
+    execSync(
+        `ts-node src/index.ts extract -o ${potPath} ${baseTestPathGlob} -i **/*.js`
+    );
     const result = fs.readFileSync(potPath).toString();
     expect(result).toMatchSnapshot();
 });

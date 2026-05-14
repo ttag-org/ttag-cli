@@ -1,6 +1,9 @@
 import { Translations, Message, PoData, PoDataCompact } from "./parser";
 import generate from "@babel/generator";
 import { Node } from "@babel/types";
+import { globSync } from "glob";
+import * as fs from "fs";
+const isGlob = require("is-glob");
 
 const pluralNumRegex = /^nplurals ?= ?(\d);/;
 
@@ -69,4 +72,47 @@ export function convert2Compact(poData: PoData): PoDataCompact {
     );
     delete compactPo.contexts[""][""];
     return compactPo;
+}
+
+/**
+ * Helper function that calculates all the file paths from a src array with optional ignore paths.
+ * The folder paths are ignored, since further directory traversing is not necessary.
+ */
+export function resolvePaths(
+    /** Regular paths or globs */
+    src: string[],
+    /**
+     * Could be a string or an array of strings, depending on how many paths are passed by the cli.
+     *
+     * `--ignore path1` => 'path1'
+     *
+     * `--ignore path1 --ignore path2` => ['path1', 'path2']
+     */
+    ignore?: string | string[]
+): string[] {
+    const toGlob = (path: string): string => {
+        if (fs.lstatSync(path).isDirectory()) {
+            if (!path.endsWith("/")) {
+                path = `${path}/`;
+            }
+            return `${path}**/*`;
+        } else {
+            return path;
+        }
+    };
+
+    /** All paths are internally transformed to globs, to keep backwards compatibility with 'src' paths */
+    const srcGlob = src.map(path => (isGlob(path) ? path : toGlob(path)));
+    if (typeof ignore === "string") {
+        ignore = [ignore];
+    }
+    const ignoreGlob = ignore?.map(path =>
+        isGlob(path) ? path : toGlob(path)
+    );
+
+    return globSync(srcGlob, {
+        absolute: true,
+        nodir: true,
+        ignore: ignoreGlob
+    });
 }

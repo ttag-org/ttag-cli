@@ -12,6 +12,10 @@ const checkNotPass = path.resolve(
     __dirname,
     "../fixtures/checkTest/check-trans-not-exist.js"
 );
+const checkNotPassGlob = path.resolve(
+    __dirname,
+    "../fixtures/**/check-trans-not-exist.js"
+);
 const checkInvalidFormat = path.resolve(
     __dirname,
     "../fixtures/checkTest/check-trans-invalid-format.js"
@@ -25,6 +29,10 @@ const checkInvalidFormatDiscover = path.resolve(
 const checkSameKey = path.resolve(
     __dirname,
     "../fixtures/checkTest/check-same-key.js"
+);
+const checkPassGlob = path.resolve(
+    __dirname,
+    "../fixtures/**/check-trans-exist.js"
 );
 
 test("check when all string are translated", () => {
@@ -103,4 +111,19 @@ test("check same key", () => {
         expect(err.status).toBe(1);
         expect(err.stderr.toString()).toContain(errMessage);
     }
+});
+
+test("check from glob source", () => {
+    const result = execSync(
+        `ts-node src/index.ts check ${poPath} ${checkPassGlob}`
+    );
+    expect(result.toString()).toMatchSnapshot();
+});
+
+test("check from glob source with ignore", () => {
+    // this check should normally fail, the ignore makes it pass
+    const result = execSync(
+        `ts-node src/index.ts check ${poPath} ${checkNotPassGlob} --ignore ${checkNotPassGlob}`
+    );
+    expect(result.toString()).toMatchSnapshot();
 });

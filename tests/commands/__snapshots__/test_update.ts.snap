@@ -45,3 +45,26 @@ msgstr[0] \\"\\"
 msgstr[1] \\"\\"
 "
 `;
+
+exports[`test update po with glob 1`] = `
+"msgid \\"\\"
+msgstr \\"\\"
+\\"Content-Type: text/plain; charset=utf-8\\\\n\\"
+\\"Plural-Forms: nplurals=2; plural=(n!=1);\\\\n\\"
+
+#: tests/fixtures/updateTest/test.js:3
+msgid \\"test\\"
+msgstr \\"\\"
+
+#: tests/fixtures/updateTest/test.js:4
+msgid \\"new\\"
+msgstr \\"\\"
+
+#: tests/fixtures/updateTest/test.js:6
+#, javascript-format
+msgid \\"\${ n } banana\\"
+msgid_plural \\"\${ n } bananas\\"
+msgstr[0] \\"\\"
+msgstr[1] \\"\\"
+"
+`;

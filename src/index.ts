@@ -84,12 +84,22 @@ yargs
                 default: "en",
                 description: "sets default lang (ISO format)"
             },
+            src: {
+                description:
+                    "path to source files/directories (supports glob, but needs to be quoted)"
+            },
+            ignore: {
+                alias: "i",
+                description:
+                    "paths to ignore (supports glob, but needs to be quoted)"
+            },
             ...getTtagOptsForYargs()
         },
         (argv: any) => {
             extract(
                 argv.output,
                 argv.src,
+                argv.ignore,
                 argv.lang,
                 parseTtagPluginOpts(argv),
                 parseTtagRcOpts()
@@ -110,12 +120,22 @@ yargs
                 choices: ["translation"],
                 default: undefined
             },
+            src: {
+                description:
+                    "path to source files/directories (supports glob, but needs to be quoted)"
+            },
+            ignore: {
+                alias: "i",
+                description:
+                    "paths to ignore (supports glob, but needs to be quoted)"
+            },
             ...getTtagOptsForYargs()
         },
         (argv: any) => {
             check(
                 argv.pofile,
                 argv.src,
+                argv.ignore,
                 argv.lang,
                 parseTtagPluginOpts(argv),
                 parseTtagRcOpts(),
@@ -226,7 +246,13 @@ yargs
                 description: "path to .po file with translations"
             },
             src: {
-                description: "path to source files/directories"
+                description:
+                    "path to source files/directories (supports glob, but needs to be quoted)"
+            },
+            ignore: {
+                alias: "i",
+                description:
+                    "paths to ignore (supports glob, but needs to be quoted)"
             },
             ...getTtagOptsForYargs(),
             foldLength: {
@@ -238,6 +264,7 @@ yargs
             update(
                 argv.pofile,
                 argv.src,
+                argv.ignore,
                 argv.lang,
                 parseTtagPluginOpts(argv),
                 parseTtagRcOpts(),
