@@ -18,6 +18,37 @@ msgstr \\"\\"
 "
 `;
 
+exports[`extract from glob source with filter (ignore all) 1`] = `
+"msgid \\"\\"
+msgstr \\"\\"
+\\"Content-Type: text/plain; charset=utf-8\\\\n\\"
+\\"Plural-Forms: nplurals=2; plural=(n!=1);\\\\n\\"
+
+#: tests/fixtures/baseTest/test1.js:4
+#, javascript-format
+msgid \\"test translation \${ name }\\"
+msgstr \\"\\"
+
+#: tests/fixtures/baseTest/nested/test2.js:4
+#, javascript-format
+msgid \\"test translation 2 \${ name }\\"
+msgstr \\"\\"
+"
+`;
+
+exports[`extract from glob source with filter 1`] = `
+"msgid \\"\\"
+msgstr \\"\\"
+\\"Content-Type: text/plain; charset=utf-8\\\\n\\"
+\\"Plural-Forms: nplurals=2; plural=(n!=1);\\\\n\\"
+
+#: tests/fixtures/baseTest/nested/test2.js:4
+#, javascript-format
+msgid \\"test translation 2 \${ name }\\"
+msgstr \\"\\"
+"
+`;
+
 exports[`extract from js with another default locale 1`] = `
 "msgid \\"\\"
 msgstr \\"\\"

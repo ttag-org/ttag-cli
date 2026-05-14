@@ -2,10 +2,12 @@ import * as ora from "ora";
 import * as fs from "fs";
 import * as c3poTypes from "../types";
 import { extractAll } from "../lib/extract";
+import { resolvePaths } from "../lib/utils";
 
 async function extract(
     output: string,
-    paths: string[],
+    src: string[],
+    ignore: string[] | string | undefined,
     lang: string = "en",
     ttagOverrideOpts?: c3poTypes.TtagOpts,
     ttagRcOpts?: c3poTypes.TtagRc
@@ -13,9 +15,10 @@ async function extract(
     const progress: c3poTypes.Progress = ora(
         `[ttag] extracting translations to ${output} ...`
     );
+
     progress.start();
     const result = await extractAll(
-        paths,
+        resolvePaths(src, ignore),
         lang,
         progress,
         ttagOverrideOpts,

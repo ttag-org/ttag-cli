@@ -84,12 +84,22 @@ yargs
                 default: "en",
                 description: "sets default lang (ISO format)"
             },
+            src: {
+                description:
+                    "path to source files/directories (supports glob, but needs to be quoted)"
+            },
+            ignore: {
+                alias: "i",
+                description:
+                    "paths to ignore (supports glob, but needs to be quoted)"
+            },
             ...getTtagOptsForYargs()
         },
         (argv: any) => {
             extract(
                 argv.output,
                 argv.src,
+                argv.ignore,
                 argv.lang,
                 parseTtagPluginOpts(argv),
                 parseTtagRcOpts()
