@@ -1,0 +1,48 @@
+name: 'test'
+
+on:
+  pull_request:
+    paths:
+      - '**/*.ts'
+      - '**/*.js'
+      - '**/*.po'
+      - '**/*.snap'
+      - '.github/workflows/test.yml'
+      - 'package.json'
+      - 'package-lock.json'
+  push:
+    paths:
+      - '**/*.ts'
+      - '**/*.js'
+      - '**/*.po'
+      - '**/*.snap'
+      - '.github/workflows/test.yml'
+      - 'package.json'
+      - 'package-lock.json'
+
+jobs:
+  install-build-test:
+    name: 'Check install, build, test'
+    runs-on: 'ubuntu-latest'
+
+    strategy:
+      matrix:
+        node-version: [14.x, 16.x, 18.x]
+
+    steps:
+      - name: 'Checkout current revision'
+        uses: 'actions/checkout@v3'
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: 'Install'
+        run: 'npm install'
+
+      - name: 'Build'
+        run: 'npm run build'
+
+      - name: 'Test'
+        run: 'npm run test'
