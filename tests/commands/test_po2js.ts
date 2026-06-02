@@ -1,5 +1,5 @@
 import * as path from "path";
-import { execSync } from "child_process";
+import { execSync, spawnSync } from "child_process";
 
 const poPath = path.resolve(__dirname, "../fixtures/po2jsTest/po2js.po");
 
@@ -39,7 +39,7 @@ const errMessage =
     " this potentially can lead to translation loss.";
 
 const poPath2 = path.resolve(__dirname, "../fixtures/checkTest/same_key.po");
-test("Should get exception about same key", () => {
+test("should get exception about same key for compact format", () => {
     try {
         execSync(
             `ts-node src/index.ts po2json --format=compact -n ${poPath2}`,
@@ -52,4 +52,17 @@ test("Should get exception about same key", () => {
         expect(err.status).toBe(1);
         expect(err.stderr.toString()).toContain(errMessage);
     }
+});
+
+test("should NOT get exception about same key for verbose format", () => {
+    const result = spawnSync(
+        `ts-node src/index.ts po2json --format=verbose -n ${poPath2}`,
+        {
+            shell: true,
+            encoding: "utf8"
+        }
+    );
+
+    expect(result.status).toBe(0);
+    expect(result.stderr).not.toContain(errMessage);
 });

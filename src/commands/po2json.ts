@@ -17,11 +17,13 @@ export default function po2json(
     let poData: PoData | PoDataCompact = parse(
         fs.readFileSync(path).toString()
     );
-    const errMessage = checkDuplicateKeys(poData);
+    if (format === "compact") {
+        const errMessage = checkDuplicateKeys(poData);
 
-    if (errMessage) {
-        progress.fail(errMessage);
-        process.exit(1);
+        if (errMessage) {
+            progress.fail(errMessage);
+            process.exit(1);
+        }
     }
     const messages = iterateTranslations(poData.translations);
     if (!nostrip) {
