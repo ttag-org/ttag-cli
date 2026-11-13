@@ -26,6 +26,20 @@ test("invalid format checks", () => {
     expect(result.redundant.join("")).toBe("y");
 });
 
+test("checks every plural form against msgid_plural", () => {
+    const run = (file: string) => () =>
+        execSync(
+            `ts-node src/index.ts validate ${path.resolve(
+                __dirname,
+                "../fixtures/validateTest",
+                file
+            )}`,
+            { stdio: "pipe" }
+        );
+    expect(run("validate-plural-broken.po")).toThrow();
+    expect(run("validate-plural-valid.po")).not.toThrow();
+});
+
 test("command integrity test", () => {
     try {
         execSync(`ts-node src/index.ts validate ${poPath}`, {

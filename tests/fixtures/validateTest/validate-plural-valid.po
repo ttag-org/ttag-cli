@@ -1,0 +1,10 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=utf-8\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+#: tests/fixtures/testset.js:2
+msgid "Survey updated."
+msgid_plural "${ count } surveys updated"
+msgstr[0] "Umfrage aktualisiert."
+msgstr[1] "${ count } Umfragen aktualisiert"

@@ -21,7 +21,9 @@ export default function validate(path: string) {
             if (!msg.msgstr[i]) {
                 continue;
             }
-            const result = checkFormat(msg.msgid, msg.msgstr[0]);
+            const source =
+                i > 0 && msg.msgid_plural ? msg.msgid_plural : msg.msgid;
+            const result = checkFormat(source, msg.msgstr[i]);
             if (!result.valid) {
                 invalid = true;
                 msg.msgstr[i] = chalk.underline.bgRed(msg.msgstr[i]);
